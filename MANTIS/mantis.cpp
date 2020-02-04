@@ -461,7 +461,16 @@ int main(int argc,char * argv[])
 		{
 			outcvc<<"ASSERT( x_Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
-		outcvc<<"ASSERT( y_LPin_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 );"<<endl;
+		if(pos == tail_flag)
+		{
+			outcvc<<"ASSERT( y_LPin_"<<y_ROUND-2<<"_"<<pos<<" = y_Sout_"<<y_ROUND-2<<"_"<<pos<<" );"<<endl;
+		}
+		else
+		{
+			outcvc<<"ASSERT( y_LPin_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 );"<<endl;
+		}
+		
+		
 		
 	}
 	/*
