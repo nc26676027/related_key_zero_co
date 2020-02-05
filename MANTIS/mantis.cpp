@@ -457,7 +457,7 @@ int main(int argc,char * argv[])
 	
 	for(int pos=0;pos<16;pos++)
 	{
-		if(pos == return_index(key_flag,P_R) )
+		if(pos == return_index(tail_flag,P_R) )
 		{
 			outcvc<<"ASSERT( x_Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
