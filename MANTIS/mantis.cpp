@@ -119,8 +119,8 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 5;
-    int y_ROUND = 6;
+    int x_ROUND = 4;
+    int y_ROUND = 5;
     int ROUND = x_ROUND+y_ROUND;
 
 	P_make(3);
