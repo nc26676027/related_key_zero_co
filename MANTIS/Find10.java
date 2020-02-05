@@ -21,7 +21,7 @@ public class Find10 {
 
                              for(int fileno=0;fileno<16;fileno++)
                             {
-                                str=("/home/niuchao/relate_tweak_zero_Co/MANTIS/head_state"+args[0]+"/key_state10/mantis"+fileno+".cvc");
+                                str=("/home/niuchao/new_mode_search20200203/MANTIS/head_state"+args[0]+"/key_state10/mantis"+fileno+".cvc");
                                 command_run[1]=str;
                                 process=Runtime.getRuntime().exec(command_run);
                                 isr=new InputStreamReader(process.getInputStream());
