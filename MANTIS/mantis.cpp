@@ -119,7 +119,7 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 3;
+    int x_ROUND = 5;
     int y_ROUND = 6;
     int ROUND = x_ROUND+y_ROUND;
 
@@ -431,8 +431,8 @@ int main(int argc,char * argv[])
 
 
 
-	//int head[6] = {2, 7, 8, 12, 13, 15};
-	int head[1] = { 10 };
+	int head[6] = {2, 7, 8, 12, 13, 15};
+	//int head[1] = { 10 };
 	//assert active state
 	for(int pos=0;pos<16;pos++)
 	{
