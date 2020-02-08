@@ -408,7 +408,7 @@ int main(int argc,char * argv[])
 			
 		}
 		
-		if(pos == tail_flag  /*pos == return_index(key_flag,P_R)*/)
+		if(1  /*pos == return_index(key_flag,P_R)*/)
 		{
 			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = y_SRout_"<<y_ROUND-1<<"_"<<pos<<" );"<<endl;
 			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = y_SRout_"<<y_ROUND-1<<"_"<<pos<<" );"<<endl;
@@ -424,7 +424,7 @@ int main(int argc,char * argv[])
 		}
 		
 
-		if( pos == P_R[tail_flag] )
+		if( pos == key_flag )
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;		
