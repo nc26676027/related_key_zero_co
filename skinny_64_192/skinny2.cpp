@@ -410,12 +410,11 @@ int main(int argc,char * argv[])
 		
 		if(1  /*pos == return_index(key_flag,P_R)*/)
 		{
-			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = y_SRout_"<<y_ROUND-1<<"_"<<pos<<" );"<<endl;
-			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = y_SRout_"<<y_ROUND-1<<"_"<<pos<<" );"<<endl;
-			outcvc<<"ASSERT( LPout3_"<<ROUND-1<<"_"<<pos<<" = y_SRout_"<<y_ROUND-1<<"_"<<pos<<" );"<<endl;
+			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( LPout3_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 
 		}
-
 		
 
 		if( pos == key_flag )
