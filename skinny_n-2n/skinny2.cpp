@@ -84,7 +84,7 @@ int return_index(int pos , int matrix[])
 	return index;
 }
 
-int LAT[16][16] = {0};
+//int LAT[16][16] = {0};
 
 string branch(string a,string b)
 {
@@ -128,7 +128,7 @@ int main(int argc,char * argv[])
 
 	P_make(ROUND);
 
-
+/*
 	//gen lat 
 	for(int a=0;a<16;a++)
 	{
@@ -156,10 +156,10 @@ int main(int argc,char * argv[])
 			LAT[a][b] -= 8;
 		}
 	}
-
+*/
     //gen CVC
     outcvc.open(filename);
-
+/*
     //variable claim
  	outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
 	for(int input_lc=0x0;input_lc<16;input_lc++)
@@ -170,7 +170,7 @@ int main(int argc,char * argv[])
 		}
 	}
 	outcvc<<dec;
-
+*/
     //state variable claim
     for(int round=0;round<x_ROUND;round++)//up
     {
@@ -233,7 +233,7 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( NOT( LAT[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
 			if( pos<8 )
 			{
 				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
@@ -265,7 +265,7 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( NOT( LAT[y_Sout_"<<round<<"_"<<pos<<"@y_Sin_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
 			if( pos<8 )
 			{
 				outcvc<<"ASSERT( RKin_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
