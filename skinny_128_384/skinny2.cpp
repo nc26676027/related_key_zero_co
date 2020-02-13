@@ -23,12 +23,6 @@ string tobits(int num, int bit_num)
 
 
 
-
-int sbox[16] = {0xc, 0x6, 0x9, 0x0,
-				0x1, 0xa, 0x2, 0xb,
-				0x3, 0x8, 0x5, 0xd,
-				0x4, 0xe, 0x7, 0xf};
-
 //original MC layer matrix
 int MCT[4][4]=
 {
@@ -84,7 +78,7 @@ int return_index(int pos , int matrix[])
 	return index;
 }
 
-int LAT[16][16] = {0};
+
 
 string branch(string a,string b)
 {
@@ -129,47 +123,10 @@ int main(int argc,char * argv[])
 	P_make(ROUND);
 
 
-	//gen lat 
-	for(int a=0;a<16;a++)
-	{
-		for(int b=0;b<16;b++)
-		{
-			for(int i=0;i<16;i++)
-			{
-				int a_i = a&i , b_si = sbox[i]&b , t = 0;
-				while (a_i)
-				{
-					t = t ^ (a_i%2);
-					a_i /= 2;
-				}
-				while (b_si)
-				{
-					t = t ^ (b_si%2);
-					b_si /= 2;
-				}
-				if(t == 0)
-				{
-					LAT[a][b]++;
-				}	
-    
-			}
-			LAT[a][b] -= 8;
-		}
-	}
-
     //gen CVC
     outcvc.open(filename);
 
-    //variable claim
- 	outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
-	for(int input_lc=0x0;input_lc<16;input_lc++)
-	{
-		for(int output_lc=0x0;output_lc<16;output_lc++)
-		{
-			outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<((LAT[input_lc][output_lc] == 0)?0:1)<<" );"<<endl;
-		}
-	}
-	outcvc<<dec;
+
 
     //state variable claim
     for(int round=0;round<x_ROUND;round++)//up
@@ -184,7 +141,7 @@ int main(int argc,char * argv[])
             }
             else
             {
-                outcvc<<" : BITVECTOR(4);"<<endl;
+                outcvc<<" : BITVECTOR(8);"<<endl;
             }            
         }
     }
@@ -200,7 +157,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(4);"<<endl;
+				outcvc<<" : BITVECTOR(8);"<<endl;
 			}
 			
 		}
@@ -218,7 +175,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(4);"<<endl;
+				outcvc<<" : BITVECTOR(8);"<<endl;
 			}			
 	
 		}
@@ -233,7 +190,7 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( NOT( LAT[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin00000000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ) ENDIF );"<<endl;
 			if( pos<8 )
 			{
 				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
@@ -266,7 +223,7 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( NOT( LAT[y_Sout_"<<round<<"_"<<pos<<"@y_Sin_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin00000000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ) ENDIF );"<<endl;
 			if( pos<8 )
 			{
 				outcvc<<"ASSERT( RKin_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
@@ -342,10 +299,14 @@ int main(int argc,char * argv[])
 				if(pos<8)
 				{
 					//LFSR
-					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[0:0] = LPout2_"<<round<<"_"<<P[pos]<<"[3:3] );"<<endl;
+					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[0:0] = LPout2_"<<round<<"_"<<P[pos]<<"[7:7] );"<<endl;
 					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[1:1] = LPout2_"<<round<<"_"<<P[pos]<<"[0:0] );"<<endl;
 					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[2:2] = LPout2_"<<round<<"_"<<P[pos]<<"[1:1] );"<<endl;
-					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[3:3] = BVXOR( LPout2_"<<round<<"_"<<P[pos]<<"[2:2] , LPout2_"<<round<<"_"<<P[pos]<<"[3:3] ) );"<<endl;				
+					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[3:3] = LPout2_"<<round<<"_"<<P[pos]<<"[2:2] );"<<endl;
+					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[4:4] = LPout2_"<<round<<"_"<<P[pos]<<"[3:3] );"<<endl;
+					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[5:5] = LPout2_"<<round<<"_"<<P[pos]<<"[4:4] );"<<endl;
+					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[7:7] = LPout2_"<<round<<"_"<<P[pos]<<"[6:6] );"<<endl;
+					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<"[6:6] = BVXOR( LPout2_"<<round<<"_"<<P[pos]<<"[5:5] , LPout2_"<<round<<"_"<<P[pos]<<"[7:7] ) );"<<endl;				
 				}	
 				else
 				{
