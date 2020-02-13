@@ -24,11 +24,6 @@ string tobits(int num, int bit_num)
 
 
 
-int sbox[16] = {0xc, 0x6, 0x9, 0x0,
-				0x1, 0xa, 0x2, 0xb,
-				0x3, 0x8, 0x5, 0xd,
-				0x4, 0xe, 0x7, 0xf};
-
 //original MC layer matrix
 int MCT[4][4]=
 {
@@ -84,7 +79,7 @@ int return_index(int pos , int matrix[])
 	return index;
 }
 
-//int LAT[16][16] = {0};
+
 
 string branch(string a,string b)
 {
@@ -128,49 +123,10 @@ int main(int argc,char * argv[])
 
 	P_make(ROUND);
 
-/*
-	//gen lat 
-	for(int a=0;a<16;a++)
-	{
-		for(int b=0;b<16;b++)
-		{
-			for(int i=0;i<16;i++)
-			{
-				int a_i = a&i , b_si = sbox[i]&b , t = 0;
-				while (a_i)
-				{
-					t = t ^ (a_i%2);
-					a_i /= 2;
-				}
-				while (b_si)
-				{
-					t = t ^ (b_si%2);
-					b_si /= 2;
-				}
-				if(t == 0)
-				{
-					LAT[a][b]++;
-				}	
-    
-			}
-			LAT[a][b] -= 8;
-		}
-	}
-*/
+
     //gen CVC
     outcvc.open(filename);
-/*
-    //variable claim
- 	outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
-	for(int input_lc=0x0;input_lc<16;input_lc++)
-	{
-		for(int output_lc=0x0;output_lc<16;output_lc++)
-		{
-			outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<((LAT[input_lc][output_lc] == 0)?0:1)<<" );"<<endl;
-		}
-	}
-	outcvc<<dec;
-*/
+
     //state variable claim
     for(int round=0;round<x_ROUND;round++)//up
     {
@@ -359,7 +315,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if((pos == head_flag)||(pos == head_flag+1))
+			if( pos == head_flag )
 			{
 				outcvc<<"ASSERT( NOT( x_Sin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -378,19 +334,14 @@ int main(int argc,char * argv[])
 			
 		}
 		
-		if(pos == tail_flag  /*pos == return_index(key_flag,P_R)*/)
-		{
-			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = y_SRout_"<<y_ROUND-1<<"_"<<pos<<" );"<<endl;
-			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = y_SRout_"<<y_ROUND-1<<"_"<<pos<<" );"<<endl;
-		}
-		else
+		if( 1  /*pos == return_index(key_flag,P_R)*/)
 		{
 			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 		}
 		
 
-		if( pos == P_R[tail_flag] )
+		if( pos == key_flag )
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;		
