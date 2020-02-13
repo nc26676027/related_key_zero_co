@@ -315,7 +315,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( pos == head_flag )
+			if( (pos == head_flag)||(pos == head_flag+1) )
 			{
 				outcvc<<"ASSERT( NOT( x_Sin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
