@@ -116,8 +116,8 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 6;
-    int y_ROUND = 9;
+    int x_ROUND = 7;
+    int y_ROUND = 10;
     int ROUND = x_ROUND+y_ROUND;
 
 	P_make(ROUND);
@@ -344,7 +344,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( (pos == head_flag) || (pos == head_flag+3) )
+			if( pos == head_flag )
 			{
 				outcvc<<"ASSERT( NOT( x_Sin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
