@@ -4,7 +4,7 @@ import java.io.LineNumberReader;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
-public class Find9 {
+public class Find6 {
 
     public static void main(String[] args){
 
@@ -21,7 +21,7 @@ public class Find9 {
 
                              for(int fileno=0;fileno<16;fileno++)
                             {
-                                str=("/home/niuchao/new_mode_search20200203/skinny_128_384/key_state"+args[0]+"/head_state9/skinny"+fileno+".cvc");
+                                str=("/home/niuchao/new_mode_search20200203/skinny_128_256/key_state"+args[0]+"/head_state6/skinny"+fileno+".cvc");
                                 command_run[1]=str;
                                 process=Runtime.getRuntime().exec(command_run);
                                 isr=new InputStreamReader(process.getInputStream());

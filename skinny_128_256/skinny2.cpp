@@ -168,7 +168,7 @@ int main(int argc,char * argv[])
 		for(int pos=0;pos<16;pos++)
 		{
 		
-			outcvc<<"Kin_"<<round<<"_"<<pos<<" , LPout_"<<round<<"_"<<pos<<" , Kin2_"<<round<<"_"<<pos<<" , LPout2_"<<round<<"_"<<pos<<" , Kin3_"<<round<<"_"<<pos<<" , LPout3_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos<<" , RKin2_"<<round<<"_"<<pos<<" , RKin3_"<<round<<"_"<<pos;
+			outcvc<<"Kin_"<<round<<"_"<<pos<<" , LPout_"<<round<<"_"<<pos<<" , Kin2_"<<round<<"_"<<pos<<" , LPout2_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos<<" , RKin2_"<<round<<"_"<<pos;
 			if(pos<15)
 			{
 				outcvc<<" , ";
@@ -195,7 +195,6 @@ int main(int argc,char * argv[])
 			{
 				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
 				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin2_"<<round<<"_"<<pos<<" );"<<endl;
-				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin3_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 
 			
@@ -228,7 +227,6 @@ int main(int argc,char * argv[])
 			{
 				outcvc<<"ASSERT( RKin_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
 				outcvc<<"ASSERT( RKin2_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
-				outcvc<<"ASSERT( RKin3_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			outcvc<<"ASSERT( y_Sout_"<<round<<"_"<<inv_SR[pos]<<" = y_SRout_"<<round<<"_"<<pos<<" );"<<endl;
 			
@@ -312,38 +310,8 @@ int main(int argc,char * argv[])
 					outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<" = LPout2_"<<round<<"_"<<P[pos]<<" );"<<endl;		
 				}		
 			}
-			//  TK3
-			if(pos<8)
-			{
-				string a = "Kin3_"+to_string(round)+"_"+to_string(pos);
-				string b = "RKin3_"+to_string(round)+"_"+to_string(pos);
-
-				outcvc<<"ASSERT( LPout3_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
-			}
-			else
-			{
-				outcvc<<"ASSERT( LPout3_"<<round<<"_"<<pos<<" = Kin3_"<<round<<"_"<<pos<<" );"<<endl;
-				outcvc<<"ASSERT( RKin3_"<<round<<"_"<<pos<<" = Kin3_"<<round<<"_"<<pos<<" );"<<endl;
-			}
-			if(round<ROUND-1)
-			{
-				if(pos<8)
-				{
-					//LFSR
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[0:0] = LPout3_"<<round<<"_"<<P[pos]<<"[1:1] );"<<endl;
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[1:1] = LPout3_"<<round<<"_"<<P[pos]<<"[2:2] );"<<endl;
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[2:2] = LPout3_"<<round<<"_"<<P[pos]<<"[3:3] );"<<endl;
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[3:3] = LPout3_"<<round<<"_"<<P[pos]<<"[4:4] );"<<endl;
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[4:4] = LPout3_"<<round<<"_"<<P[pos]<<"[5:5] );"<<endl;
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[5:5] = BVXOR( LPout3_"<<round<<"_"<<P[pos]<<"[0:0] , LPout3_"<<round<<"_"<<P[pos]<<"[6:6] ) );"<<endl;
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[6:6] = LPout3_"<<round<<"_"<<P[pos]<<"[7:7] );"<<endl;	
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<"[7:7] = LPout3_"<<round<<"_"<<P[pos]<<"[6:6] );"<<endl;		
-				}	
-				else
-				{
-					outcvc<<"ASSERT( Kin3_"<<round+1<<"_"<<pos<<" = LPout3_"<<round<<"_"<<P[pos]<<" );"<<endl;		
-				}		
-			}
+			
+		
 		}
 	}
 
@@ -376,7 +344,6 @@ int main(int argc,char * argv[])
 		{
 			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = 0bin00000000 );"<<endl;
 			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = 0bin00000000 );"<<endl;
-			outcvc<<"ASSERT( LPout3_"<<ROUND-1<<"_"<<pos<<" = 0bin00000000 );"<<endl;
 
 		}
 		
@@ -385,7 +352,6 @@ int main(int argc,char * argv[])
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00000000 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin00000000 );"<<endl;		
-			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin00000000 );"<<endl;		
 
 		}
 	}
