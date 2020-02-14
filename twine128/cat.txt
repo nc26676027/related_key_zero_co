@@ -1,0 +1,1 @@
+cat r.txt  | grep "txt" | sort -t '_' -k 3 -n
