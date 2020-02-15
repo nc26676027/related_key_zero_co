@@ -292,16 +292,8 @@ int main(int argc,char * argv[])
 	}
 
 	//key schedule
-	int last_i = 0;
-	for(int pos=0;pos<20;pos++)
-	{
-		if(pos == RK[last_i])
-		{
-			last_i = last_i+1;
-			outcvc<<"ASSERT( RKin_"<<ROUND-1<<"_"<<pos<<" = Kout_"<<ROUND-2<<"_"<<pos<<" );"<<endl;
-		}
-	}
-	for(int round=0;round<ROUND-1;round++)
+
+	for(int round=0;round<ROUND;round++)
 	{
 		int i = 0;
 		int j = 0;
@@ -389,10 +381,9 @@ int main(int argc,char * argv[])
 		{
 			outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
-		else
-		{
-			outcvc<<"ASSERT( NOT( MK_0_"<<pos<<" = 0bin0000 ) );"<<endl;
-		}
+
+		outcvc<<"ASSERT( Kin_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+
 	}
 
 
