@@ -160,7 +160,7 @@ int testTK1(void)
     }
 
     int x_Rounds = 2;
-    int y_Rounds = 7;
+    int y_Rounds = 8;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
 
@@ -169,24 +169,15 @@ int testTK1(void)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
-            for ( int i3 = 0; i3 < 16; i3++)
-            {
-                for ( int i4 = 0; i4 < 16; i4++)
-                {
-                    for (int i5 = 0; i5 < 16; i5++)
-                    {
-                        for (int i6 = 0; i6 < 16; i6++)
-                        {
+
 
                             vector<vector<int>> in(4, vector<int>(4, 0));
                             vector<vector<int>> tk1 = key1;
                             
-                            in[0][1] = i1;
-                            in[0][3] = i2;
-                            in[2][0] = i3;
-                            in[2][3] = i4;
+                            in[3][2] = i1;
+
                 
-                            tk1[3][0] = i5;
+                            tk1[3][1] = i2;
 
 
                             //encryption
@@ -199,14 +190,10 @@ int testTK1(void)
                                 tk1 = keySchedule(tk1);   
                                                                 
                             }
-                            counter[in[2][3]]++;                   
+                            counter[in[3][0]]++;                   
                                 
                             
-                        }
-                    }
 
-                }
-            }
         }
     }
     for (int i = 0; i < 16; i++)
