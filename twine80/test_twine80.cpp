@@ -9,7 +9,7 @@ unsigned rol(unsigned val, int size)
 {
   unsigned res = val << size;
   res |= val >> (4 - size);
-  res &= 0x0000000f; 
+  res &= 0x0000000f;
   return res;
 }
 
@@ -18,7 +18,7 @@ unsigned ror(unsigned val, int size)
 {
   unsigned res = val >> size;
   res |= val << (4 - size);
-  res &= 0x0000000f; 
+  res &= 0x0000000f;
   return res;
 }
 
@@ -30,7 +30,7 @@ int sbox[16] = {0xc, 0x0, 0xf, 0xa,
 				0x8, 0x3, 0xd, 0x7,
 				0x1, 0xe, 0x6, 0x4};
 
-//original linear layer 
+//original linear layer
 int h[16] = {5,  0,  1,  4,
              7, 12,  3,  8,
             13,  6,  9,  2,
@@ -59,7 +59,7 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 				        0x1, 0xe, 0x6, 0x4};
 
     int RK[8] = { 1,  3,  4,  6, 13, 14, 15, 16};
-    int index = 0; 
+    int index = 0;
     vector<vector<int>> out = in;
     for (int i = 0;i < 4; i++)
     {
@@ -67,14 +67,14 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
         {
             if( (j % 2) == 1 )
             {
-               out[i][j] = sbox[ in[i][j-1] ^ rk[ RK[index] ] ] ^ in[i][j]; 
+               out[i][j] = sbox[ (in[i][j-1]) ^ (rk[ RK[index] ]) ] ^ in[i][j];
                index ++;
             }
             else
             {
                 out[i][j] = in[i][j];
-            }                      
-            
+            }
+
         }
     }
     return out;
@@ -97,10 +97,10 @@ vector<vector<int>> shiftNible(vector<vector<int>> in )
         for( int j = 0; j < 4; j++)
         {
             out[ h[4*i+j] / 4 ][ h[4*i+j] % 4 ] = in[i][j];
-        } 
+        }
     }
-    
-    return out;     
+
+    return out;
 }
 
 //key update
@@ -131,14 +131,14 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
         else
         {
             rot[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
-        }       
-                
+        }
+
     }
     for (int i = 0; i < 20; i++)
     {
         out[ rot[i] / 4][ rot[i] % 4 ] = rot[ i / 4 ][ i % 4 ];
     }
-    
+
     return out;
 }
 
@@ -173,26 +173,26 @@ int testTK1(void)
 
                             vector<vector<int>> in(4, vector<int>(4, 0));
                             vector<vector<int>> tk1 = key1;
-                            
+
                             in[3][2] = i1;
 
-                
+
                             tk1[3][1] = i2;
 
 
                             //encryption
-                            
+
                             for (int r = 0; r < Round ; r++)
                             {
                                 in = subByte (in , tk1);
                                 in = shiftNible(in);
-                                
-                                tk1 = keySchedule(tk1);   
-                                                                
+
+                                tk1 = keySchedule(tk1);
+
                             }
-                            counter[in[3][0]]++;                   
-                                
-                            
+                            counter[in[3][0]]++;
+
+
 
         }
     }
@@ -204,7 +204,7 @@ int testTK1(void)
 }
 
 
-int main(void) 
+int main(void)
 {
     printf("Experimental verification of distinguisher on TK1.\n");
     testTK1();
