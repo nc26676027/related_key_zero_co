@@ -49,152 +49,120 @@ int SR[16] = { 0,  1,  2,  3,
               10, 11,  8,  9,
               15, 12, 13, 14};
 
-int P[16] = {9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
 
 
-vector<vector<int>> subByte(vector<vector<int>> in )
+vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 {
-    vector<int> sbox = {0xc, 0x6, 0x9, 0x0,
-				        0x1, 0xa, 0x2, 0xb,
-				        0x3, 0x8, 0x5, 0xd,
-				        0x4, 0xe, 0x7, 0xf};
+    vector<int> sbox = {0xc, 0x0, 0xf, 0xa,
+				        0x2, 0xb, 0x9, 0x5,
+				        0x8, 0x3, 0xd, 0x7,
+				        0x1, 0xe, 0x6, 0x4};
+
+    int RK[8] = { 1,  3,  4,  6, 13, 14, 15, 16};
+    int index = 0; 
     vector<vector<int>> out = in;
     for (int i = 0;i < 4; i++)
     {
         for( int j = 0; j < 4; j++)
         {
-            out[i][j] = sbox[ in[i][j] ];
+            if( (j % 2) == 1 )
+            {
+               out[i][j] = sbox[ in[i][j-1] ^ rk[ RK[index] ] ] ^ in[i][j]; 
+               index ++;
+            }
+            else
+            {
+                out[i][j] = in[i][j];
+            }                      
+            
         }
     }
     return out;
 }
-/*
-vector<vector<int>> addConstants(vector<vector<int>> in , int round )
-{    
-    vector<int> Consts = {0x01,0x03,0x07,0x0F,0x1F,0x3E,0x3D,0x3B,0x37,0x2F,0x1E,0x3C,0x39,0x33,0x27,0x0E};
-    vector<vector<int>> out = in;
-    int c0 = 0x0f & Consts[round];
-    int c1 = 0xf0 & Consts[round];
-    int c2 = 0x2;
-    out[0][0] = in[0][0] ^ c0;
-    out[1][0] = in[1][0] ^ c1;
-    out[2][0] = in[2][0] ^ c2;        
-
-    return out;
-}
-*/
 
 
 
-vector<vector<int>> shiftRow(vector<vector<int>> in , vector<vector<int>> rk1, vector<vector<int>> rk2)
+//linear layer
+vector<vector<int>> shiftNible(vector<vector<int>> in )
 {
-    vector<vector<int>> add = in;   
+    vector<int> h[16] = {5,  0,  1,  4,
+                         7, 12,  3,  8,
+                        13,  6,  9,  2,
+                        15, 10, 11, 14};
+
     vector<vector<int>> out = in;
 
-
     for (int i = 0;i < 4; i++)
     {
         for( int j = 0; j < 4; j++)
         {
-            if( i < 2 )
-            {
-                add[i][j] = in[i][j] ^ rk1[i][j] ^ rk2[i][j];
-            }
-            else
-            {
-                add[i][j] = in[i][j];
-            }            
+            out[ h[4*i+j] / 4 ][ h[4*i+j] % 4 ] = in[i][j];
         } 
     }
-
-    for (int i = 0;i < 4; i++)
-    {
-        for( int j = 0; j < 4; j++)
-        {
-            out[i][(i+j)%4] = add[i][j];
-        } 
-    }
+    
     return out;     
 }
 
-
-// MixColumns
-vector<vector<int>> mixColumn(vector<vector<int>> in )
+//key update
+vector<vector<int>> keySchedule(vector<vector<int>> in )
 {
-    vector<vector<int>> out = in;
-    for (int j = 0;j < 4; j++)
-    {
-        out[0][j] = in[0][j] ^ in[2][j] ^ in[3][j];
-        out[1][j] = in[0][j];
-        out[2][j] = in[1][j] ^ in[2][j];
-        out[3][j] = in[0][j] ^ in[2][j];
-    }
-    return out;      
-}
+    vector<int> sbox = {0xc, 0x0, 0xf, 0xa,
+				        0x2, 0xb, 0x9, 0x5,
+				        0x8, 0x3, 0xd, 0x7,
+				        0x1, 0xe, 0x6, 0x4};
 
-//Tweakey update
-vector<vector<int>> keySchedule1(vector<vector<int>> in )
-{
+    vector<int> rot[20] = {19, 16, 17, 18,  0,
+				            1,  2,  3,  4,  5,
+				            6,  7,  8,  9, 10,
+			               11, 12, 13, 14, 15,};
     //permutation
-    vector<int> ks = {9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
-    vector<vector<int>> out(4, vector<int>(4, 0));
-    for ( int i = 0; i < 16; i++)
+    vector<vector<int>> rot(5, vector<int>(4, 0));
+    vector<vector<int>> out(5, vector<int>(4, 0));
+    for ( int i = 0; i < 20; i++)
     {
-        out[i / 4][ ( i % 4 )] = in[ks[i] / 4 ][ ks[i] % 4];        
+        if( i = 1 )
+        {
+            rot[0][1] = sbox[ in[0][0] ] ^ in[0][1];
+        }
+        else if ( i = 4 )
+        {
+            rot[1][0] = sbox[ in[4][0] ] ^ in[0][3];
+        }
+        else
+        {
+            rot[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
+        }       
+                
     }
-    return out;
-}
-//Tweakey update
-vector<vector<int>> keySchedule2(vector<vector<int>> in )
-{
-    //permutation
-    vector<int> ks = {9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
-    vector<vector<int>> out(4, vector<int>(4, 0));
-    vector<vector<int>> lfsr(4, vector<int>(4, 0));
-
-    for ( int i = 0; i < 16; i++)
+    for (int i = 0; i < 20; i++)
     {
-        lfsr[i / 4][ ( i % 4 )] = in[ks[i] / 4 ][ ks[i] % 4];        
+        out[ rot[i] / 4][ rot[i] % 4 ] = rot[ i / 4 ][ i % 4 ];
     }
     
-    for ( int i = 0; i < 4; i++)
-    {
-        for ( int j = 0; j < 4; j++)
-        {
-            if ( i < 2 )
-            {
-                out[i][j] = rol(lfsr[i][j] , 1) ^ ( ror( ( lfsr[i][j] & 0x00000004 ) , 2 ) );
-            }
-            else
-            {
-                out[i][j] = lfsr[i][j];
-            }            
-        }
-    }
     return out;
 }
+
 
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK2(void)
+int testTK1(void)
 {
     //generate all keys at random
     srand( time(NULL));
-    vector<vector<int>> key1(4 , vector<int>(4, 0));
-    vector<vector<int>> key2(4 , vector<int>(4, 0));
-    for( int row = 0; row < 4 ; row++)
+    vector<vector<int>> key1(5 , vector<int>(4, 0));
+    for( int row = 0; row < 5 ; row++)
     {
         for( int col = 0; col < 4; col++)
         {
             key1[row][col] = rand() & 0xF;
-            key2[row][col] = rand() & 0xF;
         }
     }
 
     int x_Rounds = 2;
     int y_Rounds = 7;
-    printf("  Number of rounds : %d\n" , x_Rounds+y_Rounds);
+    int Round = x_Rounds+y_Rounds;
+    printf("  Number of rounds : %d\n" , Round);
 
     vector<int> counter(16 , 0);
     for ( int i1 = 0; i1 < 16; i1++)
@@ -212,7 +180,6 @@ int testTK2(void)
 
                             vector<vector<int>> in(4, vector<int>(4, 0));
                             vector<vector<int>> tk1 = key1;
-                            vector<vector<int>> tk2 = key2;
                             
                             in[0][1] = i1;
                             in[0][3] = i2;
@@ -220,38 +187,19 @@ int testTK2(void)
                             in[2][3] = i4;
                 
                             tk1[3][0] = i5;
-                            tk2[3][0] = i6;
 
 
                             //encryption
                             
-                            for (int r = 0; r < (x_Rounds); r++)
+                            for (int r = 0; r < Round ; r++)
                             {
-                                in = subByte (in);
-                                in = shiftRow(in, tk1, tk2);
+                                in = subByte (in , tk1);
+                                in = shiftNible(in);
                                 
-                                tk1 = keySchedule1(tk1);
-                                tk2 = keySchedule2(tk2);    
+                                tk1 = keySchedule(tk1);   
                                                                 
-                                in = mixColumn(in);                                                                                   
                             }
-
-                            for (int r = 0;r < (y_Rounds-1); r++ )
-                            {
-                                in = subByte (in);
-                                in = shiftRow(in, tk1, tk2);
-                                
-                                tk1 = keySchedule1(tk1);
-                                tk2 = keySchedule2(tk2);    
-                                                                
-                                in = mixColumn(in);     
-                            }
-                            in = subByte (in);
-                            in = shiftRow(in, tk1, tk2);
-
-
-                            counter[in[2][3]]++;
-                                
+                            counter[in[2][3]]++;                   
                                 
                             
                         }
@@ -272,7 +220,7 @@ int testTK2(void)
 int main(void) 
 {
     printf("Experimental verification of distinguisher on TK1.\n");
-    testTK2();
+    testTK1();
 
 
     return 0;
