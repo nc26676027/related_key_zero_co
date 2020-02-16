@@ -2,6 +2,8 @@
 #include <fstream>
 #include <cstring>
 #include <cmath>
+#include <stdio.h>
+#include <stdlib.h>
 
 using namespace std;
 
@@ -18,7 +20,6 @@ string tobits(int num, int bit_num)
 	
 	return res;
 }
-
 
 int h[16] = {
 			5 , 0 , 1 , 4 ,
@@ -50,42 +51,97 @@ int RK[8] =
 	    2 , 3 , 12 , 15 , 17 , 18 , 28 , 31
 	    };
 
+int sbox[16] = {0xc, 0x0, 0xf, 0xa,
+				0x2, 0xb, 0x9, 0x5,
+				0x8, 0x3, 0xd, 0x7,
+				0x1, 0xe, 0x6, 0x4};
+
+int LAT[16][16] = {0};
+
+//test
 string branch(string a,string b)
 {
 	string s = "";
-	s = s+"(IF ("+a+" = 0bin00)AND("+b+" = 0bin00) THEN 0bin00 ELSE (IF (("+a+" = 0bin00)AND("+b+" = 0bin01))OR(("+a+" = 0bin01)AND("+b+" = 0bin00)) THEN 0bin01 ELSE 0bin10 ENDIF ) ENDIF)";
+	s = s+"BVXOR( "+a+" , "+b+" )";
 	return s;
 }
 
 
 
-int main()
+int main(int argc,char * argv[])
 {
+    //input canshu
+	int head_flag;
+	int tail_flag;
+	int key_flag;
+	string filename;
+	printf("input %d parameter \n" , argc);
+
+	if(argc!=4)
+	{
+		printf("parameter number error!!");
+		exit(0);
+	}
+	else
+    {
+        key_flag = atoi(argv[1]);
+        head_flag = atoi(argv[2]);
+        tail_flag = atoi(argv[3]);
+		filename = "twine"+to_string(atoi(argv[3]))+".cvc";
+    }
+    printf("key_flag=%d , head_flag=%d , tail_flag=%d\n fileno = %d",key_flag,head_flag,tail_flag,tail_flag);
+	
+	//program main
 	ofstream outcvc;
     int x_ROUND = 9;
 	int y_ROUND = 8;
 	int ROUND = x_ROUND+y_ROUND;
-	int total_Ps_length = 8;
-	string Ps_th = "0hex10";
+
+
+
+	//gen lat 
+	for(int a=0;a<16;a++)
+	{
+		for(int b=0;b<16;b++)
+		{
+			for(int i=0;i<16;i++)
+			{
+				int a_i = a&i , b_si = sbox[i]&b , t = 0;
+				while (a_i)
+				{
+					t = t ^ (a_i%2);
+					a_i /= 2;
+				}
+				while (b_si)
+				{
+					t = t ^ (b_si%2);
+					b_si /= 2;
+				}
+				if(t == 0)
+				{
+					LAT[a][b]++;
+				}	
+    
+			}
+			LAT[a][b] -= 8;
+		}
+	}
 
     
 	//gen CVC
-	outcvc.open("twine.cvc");
+	outcvc.open(filename);
 //variable claim
-	//head state count
-	for(int pos=0;pos<16;pos++)
+
+	outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
+	for(int input_lc=0x0;input_lc<16;input_lc++)
 	{
-		outcvc<<"Ps_"<<pos;
-		if(pos < 15)
+		for(int output_lc=0x0;output_lc<16;output_lc++)
 		{
-			outcvc<<" , ";
-		}
-		else
-		{
-			outcvc<<" : BITVECTOR(1);"<<endl;
+			outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<((LAT[input_lc][output_lc] == 0)?0:1)<<" );"<<endl;
 		}
 	}
-	outcvc<<"total_Ps : BITVECTOR("<<total_Ps_length<<" );"<<endl;
+	outcvc<<dec;
+
 	//state variable claim
     for(int round=0;round<=x_ROUND;round++)
     {
@@ -95,7 +151,7 @@ int main()
             outcvc<<"x_Fin_"<<round<<"_"<<pos<<" , x_Xout_"<<round<<"_"<<pos;
             if(pos == 15)
             {
-                outcvc<<" : BITVECTOR(2);"<<endl;
+                outcvc<<" : BITVECTOR(4);"<<endl;
             }
             else
             {
@@ -112,7 +168,7 @@ int main()
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(2);"<<endl;
+				outcvc<<" : BITVECTOR(4);"<<endl;
 			}
 		}
     }
@@ -125,7 +181,7 @@ int main()
             outcvc<<"y_Fin_"<<round<<"_"<<pos<<" , y_Xout_"<<round<<"_"<<pos;
             if(pos == 15)
             {
-                outcvc<<" : BITVECTOR(2);"<<endl;
+                outcvc<<" : BITVECTOR(4);"<<endl;
             }
             else
             {
@@ -142,7 +198,7 @@ int main()
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(2);"<<endl;
+				outcvc<<" : BITVECTOR(4);"<<endl;
 			}
 		}
 		
@@ -155,7 +211,7 @@ int main()
 		{
 			if(round == 0)
 			{
-				outcvc<<"MK_0_"<<pos<<" : BITVECTOR(2);"<<endl;
+				outcvc<<"MK_0_"<<pos<<" : BITVECTOR(4);"<<endl;
 			}
 			outcvc<<"Kin_"<<round<<"_"<<pos<<" , Rotin_"<<round<<"_"<<pos<<" , Kout_"<<round<<"_"<<pos;
 			if(pos<31)
@@ -164,24 +220,24 @@ int main()
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(2);"<<endl; 
+				outcvc<<" : BITVECTOR(4);"<<endl; 
 			}						
 		}
 		for(int pos=0;pos<8;pos++)
 		{
 			outcvc<<"RKin_"<<round<<"_"<<RK[pos];
-			if(pos<19)
+			if(pos<7)
 			{
 				outcvc<<" , ";
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(2);"<<endl; 
+				outcvc<<" : BITVECTOR(4);"<<endl; 
 			}						
 			
 		}
 		//key schedule Sbox
-		outcvc<<"KSin_"<<round<<"_0 , KSin_"<<round<<"_16 , KSin_"<<round<<"_30 : BITVECTOR(2);"<<endl;
+		outcvc<<"KSin_"<<round<<"_0 , KSout_"<<round<<"_0"<<" , KSout_"<<round<<"_16 , KSin_"<<round<<"_16 , KSout_"<<round<<"_30 , KSin_"<<round<<"_30 : BITVECTOR(4);"<<endl;
 		
 	}
 //ASSERT 
@@ -196,7 +252,8 @@ int main()
 				string a = "x_Fin_"+to_string(round)+"_"+to_string(pos);
 				string b = "x_Sin_"+to_string(round)+"_"+to_string(pos);
 				outcvc<<"ASSERT( x_Xout_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
-				outcvc<<"ASSERT( "<<b<<" = x_Fin_"<<round<<"_"<<pos+1<<" );"<<endl;
+				outcvc<<"ASSERT( NOT( LAT[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+				outcvc<<"ASSERT( "<<"x_Sout_"<<round<<"_"<<pos<<" = x_Fin_"<<round<<"_"<<pos+1<<" );"<<endl;
 			}
 			else
 			{
@@ -214,10 +271,7 @@ int main()
 		}	
 		
 	}
-	for(int pos=0;pos<16;pos++)
-	{
-		outcvc<<"ASSERT( IF x_Fin_0"<<"_"<<pos<<" = 0bin00 THEN Ps_"<<pos<<" = 0bin1 ELSE Ps_"<<pos<<" = 0bin0 ENDIF );"<<endl;
-	}
+
 	for(int round=y_ROUND-1;round>=0;round--)
 	{	
 		//backward state update
@@ -233,7 +287,8 @@ int main()
 				string a = "y_Xout_"+to_string(round)+"_"+to_string(pos);
 				string b = "y_Sin_"+to_string(round)+"_"+to_string(pos);
 				outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
-				outcvc<<"ASSERT( "<<b<<" = y_Xout_"<<round<<"_"<<pos+1<<" );"<<endl;
+				outcvc<<"ASSERT( NOT( LAT[y_Sout_"<<round<<"_"<<pos<<"@y_Sin_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+				outcvc<<"ASSERT( "<<"y_Sout_"<<round<<"_"<<pos<<" = y_Xout_"<<round<<"_"<<pos+1<<" );"<<endl;
 			}
 			else
 			{
@@ -248,52 +303,47 @@ int main()
 	}
 
 	//key schedule
-	int last_i = 0;
-	for(int pos=0;pos<32;pos++)
-	{
-		if(pos == RK[last_i])
-		{
-			last_i = last_i+1;
-			outcvc<<"ASSERT( Kout_"<<ROUND-2<<"_"<<pos<<" = RKin_"<<ROUND-1<<"_"<<pos<<" );"<<endl;
-		}
-	}
-	for(int round=ROUND-2;round>=0;round--)
+
+	for(int round=0;round<ROUND;round++)
 	{
 		int i = 0;
 		int j = 0;
 		for(int pos=0;pos<32;pos++)
 		{	
-			outcvc<<"ASSERT( Rotin_"<<round<<"_"<<rot[pos]<<" = Kout_"<<round<<"_"<<pos<<" );"<<endl;
+			outcvc<<"ASSERT( Kout_"<<round<<"_"<<rot[pos]<<" = Rotin_"<<round<<"_"<<pos<<" );"<<endl;
 			
 			if((pos == 0)||(pos == 16)||(pos == 30))
 			{
-				string a = "Rotin_"+to_string(round)+"_"+to_string(pos); 
+				string a = "Kin_"+to_string(round)+"_"+to_string(pos); 
 				string b = "KSin_"+to_string(round)+"_"+to_string(pos);
-				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 				if(pos == 0)
 				{
-					outcvc<<"ASSERT( "<<b<<" = Rotin_"<<round<<"_"<<pos+1<<" );"<<endl;
+					outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+					outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_"<<pos+1<<" );"<<endl;
 				}
-				else if(pos == 16)
+				else if (pos == 16)
 				{
-					outcvc<<"ASSERT( "<<b<<" = Rotin_"<<round<<"_4 );"<<endl;
-				}
-				else
+					outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+					outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_4 );"<<endl;
+				}else
 				{
-					outcvc<<"ASSERT( "<<b<<" = Rotin_"<<round<<"_23 );"<<endl;					
+					outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+					outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_23 );"<<endl;					
 				}
+				
 			}
 			else
 			{
-				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = Kin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			
 			if((pos == RK[i])&&(round>0))
 			{	
 				i = i+1;
 				string a = "RKin_"+to_string(round)+"_"+to_string(pos); 
-				string b = "Kin_"+to_string(round)+"_"+to_string(pos);
-				outcvc<<"ASSERT( Kout_"<<round-1<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				string b = "Kout_"+to_string(round-1)+"_"+to_string(pos);
+				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 			}
 			else if(round>0)
 			{
@@ -303,8 +353,8 @@ int main()
 			{
 				j = j+1;
 				string a = "RKin_0_"+to_string(pos);
-				string b = "Kin_0_"+to_string(pos);
-				outcvc<<"ASSERT( MK_0_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				string b = "MK_0_"+to_string(pos);
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 			}
 			else if(round == 0)
 			{
@@ -318,30 +368,41 @@ int main()
 		outcvc<<"ASSERT( x_Fin_"<<x_ROUND<<"_"<<pos<<" = y_Fin_0_"<<pos<<" );"<<endl;
 	}
 	
-	
-	string str_zero="0bin";
-	for(int length=0;length<total_Ps_length-1;length++)
+
+
+	//assert active state
+	for(int pos=0;pos<20;pos++)
 	{
-		str_zero+="0";
-	}
-	string str_ps="";
-	for(int pos=0;pos<16;pos++)
-	{
-		str_ps+=(str_zero+"@Ps_"+to_string(pos));
-		if(pos==15)
+		if(pos<16)
 		{
-			outcvc<<"ASSERT( total_Ps = BVPLUS( "<<total_Ps_length<<" , "<<str_ps<<" ) );"<<endl;
+			if(pos == head_flag)
+			{
+				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
+			}
+			else
+			{
+				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
+			}
+			if(pos == tail_flag)
+			{
+				outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
+			}
+			else
+			{
+				outcvc<<"ASSERT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+			}		
+			
 		}
-		else
+		if(pos == key_flag)
 		{
-			str_ps+=" , ";
+			outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
+
+		outcvc<<"ASSERT( Kin_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+
 	}
-	outcvc<<"ASSERT( BVLE( total_Ps , "<<Ps_th<<" ) );"<<endl;
-	outcvc<<"ASSERT(  (MK_0_"<<RK[0]<<" = 0bin01) OR (MK_0_"<<RK[1]<<" = 0bin01) OR (MK_0_"<<RK[1]<<" = 0bin01) OR (MK_0_"<<RK[2]<<" = 0bin01) OR (MK_0_"<<RK[3]<<" = 0bin01) OR (MK_0_"<<RK[4]<<" = 0bin01) OR (MK_0_"<<RK[5]<<" = 0bin01) OR (MK_0_"<<RK[6]<<" = 0bin01) OR (MK_0_"<<RK[7]<<" = 0bin01) );"<<endl;
-	outcvc<<"ASSERT( NOT( x_Fin_0_0@x_Fin_0_1@x_Fin_0_2@x_Fin_0_3@x_Fin_0_4@x_Fin_0_5@x_Fin_0_6@x_Fin_0_7@x_Fin_0_8@x_Fin_0_9@x_Fin_0_10@x_Fin_0_11@x_Fin_0_12@x_Fin_0_13@x_Fin_0_14@x_Fin_0_15 = 0bin00000000000000000000000000000000 ) );"<<endl;
-	outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_0@y_Xout_"<<y_ROUND-1<<"_1@y_Xout_"<<y_ROUND-1<<"_2@y_Xout_"<<y_ROUND-1<<"_3@y_Xout_"<<y_ROUND-1<<"_4@y_Xout_"<<y_ROUND-1<<"_5@y_Xout_"<<y_ROUND-1<<"_6@y_Xout_"<<y_ROUND-1<<"_7@y_Xout_"<<y_ROUND-1<<"_8@y_Xout_"<<y_ROUND-1<<"_9@y_Xout_"<<y_ROUND-1<<"_10@y_Xout_"<<y_ROUND-1<<"_11@y_Xout_"<<y_ROUND-1<<"_12@y_Xout_"<<y_ROUND-1<<"_13@y_Xout_"<<y_ROUND-1<<"_14@y_Xout_"<<y_ROUND-1<<"_15 = 0bin00000000000000000000000000000000 ) );"<<endl;
-	
+
+
 	outcvc<<"QUERY(FALSE);"<<endl;
 	outcvc<<"COUNTEREXAMPLE;"<<endl;
 	

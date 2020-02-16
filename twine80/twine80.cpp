@@ -215,7 +215,7 @@ int main(int argc,char * argv[])
 		for(int pos=0;pos<8;pos++)
 		{
 			outcvc<<"RKin_"<<round<<"_"<<RK[pos];
-			if(pos<19)
+			if(pos<7)
 			{
 				outcvc<<" , ";
 			}
