@@ -4,7 +4,7 @@
 #include<time.h>
 
 using namespace std;
-
+/*
 unsigned rol(unsigned val, int size)
 {
   unsigned res = val << size;
@@ -13,7 +13,7 @@ unsigned rol(unsigned val, int size)
   return res;
 }
 
-/*循环右移*/
+//循环右移
 unsigned ror(unsigned val, int size)
 {
   unsigned res = val >> size;
@@ -22,7 +22,7 @@ unsigned ror(unsigned val, int size)
   return res;
 }
 
-/*
+
 //original MC layer matrix
 
 int sbox[16] = {0xc, 0x0, 0xf, 0xa,
