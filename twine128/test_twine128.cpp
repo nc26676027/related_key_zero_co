@@ -163,8 +163,8 @@ int testTK1(void)
 {
     //generate all keys at random
     srand( time(NULL));
-    vector<vector<int>> key1(5 , vector<int>(4, 0));
-    for( int row = 0; row < 5 ; row++)
+    vector<vector<int>> key1(8 , vector<int>(4, 0));
+    for( int row = 0; row < 8 ; row++)
     {
         for( int col = 0; col < 4; col++)
         {
