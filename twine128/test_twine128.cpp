@@ -4,7 +4,7 @@
 #include<time.h>
 
 using namespace std;
-
+/*
 unsigned rol(unsigned val, int size)
 {
   unsigned res = val << size;
@@ -13,7 +13,7 @@ unsigned rol(unsigned val, int size)
   return res;
 }
 
-/*循环右移*/
+//循环右移
 unsigned ror(unsigned val, int size)
 {
   unsigned res = val >> size;
@@ -22,7 +22,7 @@ unsigned ror(unsigned val, int size)
   return res;
 }
 
-/*
+
 //original MC layer matrix
 
 int sbox[16] = {0xc, 0x0, 0xf, 0xa,
@@ -58,7 +58,8 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    vector<int> RK = { 1,  3,  4,  6, 13, 14, 15, 16};
+    int RK[8] = { 2 , 3 , 12 , 15 , 17 , 18 , 28 , 31 };
+
     int index = 0;
     vector<vector<int>> out = in;
     for (int i = 0;i < 4; i++)
@@ -85,10 +86,10 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 //linear layer
 vector<vector<int>> shiftNible(vector<vector<int>> in )
 {
-    vector<int> h = {5,  0,  1,  4,
-                     7, 12,  3,  8,
-                    13,  6,  9,  2,
-                    15, 10, 11, 14};
+    int h[20] = {5,  0,  1,  4,
+                 7, 12,  3,  8,
+                13,  6,  9,  2,
+                15, 10, 11, 14};
 
     vector<vector<int>> out = in;
 
@@ -111,32 +112,44 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    vector<int> rot = {19, 16, 17, 18,  0,
-                        1,  2,  3,  4,  5,
-                        6,  7,  8,  9, 10,
-                        11, 12, 13, 14, 15,};
+    int Rot[32] = 
+            {
+            4  , 5  , 6  , 7  , 
+            8  , 9  , 10 , 11 , 
+            12 , 13 , 14 , 15 , 
+            16 , 17 , 18 , 19 ,
+            20 , 21 , 22 , 23 ,
+            24 , 25 , 26 , 27 ,
+            28 , 29 , 30 , 31 ,
+            1  , 2  , 3  ,  0
+            };
     //permutation
-    vector<vector<int>> rot1(5, vector<int>(4, 0));
-    vector<vector<int>> out(5, vector<int>(4, 0));
-    for ( int i = 0; i < 20; i++)
+    vector<vector<int>> rot(8, vector<int>(4, 0));
+    vector<vector<int>> out(8, vector<int>(4, 0));
+    for ( int i = 0; i < 32; i++)
     {
-        if( i = 1 )
+        if( i == 1 )
         {
-            rot1[0][1] = sbox[ in[0][0] ] ^ in[0][1];
+            rot[0][1] = sbox[ in[0][0] ] ^ in[0][1];
         }
-        else if ( i = 4 )
+        else if ( i == 4 )
         {
-            rot1[1][0] = sbox[ in[4][0] ] ^ in[0][3];
+            rot[1][0] = sbox[ in[4][0] ] ^ in[1][0];
+        }
+        else if ( i == 23 )
+        {
+            rot[5][3] = sbox[ in[7][2] ] ^ in[5][3];
         }
         else
         {
-            rot1[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
+            rot[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
         }
+        
 
     }
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 32; i++)
     {
-        out[ rot[i] / 4][ rot[i] % 4 ] = rot1[ i / 4 ][ i % 4 ];
+        out[ Rot[i] / 4][ Rot[i] % 4 ] = rot[ i / 4 ][ i % 4 ];
     }
 
     return out;
