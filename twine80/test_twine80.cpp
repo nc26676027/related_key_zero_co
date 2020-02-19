@@ -190,7 +190,7 @@ int testTK1(void)
 
                         //encryption
 
-                        for (int r = 0; r < Round ; r++)
+                        for (int r = 0; r < Round - 1 ; r++)
                         {
                             in = subByte (in , tk1);
                             in = shiftNible(in);
@@ -198,6 +198,8 @@ int testTK1(void)
                             tk1 = keySchedule(tk1);
 
                         }
+                        in = subByte (in , tk1);
+
                         counter[in[3][0]]++;
 
                     }

@@ -81,13 +81,13 @@ int return_index(int pos , int matrix[])
 
 
 
+
 string branch(string a,string b)
 {
 	string s = "";
-	s = s+"BVXOR( "+a+" , "+b+" )";
+	s = s+"(IF ("+a+" = 0bin00)AND("+b+" = 0bin00) THEN 0bin00 ELSE (IF (("+a+" = 0bin00)AND("+b+" = 0bin01))OR(("+a+" = 0bin01)AND("+b+" = 0bin00)) THEN 0bin01 ELSE 0bin10 ENDIF ) ENDIF)";
 	return s;
 }
-
 
 int main(int argc,char * argv[])
 {
