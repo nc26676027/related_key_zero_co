@@ -51,6 +51,10 @@ int SR[16] = { 0,  1,  2,  3,
 
 */
 
+
+
+
+
 vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 {
     vector<int> sbox = {0xc, 0x0, 0xf, 0xa,
@@ -105,12 +109,19 @@ vector<vector<int>> shiftNible(vector<vector<int>> in )
 }
 
 //key update
-vector<vector<int>> keySchedule(vector<vector<int>> in )
+vector<vector<int>> keySchedule(vector<vector<int>> in , int round)
 {
     vector<int> sbox = {0xc, 0x0, 0xf, 0xa,
 				        0x2, 0xb, 0x9, 0x5,
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
+
+    vector<int> CON = { 01, 02, 04, 08, 10, 20,
+                        03, 06, 0c, 18, 30, 23,
+                        05, 0a, 14, 28, 13, 26,
+                        0f, 1e, 3c, 3b, 35, 29,
+                        11, 22, 07, 0e, 1c, 38,
+                        33, 25, 09, 12, 24 };
 
     int Rot[20] = {19, 16, 17, 18,  0,
                     1,  2,  3,  4,  5,
@@ -133,6 +144,16 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
         {
             rot[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
         }
+
+        if( i == 7 )
+        {
+            rot[1][3] = rot[1][3] ^ ( 0xf0 & CON[round] );
+        }
+        else if ( i == 19)
+        {
+            rot[4][3] = rot[4][3] ^ ( 0x0f & CON[round] );
+        }
+        
 
     }
     for (int i = 0; i < 20; i++)
@@ -205,10 +226,58 @@ int testTK1(void)
 }
 
 
+int test(plaintext , key_to_set )
+{
+    vector<vector<int>> key(5 , vector<int>(4, 0));
+    vector<vector<int>> text(4 , vector<int>(4, 0));
+    for( int row = 0; row < 5 ; row++)
+    {
+        for( int col = 0; col < 4; col++)
+        {
+            key[row][col] = key_to_set[ row*4 + col];
+        }
+    }   
+    for( int row = 0; row < 4 ; row++)
+    {
+        for( int col = 0; col < 4; col++)
+        {
+            text[row][col] = plaintext[ row*4 + col ];
+        }
+    }  
+
+    for( int round = 0; round < 36) 
+    {
+        text = subByte(text , key);
+        text = shiftNible( text );
+
+        key = keySchedule( key , round );
+
+    } 
+
+    for (int i = 0; i < 16; i++)
+    {
+        printf("  %X  " ,  text[ i / 4 ][ i % 4 ]);
+    }
+    cout << endl;
+
+}
+
+
 int main(void)
 {
     printf("Experimental verification of distinguisher on TK1.\n");
-    testTK1();
+
+    int plain[16] = {0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 
+                     0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf};
+
+    int key[20] = { 0x0, 0x0, 0x1, 0x1, 0x2, 0x2, 0x3, 0x3,
+                    0x4, 0x4, 0x5, 0x5, 0x6, 0x6, 0x7, 0x7,
+                    0x8, 0x8, 0x9, 0x9};
+
+    test(plain , key);
+
+
+
 
 
     return 0;
