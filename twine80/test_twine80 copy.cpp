@@ -116,12 +116,12 @@ vector<vector<int>> keySchedule(vector<vector<int>> in , int round)
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    vector<int> CON = { 01, 02, 04, 08, 10, 20,
-                        03, 06, 0c, 18, 30, 23,
-                        05, 0a, 14, 28, 13, 26,
-                        0f, 1e, 3c, 3b, 35, 29,
-                        11, 22, 07, 0e, 1c, 38,
-                        33, 25, 09, 12, 24 };
+    int CON[35] = { 0x01, 0x02, 0x04, 0x08, 0x10, 0x20,
+                    0x03, 0x06, 0x0c, 0x18, 0x30, 0x23,
+                    0x05, 0x0a, 0x14, 0x28, 0x13, 0x26,
+                    0x0f, 0x1e, 0x3c, 0x3b, 0x35, 0x29,
+                    0x11, 0x22, 0x07, 0x0e, 0x1c, 0x38,
+                    0x33, 0x25, 0x09, 0x12, 0x24 };
 
     int Rot[20] = {19, 16, 17, 18,  0,
                     1,  2,  3,  4,  5,
@@ -153,7 +153,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in , int round)
         {
             rot[4][3] = rot[4][3] ^ ( 0x0f & CON[round] );
         }
-        
+
 
     }
     for (int i = 0; i < 20; i++)
@@ -167,7 +167,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in , int round)
 
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
-
+/*
 int testTK1(void)
 {
     //generate all keys at random
@@ -215,7 +215,7 @@ int testTK1(void)
             counter[in[2][0]]++;
 
 
-            
+
         }
     }
     for (int i = 0; i < 16; i++)
@@ -224,9 +224,9 @@ int testTK1(void)
     }
     cout << endl;
 }
+*/
 
-
-int test(plaintext , key_to_set )
+int test(int plaintext[] , int key_to_set[] )
 {
     vector<vector<int>> key(5 , vector<int>(4, 0));
     vector<vector<int>> text(4 , vector<int>(4, 0));
@@ -236,23 +236,24 @@ int test(plaintext , key_to_set )
         {
             key[row][col] = key_to_set[ row*4 + col];
         }
-    }   
+    }
     for( int row = 0; row < 4 ; row++)
     {
         for( int col = 0; col < 4; col++)
         {
             text[row][col] = plaintext[ row*4 + col ];
         }
-    }  
+    }
 
-    for( int round = 0; round < 36) 
+    for( int round = 0; round < 36 ; round++)
     {
         text = subByte(text , key);
         text = shiftNible( text );
-
-        key = keySchedule( key , round );
-
-    } 
+        if( round < 35)
+        {
+            key = keySchedule( key , round );
+        }
+    }
 
     for (int i = 0; i < 16; i++)
     {
@@ -267,7 +268,7 @@ int main(void)
 {
     printf("Experimental verification of distinguisher on TK1.\n");
 
-    int plain[16] = {0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 
+    int plain[16] = {0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7,
                      0x8, 0x9, 0xa, 0xb, 0xc, 0xd, 0xe, 0xf};
 
     int key[20] = { 0x0, 0x0, 0x1, 0x1, 0x2, 0x2, 0x3, 0x3,
