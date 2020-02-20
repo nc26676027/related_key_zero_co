@@ -58,17 +58,17 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int RK[8] = { 1,  3,  4,  6, 13, 14, 15, 16 };
+    int RK[8] = { 1,  3};
 
     int index = 0;
     vector<vector<int>> out = in;
-    for (int i = 0;i < 4; i++)
+    for (int i = 0;i < 2; i++)
     {
-        for( int j = 0; j < 4; j++)
+        for( int j = 0; j < 2; j++)
         {
             if( (j % 2) == 1 )
             {
-               out[i][j] = in[i][j-1] ^ rk[ RK[index]/4 ][ RK[index]%4 ] ^ in[i][j];
+               out[i][j] = in[i][j-1] ^ rk[ RK[index]/2 ][ RK[index]%2 ] ^ in[i][j];
                index ++;
             }
             else
@@ -86,16 +86,13 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 //linear layer
 vector<vector<int>> shiftNible(vector<vector<int>> in )
 {
-    int h[16] = {5,  0,  1,  4,
-                 7, 12,  3,  8,
-                13,  6,  9,  2,
-                15, 10, 11, 14};
+    int h[4] = {3, 0, 1, 2};
 
     vector<vector<int>> out = in;
 
-    for (int i = 0;i < 16; i++)
+    for (int i = 0;i < 4; i++)
     {
-        out[ h[i] / 4 ][ h[i] % 4 ] = in[i/4][i%4];
+        out[ h[i] / 2 ][ h[i] % 2 ] = in[i/2][i%2];
     }
 
     return out;

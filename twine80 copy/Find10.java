@@ -19,7 +19,7 @@ public class Find10 {
                      String result="";
 
 
-                             for(int fileno=0;fileno<16;fileno++)
+                             for(int fileno=0;fileno<4;fileno++)
                             {
                                 str=("/home/niuchao/new_mode_search20200203/twine80 copy/key_state"+args[0]+"/head_state10/twine"+fileno+".cvc");
                                 command_run[1]=str;
