@@ -9,8 +9,7 @@ using namespace std;
 unsigned ror(unsigned val, int size)
 {
   unsigned res = val >> size;
-  res |= val << (4 - size);
-  res &= 0x0000000f;
+
   return res;
 }
 
@@ -109,7 +108,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in , int round)
 
         if( i == 7 )
         {
-            rot[1][3] = rot[1][3] ^ ( ( 0x000000f0 & CON[round] ) >> 4 );
+            rot[1][3] = rot[1][3] ^ ( ror( ( 0x000000f0 & CON[round] ) , 4 ) );
         }
         else if ( i == 19)
         {
