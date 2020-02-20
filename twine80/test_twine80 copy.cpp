@@ -137,19 +137,19 @@ int test(int plaintext[] , int key_to_set[] )
         }
     }
 
-    for( int round = 0; round < 36 ; round++)
+    for( int round = 0; round < 35 ; round++)
     {
         text = subByte(text , key);
         text = shiftNible( text );
-        if( round < 35)
-        {
-            key = keySchedule( key , round );
-        }
+
+        key = keySchedule( key , round );
     }
+    text = subByte(text , key);
+
 
     for (int i = 0; i < 16; i++)
     {
-        printf("  %d  " ,  text[ i / 4 ][ i % 4 ]);
+        printf("  %x  " ,  text[ i / 4 ][ i % 4 ]);
     }
     cout << endl;
 
