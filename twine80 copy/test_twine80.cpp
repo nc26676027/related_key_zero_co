@@ -106,32 +106,25 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int Rot[20] = {19, 16, 17, 18,  0,
-                    1,  2,  3,  4,  5,
-                    6,  7,  8,  9, 10,
-                   11, 12, 13, 14, 15};
+    int Rot[5] = {4, 0, 1, 2, 3};
     //permutation
-    vector<vector<int>> rot(5, vector<int>(4, 0));
-    vector<vector<int>> out(5, vector<int>(4, 0));
-    for ( int i = 0; i < 20; i++)
+    vector<vector<int>> rot(3, vector<int>(2, 0));
+    vector<vector<int>> out(3, vector<int>(2, 0));
+    for ( int i = 0; i < 5; i++)
     {
         if( i == 1 )
         {
             rot[0][1] = sbox[ in[0][0] ] ^ in[0][1];
         }
-        else if ( i == 4 )
-        {
-            rot[1][0] = sbox[ in[4][0] ] ^ in[1][0];
-        }
         else
         {
-            rot[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
+            rot[ i / 2 ][ i % 2 ] = in[ i / 2 ][ i % 2 ];
         }
 
     }
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 5; i++)
     {
-        out[ Rot[i] / 4][ Rot[i] % 4 ] = rot[ i / 4 ][ i % 4 ];
+        out[ Rot[i] / 2][ Rot[i] % 2 ] = rot[ i / 2 ][ i % 2 ];
     }
 
     return out;
@@ -145,10 +138,10 @@ int testTK1(void)
 {
     //generate all keys at random
     srand( time(NULL));
-    vector<vector<int>> key1(5 , vector<int>(4, 0));
-    for( int row = 0; row < 5 ; row++)
+    vector<vector<int>> key1(3 , vector<int>(2, 0));
+    for( int row = 0; row < 3 ; row++)
     {
-        for( int col = 0; col < 4; col++)
+        for( int col = 0; col < 2; col++)
         {
             key1[row][col] = rand() & 0xF;
         }
@@ -164,7 +157,7 @@ int testTK1(void)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
-            vector<vector<int>> in(4, vector<int>(4, 0));
+            vector<vector<int>> in(2, vector<int>(2, 0));
             vector<vector<int>> tk1 = key1;
 
 
