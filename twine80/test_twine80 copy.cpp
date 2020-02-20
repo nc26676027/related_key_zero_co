@@ -108,11 +108,11 @@ vector<vector<int>> keySchedule(vector<vector<int>> in , int round)
 
         if( i == 7 )
         {
-            rot[1][3] = rot[1][3] ^ ( ror( ( 0x000000f0 & CON[round] ) , 4 ) );
+            rot[1][3] = rot[1][3] ^ ( ror( ( 0x00000038 & CON[round] ) , 3 ) );
         }
         else if ( i == 19)
         {
-            rot[4][3] = rot[4][3] ^ (0x0000000f & CON[round]) ;
+            rot[4][3] = rot[4][3] ^ (0x00000007 & CON[round]) ;
         }
 
 
