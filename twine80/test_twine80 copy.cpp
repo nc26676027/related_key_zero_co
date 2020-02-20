@@ -105,18 +105,10 @@ vector<vector<int>> keySchedule(vector<vector<int>> in , int round)
         {
             rot[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
         }
-
-        if( i == 7 )
-        {
-            rot[1][3] = rot[1][3] ^ ( (0x00000038 & CON[round]) >> 3 );
-        }
-        else if ( i == 19)
-        {
-            rot[4][3] = rot[4][3] ^ (0x00000007 & CON[round]) ;
-        }
-
-
     }
+    rot[1][3] = rot[1][3] ^ ( (0x00000038 & CON[round]) >> 3 );
+    rot[4][3] = rot[4][3] ^ (0x00000007 & CON[round]) ;
+
     for (int i = 0; i < 20; i++)
     {
         out[ Rot[i] / 4][ Rot[i] % 4 ] = rot[ i / 4 ][ i % 4 ];
