@@ -21,7 +21,7 @@ public class Find8 {
 
                              for(int fileno=0;fileno<16;fileno++)
                             {
-                                str=("/home/niuchao/new_mode_search20200203/twine80/key_state"+args[0]+"/head_state8/twine"+fileno+".cvc");
+                                str=("/home/niuchao/new_mode_search20200203/twine80 copy/key_state"+args[0]+"/head_state8/twine"+fileno+".cvc");
                                 command_run[1]=str;
                                 process=Runtime.getRuntime().exec(command_run);
                                 isr=new InputStreamReader(process.getInputStream());
