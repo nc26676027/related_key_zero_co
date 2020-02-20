@@ -26,7 +26,7 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
     int RK[8] = { 1,  3,  4,  6, 13, 14, 15, 16 };
 
     int index = 0;
-    vector<vector<int>> out = in;
+    vector<vector<int>> out(4, vector<int>(4, 0));;
     for (int i = 0;i < 4; i++)
     {
         for( int j = 0; j < 4; j++)
@@ -34,7 +34,7 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
             if( (j % 2) == 1 )
             {
                out[i][j] = sbox[ in[i][j-1] ^ rk[ RK[index]/4 ][ RK[index]%4 ] ] ^ in[i][j];
-               index += 1;
+               index ++;
             }
             else
             {
@@ -149,7 +149,7 @@ int test(int plaintext[] , int key_to_set[] )
 
     for (int i = 0; i < 16; i++)
     {
-        printf("  %X  " ,  text[ i / 4 ][ i % 4 ]);
+        printf("  %d  " ,  text[ i / 4 ][ i % 4 ]);
     }
     cout << endl;
 
