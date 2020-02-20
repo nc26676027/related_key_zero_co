@@ -86,19 +86,16 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 //linear layer
 vector<vector<int>> shiftNible(vector<vector<int>> in )
 {
-    int h[20] = {5,  0,  1,  4,
+    int h[16] = {5,  0,  1,  4,
                  7, 12,  3,  8,
                 13,  6,  9,  2,
                 15, 10, 11, 14};
 
     vector<vector<int>> out = in;
 
-    for (int i = 0;i < 4; i++)
+    for (int i = 0;i < 16; i++)
     {
-        for( int j = 0; j < 4; j++)
-        {
-            out[ h[4*i+j] / 4 ][ h[4*i+j] % 4 ] = in[i][j];
-        }
+        out[ h[i] / 4 ][ h[i] % 4 ] = in[i/4][i%4];
     }
 
     return out;
@@ -115,7 +112,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
     int Rot[20] = {19, 16, 17, 18,  0,
                     1,  2,  3,  4,  5,
                     6,  7,  8,  9, 10,
-                   11, 12, 13, 14, 15,};
+                   11, 12, 13, 14, 15};
     //permutation
     vector<vector<int>> rot(5, vector<int>(4, 0));
     vector<vector<int>> out(5, vector<int>(4, 0));
