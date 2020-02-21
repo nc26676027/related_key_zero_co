@@ -241,7 +241,7 @@ int testTK1(void)
                                         }
                                         in = subByte (in , tk1);
 
-                                        XOR = XOR ^ ( K[0][0] & alpha2[0][0] ) ^ ( K[0][1] & alpha2[0][1] ) ^ ( K[1][0] & alpha2[1][0] ) ^ ( K[2][0] & alpha2[2][0] );
+                                        XOR = XOR ^ ( K[0][0] & alpha2[0][0] ) ^ ( K[0][1] & alpha2[0][1] ) ^ ( K[1][0] & alpha2[1][0] ) ^ ( K[1][1] & alpha2[1][1] ) ^ ( K[2][0] & alpha2[2][0] );
                                         for( int i = 0; i < 2; i++)
                                         {
                                             for( int j =0; j < 2; j++)
