@@ -267,10 +267,9 @@ int testTK1(void)
         }
     }
 
-    for (int i = 0; i < 16; i++)
-    {
-        printf("    %X : XOR's value", XOR );
-    }
+
+    printf("    %X : XOR's value", XOR );
+
     cout << endl;
 }
 
