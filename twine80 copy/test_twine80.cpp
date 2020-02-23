@@ -122,7 +122,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 0 )
+            if( (row*2+col) == 2 )
             {
                 alpha1[row][col] = rand() & 0xF;
             }
@@ -138,7 +138,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 0 )
+            if( (row*2+col) == 1 )
             {
                 alpha2[row][col] = 0x0;
             }
@@ -154,7 +154,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 2 )
+            if( (row*2+col) == 0 )
             {
                 beta[row][col] = rand() & 0xF;
             }
