@@ -84,11 +84,11 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int Rot[5] = { 1, 2, 3, 0 };
+    int Rot[4] = { 1, 2, 3, 0 };
     //permutation
     vector<vector<int>> rot(2, vector<int>(2, 0));
     vector<vector<int>> out(2, vector<int>(2, 0));
-    for ( int i = 0; i < 2; i++)
+    for ( int i = 0; i < 4; i++)
     {
         if( i == 1 )
         {
