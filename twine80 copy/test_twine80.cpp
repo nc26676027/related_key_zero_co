@@ -258,9 +258,9 @@ int testTK1(void)
     }
 
 
-    printf("N:%d\n", N );
-    printf("counter:%d\n", counter);
-    printf("result = %d\n", N/counter);
+    printf("N:%lu\n", N );
+    printf("counter:%lu\n", counter);
+    printf("result = %lu\n", N/counter);
 
     cout << endl;
 }
