@@ -2,7 +2,7 @@
 #include<iostream>
 #include<vector>
 #include<time.h>
-#include<cmath.h>
+#include<cmath>
 
 using namespace std;
 
@@ -15,7 +15,7 @@ bool get_xored(unsigned int in)
     while (v)
     {
         count += (v % 2);
-        v = v / 2; 
+        v = v / 2;
     }
     if( (count % 2)  == 0 )
     {
@@ -24,7 +24,7 @@ bool get_xored(unsigned int in)
     else
     {
         return 1;
-    }    
+    }
 }
 
 
@@ -129,8 +129,8 @@ int testTK1(void)
             else
             {
                 alpha1[row][col] = 0x0;
-            }   
-            
+            }
+
         }
     }
     vector<vector<int>> alpha2(1 , vector<int>(2, 0));
@@ -145,8 +145,8 @@ int testTK1(void)
             else
             {
                 alpha2[row][col] = rand() & 0xF;
-            }   
-            
+            }
+
         }
     }
     vector<vector<int>> beta(2 , vector<int>(2, 0));
@@ -161,8 +161,8 @@ int testTK1(void)
             else
             {
                 beta[row][col] = 0x0;
-            }   
-            
+            }
+
         }
     }
 
@@ -178,7 +178,7 @@ int testTK1(void)
     for ( int i1 = 0; i1 < 16; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
-        {   
+        {
             for ( int i3 = 0; i3 < 16; i3++)
             {
                 for ( int i4 = 0; i4 < 16; i4++)
@@ -198,7 +198,7 @@ int testTK1(void)
                             tk1[0][0] = i5;
                             tk1[0][1] = i6;
 
-                            
+
                             vector<vector<int>> K = tk1;
                             vector<vector<int>> P = in;
 
@@ -218,17 +218,17 @@ int testTK1(void)
                             {
                                 for( int j =0; j < 2; j++)
                                 {
-                                    XOR = XOR ^ ( P[i][j] & alpha1[i][j] ); 
+                                    XOR = XOR ^ ( P[i][j] & alpha1[i][j] );
                                 }
                             }
                             for( int i = 0; i < 2; i++)
                             {
                                 for( int j =0; j < 2; j++)
                                 {
-                                    XOR = XOR ^ ( in[i][j] & beta[i][j] ); 
+                                    XOR = XOR ^ ( in[i][j] & beta[i][j] );
                                 }
-                            } 
-                            
+                            }
+
                             bool judge = get_xored(XOR);
                             if( ! judge )
                             {
@@ -237,7 +237,7 @@ int testTK1(void)
                         }
                     }
                 }
-            }             
+            }
         }
     }
 
