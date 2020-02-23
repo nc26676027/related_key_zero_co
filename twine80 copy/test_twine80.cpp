@@ -124,7 +124,7 @@ int testTK1(void)
         {
             if( (row*2+col) == 2 )
             {
-                alpha1[row][col] = rand() & 0xF;
+                alpha1[row][col] = 0x8;
             }
             else
             {
@@ -144,7 +144,7 @@ int testTK1(void)
             }
             else
             {
-                alpha2[row][col] = rand() & 0xF;
+                alpha2[row][col] = 0x8;
             }
 
         }
@@ -156,7 +156,7 @@ int testTK1(void)
         {
             if( (row*2+col) == 0 )
             {
-                beta[row][col] = rand() & 0xF;
+                beta[row][col] = 0x8;
             }
             else
             {
@@ -175,7 +175,7 @@ int testTK1(void)
     unsigned long int N = pow(2 , (4*8));
     unsigned long int counter = 0;
 
-    for ( int i1 = 0; i1 < 16; i1++)
+    for ( int i1 = 0; i1 < 2; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
