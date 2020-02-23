@@ -1,5 +1,5 @@
 #!/bin/bash
-for ((i=0;i<5;i++));
+for ((i=0;i<2;i++));
 do
 	mkdir key_state$i
 	cd key_state$i
