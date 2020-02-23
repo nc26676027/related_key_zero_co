@@ -258,9 +258,9 @@ int testTK1(void)
     }
 
 
-    printf("N:%x\n", N );
-    printf("counter:%x\n", counter);
-    printf("result = %x\n", N/counter);
+    printf("N:%d\n", N );
+    printf("counter:%d\n", counter);
+    printf("result = %d\n", N/counter);
 
     cout << endl;
 }
