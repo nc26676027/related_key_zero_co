@@ -187,8 +187,7 @@ int testTK1(void)
                     {
                         for ( int i6 = 0; i6 < 16; i6++)
                         {
-                            for ( int i7 = 0; i7 < 16; i7++)
-                            {
+
 
                                     vector<vector<int>> in(2, vector<int>(2, 0));
                                     vector<vector<int>> tk1(2, vector<int>(2, 0));
@@ -199,7 +198,7 @@ int testTK1(void)
                                     in[1][1] = i4;
                                     tk1[0][0] = i5;
                                     tk1[0][1] = i6;
-                                    tk1[1][0] = i7;
+
 
 
 
@@ -248,7 +247,7 @@ int testTK1(void)
                                         counter++;
                                     }
 
-                            }
+
                         }
                     }
                 }
