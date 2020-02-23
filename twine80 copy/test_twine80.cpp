@@ -36,7 +36,7 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int RK[2] = { 0, 1 };
+    int RK[2] = { 0, 2 };
 
     int index = 0;
     vector<vector<int>> out = in;
@@ -84,10 +84,10 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int Rot[5] = { 1, 0 };
+    int Rot[5] = { 1, 2, 3, 0 };
     //permutation
-    vector<vector<int>> rot(1, vector<int>(2, 0));
-    vector<vector<int>> out(1, vector<int>(2, 0));
+    vector<vector<int>> rot(2, vector<int>(2, 0));
+    vector<vector<int>> out(2, vector<int>(2, 0));
     for ( int i = 0; i < 2; i++)
     {
         if( i == 1 )
