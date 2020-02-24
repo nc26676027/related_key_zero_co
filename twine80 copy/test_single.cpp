@@ -100,7 +100,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
         }
 
     }
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 4; i++)
     {
         out[ Rot[i] / 2][ Rot[i] % 2 ] = rot[ i / 2 ][ i % 2 ];
     }
@@ -117,12 +117,22 @@ int testTK1(void)
     //generate all keys at random
     srand( time(NULL));
 
+    vector<vector<int>> key1(3 , vector<int>(2, 0));
+    for( int row = 0; row < 3 ; row++)
+    {
+        for( int col = 0; col < 2; col++)
+        {
+            key1[row][col] = rand() & 0xF;
+        }
+    }
+
+
     vector<vector<int>> alpha1(2 , vector<int>(2, 0));
     for( int row = 0; row < 2 ; row++)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 3 )
+            if( (row*2+col) == 2 )
             {
                 alpha1[row][col] = 0xf & rand();
             }
@@ -154,7 +164,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 1 )
+            if( (row*2+col) == 0 )
             {
                 beta[row][col] = 0xf & rand();
             }

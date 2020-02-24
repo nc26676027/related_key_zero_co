@@ -100,7 +100,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
         }
 
     }
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < 4; i++)
     {
         out[ Rot[i] / 2][ Rot[i] % 2 ] = rot[ i / 2 ][ i % 2 ];
     }
