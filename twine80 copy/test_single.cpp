@@ -195,7 +195,7 @@ int testTK1(void)
                 {
 
                     vector<vector<int>> in(2, vector<int>(2, 0));
-                    vector<vector<int>> tk1(2, vector<int>(2, 0));
+                    vector<vector<int>> tk1 = key1;
 
                     in[0][0] = i1;
                     in[0][1] = i2;
