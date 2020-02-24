@@ -120,11 +120,11 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
     {
         if( i == 1 )
         {
-            rot[0][1] = [ in[0][0] ] ^ in[0][1];
+            rot[0][1] =  in[0][0] ^ in[0][1];
         }
         else if ( i == 4 )
         {
-            rot[1][0] = [ in[4][0] ] ^ in[1][0];
+            rot[1][0] = in[4][0] ^ in[1][0];
         }
         else
         {
