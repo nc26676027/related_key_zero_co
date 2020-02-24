@@ -177,7 +177,7 @@ int testTK1(void)
     }
 
 
-    int x_Rounds = 5;
+    int x_Rounds = 6;
     int y_Rounds = 5;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
