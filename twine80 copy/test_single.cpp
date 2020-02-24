@@ -122,7 +122,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 1 )
+            if( (row*2+col) == 2 )
             {
                 alpha1[row][col] = 0xf & rand();
             }
@@ -154,7 +154,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 0 )
+            if( (row*2+col) == 2 )
             {
                 beta[row][col] = 0xf & rand();
             }
@@ -168,11 +168,11 @@ int testTK1(void)
 
 
     int x_Rounds = 5;
-    int y_Rounds = 5;
+    int y_Rounds = 4;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
 
-    unsigned long int N = pow(2 , (4*8));
+    unsigned long int N = pow(2 , (4*4));
     unsigned long int counter = 0;
 
     for ( int i1 = 0; i1 < 16; i1++)
