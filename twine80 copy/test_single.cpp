@@ -117,8 +117,8 @@ int testTK1(void)
     //generate all keys at random
     srand( time(NULL));
 
-    vector<vector<int>> key1(3 , vector<int>(2, 0));
-    for( int row = 0; row < 3 ; row++)
+    vector<vector<int>> key1(2 , vector<int>(2, 0));
+    for( int row = 0; row < 2 ; row++)
     {
         for( int col = 0; col < 2; col++)
         {
