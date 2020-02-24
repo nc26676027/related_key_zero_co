@@ -27,9 +27,9 @@ int h[4] = { 3, 0, 1, 2};
 
 int h_inv[4] = {1, 2, 3, 0};
 
-int rot[4] = { 1, 2, 3, 0 };
+int rot[4] = { 1, 2, 3, 4, 0 };
 
-int RK[2] = { 0, 2};
+int RK[2] = { 0, 4};
 
 int sbox[16] = {0xc, 0x0, 0xf, 0xa,
 				0x2, 0xb, 0x9, 0x5,
@@ -187,14 +187,14 @@ int main(int argc,char * argv[])
 	{
 		//key schedule variable claim
 		
-		for(int pos=0;pos<4;pos++)
+		for(int pos=0;pos<5;pos++)
 		{
 			if(round == 0)
 			{
 				outcvc<<"MK_0_"<<pos<<" : BITVECTOR(4);"<<endl;
 			}
 			outcvc<<"Kin_"<<round<<"_"<<pos<<" , Rotin_"<<round<<"_"<<pos<<" , Kout_"<<round<<"_"<<pos;
-			if(pos<3)
+			if(pos<4)
 			{
 				outcvc<<" , ";
 			}
@@ -288,7 +288,7 @@ int main(int argc,char * argv[])
 	{
 		int i = 0;
 		int j = 0;
-		for(int pos=0;pos<4;pos++)
+		for(int pos=0;pos<5;pos++)
 		{	
 			outcvc<<"ASSERT( Kout_"<<round<<"_"<<rot[pos]<<" = Rotin_"<<round<<"_"<<pos<<" );"<<endl;
 			
@@ -342,7 +342,7 @@ int main(int argc,char * argv[])
 
 
 	//assert active state
-	for(int pos=0;pos<4;pos++)
+	for(int pos=0;pos<5;pos++)
 	{
 		if(pos<4)
 		{
@@ -364,7 +364,7 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
-		if( pos < 4 )
+		if( pos < 5 )
 		{
 			if(pos == key_flag)
 			{
