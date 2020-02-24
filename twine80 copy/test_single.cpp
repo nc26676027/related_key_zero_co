@@ -122,7 +122,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 2 )
+            if( (row*2+col) == 0 )
             {
                 alpha1[row][col] = 0xf & rand();
             }
