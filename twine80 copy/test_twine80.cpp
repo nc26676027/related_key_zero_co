@@ -122,7 +122,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 2 )
+            if( ( (row*2+col) == 0 ) || ( (row*2+col) ==3 ) )
             {
                 alpha1[row][col] = 0x8;
             }
@@ -138,7 +138,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 1 )
+            if( (row*2+col) == 3 )
             {
                 alpha2[row][col] = 0x0;
             }
@@ -167,7 +167,7 @@ int testTK1(void)
     }
 
 
-    int x_Rounds = 5;
+    int x_Rounds = 3;
     int y_Rounds = 5;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
