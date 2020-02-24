@@ -164,7 +164,7 @@ int testTK1(void)
     {
         for( int col = 0; col < 2; col++)
         {
-            if( (row*2+col) == 0 )
+            if( (row*2+col) == 1 )
             {
                 beta[row][col] = 0xf & rand();
             }
