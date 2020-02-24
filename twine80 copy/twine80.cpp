@@ -27,9 +27,9 @@ int h[4] = { 3, 0, 1, 2};
 
 int h_inv[4] = {1, 2, 3, 0};
 
-int rot[5] = { 1, 2, 3, 4, 0 };
+int rot[5] = { 3, 1, 4, 2, 0 };
 
-int RK[2] = { 0, 2};
+int RK[2] = { 0, 3};
 
 int sbox[16] = {0xc, 0x0, 0xf, 0xa,
 				0x2, 0xb, 0x9, 0x5,
@@ -73,8 +73,8 @@ int main(int argc,char * argv[])
 	
 	//program main
 	ofstream outcvc;
-    int x_ROUND = 5;
-	int y_ROUND = 4;
+    int x_ROUND = 6;
+	int y_ROUND = 5;
 	int ROUND = x_ROUND+y_ROUND;
 
 
