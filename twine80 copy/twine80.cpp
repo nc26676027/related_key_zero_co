@@ -29,7 +29,7 @@ int h_inv[4] = {1, 2, 3, 0};
 
 int rot[5] = { 4, 0, 1, 2, 3 };
 
-int RK[2] = { 0, 3};
+int RK[2] = { 0, 2};
 
 int sbox[16] = {0xc, 0x0, 0xf, 0xa,
 				0x2, 0xb, 0x9, 0x5,
