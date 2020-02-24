@@ -68,7 +68,7 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
         {
             if( (j % 2) == 1 )
             {
-               out[i][j] = in[i][j-1] ^ rk[ RK[index]/4 ][ RK[index]%4 ] ^ in[i][j];
+               out[i][j] = sbox[ in[i][j-1] ^ rk[ RK[index]/4 ][ RK[index]%4 ] ] ^ in[i][j];
                index ++;
             }
             else
