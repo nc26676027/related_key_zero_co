@@ -139,22 +139,23 @@ int testTK1(void)
 
     for ( int i1 = 0; i1 < 16; i1++)
     {
-        printf("line %d :  " , i1);
 
         for ( int i2 = 0; i2 < 16; i2++)
         {
             int x = i1;
             int y = i2;
             int z = y ^ sbox[x];
-
-            printf( "%x  " , z);
+            counter[z] ++;
                 
               
             
         }
-        printf("\n");
     }
 
+    for (int i = 0; i < 16; i++)
+    {
+        printf("    %X : frequency of apprearance = %5d, mod 2 = %d \n", i , counter[i] , counter[i] % 2);
+    }
 
     cout << endl;
 }
