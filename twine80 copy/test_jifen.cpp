@@ -127,7 +127,7 @@ int testTK1(void)
     }
 
 
-    int x_Rounds = 5;
+    int x_Rounds = 4;
     int y_Rounds = 5;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
@@ -149,10 +149,10 @@ int testTK1(void)
                     vector<vector<int>> tk1 = key1;
 
                     in[0][0] = i1;
-                    in[0][1] = i2;
+                    in[1][0] = i2;
                     in[1][1] = i3;
 
-                    tk1[0][1] = i4;
+                    tk1[1][0] = i4;
 
                     //encryption
                     for (int r = 0; r < Round - 1 ; r++)
