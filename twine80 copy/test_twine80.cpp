@@ -127,7 +127,7 @@ int testTK1(int argc,char * argv[])
 	}
 	else
     {
-        origin = atoi(argv[1]);
+        origin = 2 * atoi(argv[1]);
     }
     printf("begin num = %d  ",origin );
 	
