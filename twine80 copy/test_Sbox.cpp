@@ -139,13 +139,15 @@ int testTK1(void)
 
     for ( int i1 = 0; i1 < 16; i1++)
     {
+        printf("line %d :  " , i1);
+
         for ( int i2 = 0; i2 < 16; i2++)
         {
             int x = i1;
             int y = i2;
             int z = y ^ sbox[x];
 
-            printf("line %d : %x  " , i1 , z);
+            printf( "%x  " , z);
                 
               
             
