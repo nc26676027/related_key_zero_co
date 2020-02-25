@@ -112,24 +112,8 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK1(int argc,char * argv[])
+int testTK1( int num )
 {
-
-    //input canshu
-	int origin;
-
-	printf("input %d parameter \n" , argc);
-
-	if(argc!=2)
-	{
-		printf("parameter number error!!");
-		exit(0);
-	}
-	else
-    {
-        origin = 2 * atoi(argv[1]);
-    }
-    printf("begin num = %d  ",origin );
 	
 
 
@@ -194,7 +178,7 @@ int testTK1(int argc,char * argv[])
     unsigned long int N = pow(2 , (4*8));
     unsigned long int counter = 0;
 
-    for ( int i1 = origin; i1 < origin+2; i1++)
+    for ( int i1 = num; i1 < num+2; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
@@ -285,10 +269,30 @@ int testTK1(int argc,char * argv[])
 }
 
 
-int main(void)
+int main(int argc,char * argv[])
 {
     printf("Experimental verification of distinguisher on TK1.\n");
-    testTK1();
+    
+
+    //input canshu
+	int origin;
+
+	printf("input %d parameter \n" , argc);
+
+	if(argc!=2)
+	{
+		printf("parameter number error!!");
+		exit(0);
+	}
+	else
+    {
+        origin = 2* atoi(argv[1]);
+    }
+    printf("begin num = %d  ",origin );
+
+
+
+    testTK1(origin);
 
 
     return 0;
