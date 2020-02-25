@@ -112,8 +112,27 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK1(void)
+int testTK1(int argc,char * argv[])
 {
+
+    //input canshu
+	int origin;
+
+	printf("input %d parameter \n" , argc);
+
+	if(argc!=2)
+	{
+		printf("parameter number error!!");
+		exit(0);
+	}
+	else
+    {
+        origin = atoi(argv[1]);
+    }
+    printf("begin num = %d  ",origin );
+	
+
+
     //generate all keys at random
     srand( time(NULL));
 
@@ -124,7 +143,7 @@ int testTK1(void)
         {
             if( ( (row*2+col) == 0 ) || ( (row*2+col) ==3 ) )
             {
-                alpha1[row][col] = 0x8;
+                alpha1[row][col] = 0x3;
             }
             else
             {
@@ -156,7 +175,7 @@ int testTK1(void)
         {
             if( (row*2+col) == 0 )
             {
-                beta[row][col] = 0x8;
+                beta[row][col] = 0xa;
             }
             else
             {
@@ -175,7 +194,7 @@ int testTK1(void)
     unsigned long int N = pow(2 , (4*8));
     unsigned long int counter = 0;
 
-    for ( int i1 = 0; i1 < 2; i1++)
+    for ( int i1 = origin; i1 < origin+2; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
