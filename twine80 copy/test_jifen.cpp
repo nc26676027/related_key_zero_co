@@ -131,6 +131,7 @@ int testTK1(void)
     int y_Rounds = 5;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
+    vector<vector<int>> in(2, vector<int>(2, 0));
 
     vector<int> counter(16 , 0);
 
