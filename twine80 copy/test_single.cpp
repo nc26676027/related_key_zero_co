@@ -134,7 +134,7 @@ int testTK1(void)
         {
             if( (row*2+col) == 2 )
             {
-                alpha1[row][col] = 0xf & rand();
+                alpha1[row][col] = 0xf ;
             }
             else
             {
