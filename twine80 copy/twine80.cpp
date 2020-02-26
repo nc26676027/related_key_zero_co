@@ -349,7 +349,7 @@ int main(int argc,char * argv[])
 		{
 			if( (pos == head_flag) || (pos == head_flag+3) )
 			{
-				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0111 ) );"<<endl;
+				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0111  );"<<endl;
 			}
 			else
 			{
