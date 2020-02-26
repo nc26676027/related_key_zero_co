@@ -134,7 +134,7 @@ int testTK1(void)
         {
             if( ((row*2+col) == 0) || ((row*2+col) == 3) )
             {
-                alpha1[row][col] = 0xa  ;
+                alpha1[row][col] = 0xf;
             }
             else
             {
@@ -227,7 +227,7 @@ int testTK1(void)
                             XOR = XOR ^ ( K[i][j] & alpha2[i][j] );
                         }
                     }
-                    
+
                     for( int i = 0; i < 2; i++)
                     {
                         for( int j =0; j < 2; j++)
