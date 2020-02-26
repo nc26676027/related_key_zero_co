@@ -147,7 +147,7 @@ int testTK1( int num )
             }
             else if((row*2+col) == 0)
             {
-                alpha2[row][col] = 0xa;
+                alpha2[row][col] = 0x6;
             }
             else if((row*2+col) == 1)
             {
@@ -155,7 +155,7 @@ int testTK1( int num )
             }
             else if((row*2+col) == 2)
             {
-                alpha2[row][col] = 0x5;
+                alpha2[row][col] = 0xc;
             }             
 
         }
