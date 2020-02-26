@@ -186,7 +186,7 @@ int testTK1( int num )
     unsigned long int N = pow(2 , (4*8));
     unsigned long int counter = 0;
 
-    for ( int i1 = num; i1 < num+2; i1++)
+    for ( int i1 = num; i1 < num+1; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
@@ -294,7 +294,7 @@ int main(int argc,char * argv[])
 	}
 	else
     {
-        origin = 2* atoi(argv[1]);
+        origin = atoi(argv[1]);
     }
     printf("begin num = %d  ",origin );
 
