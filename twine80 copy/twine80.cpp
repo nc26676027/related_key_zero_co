@@ -344,6 +344,7 @@ int main(int argc,char * argv[])
 	//assert active state
 	for(int pos=0;pos<4;pos++)
 	{
+
 		if(pos<4)
 		{
 			if( (pos == head_flag) || (pos == head_flag+3) )
@@ -379,8 +380,14 @@ int main(int argc,char * argv[])
 
 
 	}
+	outcvc<<"ASSERT( MK_0_0"<<" = MK_0_1 );"<<endl;
+	outcvc<<"ASSERT( MK_0_1"<<" = MK_0_2 );"<<endl;
 
 
+
+
+	
+	
 	outcvc<<"QUERY(FALSE);"<<endl;
 	outcvc<<"COUNTEREXAMPLE;"<<endl;
 	
