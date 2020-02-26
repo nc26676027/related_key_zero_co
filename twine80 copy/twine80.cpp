@@ -371,6 +371,20 @@ int main(int argc,char * argv[])
 			{
 				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
+			else if(pos == 0)
+			{
+				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0001 );"<<endl;
+			}
+			else if(pos == 1)
+			{
+				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0110 );"<<endl;
+
+			}
+			else if(pos == 2)
+			{
+				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin1010 );"<<endl;
+
+			}
 
 			
 
