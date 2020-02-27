@@ -351,10 +351,16 @@ int main(int argc,char * argv[])
 		}
 		if( pos < 4 )
 		{
-			if(pos == 3)
+			if( pos == key_flag )
 			{
 				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
+			else if( pos == 2 )
+			{
+				outcvc<<"ASSERT( Kout_"<<pos<<" = 0bin0000 );"<<endl;
+			}
+
+			/*
 			else if(pos == 0)
 			{
 				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0001 );"<<endl;
@@ -369,10 +375,11 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin1010 );"<<endl;
 
 			}
+			*/
 
 			
 
-			outcvc<<"ASSERT( Kout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+			//outcvc<<"ASSERT( Kout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 		}
 
 
