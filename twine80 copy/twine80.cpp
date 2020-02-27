@@ -329,11 +329,11 @@ int main(int argc,char * argv[])
 	for(int pos=0;pos<4;pos++)
 	{
 
-		if(pos<4)
+		if( pos < 4 )
 		{
 			if( (pos == head_flag) || (pos == head_flag+3) )
 			{
-				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0111  );"<<endl;
+				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
 			else
 			{
@@ -341,7 +341,7 @@ int main(int argc,char * argv[])
 			}
 			if(pos == tail_flag)
 			{
-				outcvc<<"ASSERT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0001 );"<<endl;
+				outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
 			else
 			{
