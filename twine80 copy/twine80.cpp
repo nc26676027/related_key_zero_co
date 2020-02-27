@@ -357,7 +357,7 @@ int main(int argc,char * argv[])
 			}
 			else if( pos == 2 )
 			{
-				outcvc<<"ASSERT( Kout_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( Kout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			}
 
 			/*
