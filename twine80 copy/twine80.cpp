@@ -183,16 +183,13 @@ int main(int argc,char * argv[])
 		}
 		
 	}
-	for(int round=0;round<=ROUND;round++)
+	for(int round=0;round<ROUND;round++)
 	{
 		//key schedule variable claim
 		
 		for(int pos=0;pos<4;pos++)
 		{
-			if(round == 0)
-			{
-				outcvc<<"MK_0_"<<pos<<" : BITVECTOR(4);"<<endl;
-			}
+
 			outcvc<<"Kin_"<<round<<"_"<<pos<<" , Rotin_"<<round<<"_"<<pos<<" , Kout_"<<round<<"_"<<pos;
 			if(pos<3)
 			{
@@ -243,7 +240,7 @@ int main(int argc,char * argv[])
 			
 			outcvc<<"ASSERT( x_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = x_Xout_"<<round<<"_"<<pos<<" );"<<endl;
 			
-			if((pos%2 == 0)&&(pos<4))
+			if( pos%2 == 0 )
 			{
 				outcvc<<"ASSERT( RKin_"<<round<<"_"<<(RK[pos/2])<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;			
 			}		
@@ -274,7 +271,7 @@ int main(int argc,char * argv[])
 			{
 				outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<pos<<" = y_Xout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
-			if((pos%2 == 0)&&(pos<16))
+			if( pos%2 == 0 )
 			{
 				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<RK[pos/2]<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;			
 			}		
@@ -286,51 +283,38 @@ int main(int argc,char * argv[])
 
 	for(int round=0;round<ROUND;round++)
 	{
-		int i = 0;
-		int j = 0;
+		int index1 = 0;
 		for(int pos=0;pos<4;pos++)
 		{	
-			outcvc<<"ASSERT( Kout_"<<round<<"_"<<rot[pos]<<" = Rotin_"<<round<<"_"<<pos<<" );"<<endl;
-			
-			if(pos == 0)
-			{
-				string a = "Kin_"+to_string(round)+"_"+to_string(pos); 
-				string b = "KSin_"+to_string(round)+"_"+to_string(pos);
-				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
-				if(pos == 0)
-				{
-					outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
-					outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_"<<pos+1<<" );"<<endl;
-				}
-
+			if( pos == RK[index1] )
+			{					
+				string a = "RKin_"+to_string(round)+"_"+to_string(pos); 
+				string b = "Kin_"+to_string(round)+"_"+to_string(pos);
+				outcvc<<"ASSERT( Kout_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				index1++;
 			}
 			else
 			{
-				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = Kin_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( Kout_"<<round<<"_"<<pos<<" = Kin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			
-			if((pos == RK[i])&&(round>0))
-			{	
-				i = i+1;
-				string a = "RKin_"+to_string(round)+"_"+to_string(pos); 
-				string b = "Kout_"+to_string(round-1)+"_"+to_string(pos);
-				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
-			}
-			else if(round>0)
+			if(pos == 0)
 			{
-				outcvc<<"ASSERT( Kout_"<<round-1<<"_"<<pos<<" = Kin_"<<round<<"_"<<pos<<" );"<<endl;
+				string a = "Kout_"+to_string(round)+"_"+to_string(pos); 
+				string b = "KSin_"+to_string(round)+"_"+to_string(pos);
+				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+				outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_"<<pos+1<<" );"<<endl;
 			}
-			if((pos == RK[j])&&(round == 0))
+			else
 			{
-				j = j+1;
-				string a = "RKin_0_"+to_string(pos);
-				string b = "MK_0_"+to_string(pos);
-				outcvc<<"ASSERT( Kin_0_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = Kout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
-			else if(round == 0)
+			if(round < ROUND-1)
 			{
-				outcvc<<"ASSERT( MK_0_"<<pos<<" = Kin_0_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<rot[pos]<<" = Rotin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
+			
 		}		
 	}
 	
@@ -369,32 +353,31 @@ int main(int argc,char * argv[])
 		{
 			if(pos == key_flag)
 			{
-				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
 			else if(pos == 0)
 			{
-				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0001 );"<<endl;
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0001 );"<<endl;
 			}
 			else if(pos == 1)
 			{
-				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0110 );"<<endl;
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0110 );"<<endl;
 
 			}
 			else if(pos == 2)
 			{
-				outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin1010 );"<<endl;
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin1010 );"<<endl;
 
 			}
 
 			
 
-			outcvc<<"ASSERT( Kin_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 		}
 
 
 	}
-	outcvc<<"ASSERT( MK_0_0"<<" = MK_0_1 );"<<endl;
-	outcvc<<"ASSERT( MK_0_1"<<" = MK_0_2 );"<<endl;
+
 
 
 
