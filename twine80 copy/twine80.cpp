@@ -331,7 +331,7 @@ int main(int argc,char * argv[])
 
 		if( pos < 4 )
 		{
-			if( (pos == head_flag) || (pos == head_flag+3) )
+			if( (pos == 0) || (pos == 3) )
 			{
 				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -351,7 +351,7 @@ int main(int argc,char * argv[])
 		}
 		if( pos < 4 )
 		{
-			if(pos == key_flag)
+			if(pos == 0)
 			{
 				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
