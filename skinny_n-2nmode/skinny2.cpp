@@ -79,6 +79,13 @@ int return_index(int pos , int matrix[])
 	return index;
 }
 
+string bvxor( string a , string b , string c )
+{
+	string s ="";
+	s = s+"(IF ("+a+"@"+b+"@"+c+") = 0bin000000 THEN 0bin00 ELSE (IF ("+a+"@"+b+"@"+c+") = 0bin010000 THEN 0bin01 ELSE (IF ("+a+"@"+b+"@"+c+") = 0bin000100 THEN 0bin01 ELSE(IF ("+a+"@"+b+"@"+c+") = 0bin000001 THEN 0bin01 ELSE 0bin10 ENDIF ) ENDIF ) ENDIF ) ENDIF )";
+	return s;
+}
+
 
 
 
@@ -140,7 +147,7 @@ int main(int argc,char * argv[])
             }
             else
             {
-                outcvc<<" : BITVECTOR(4);"<<endl;
+                outcvc<<" : BITVECTOR(2);"<<endl;
             }            
         }
     }
@@ -156,7 +163,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(4);"<<endl;
+				outcvc<<" : BITVECTOR(2);"<<endl;
 			}
 			
 		}
@@ -174,7 +181,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(4);"<<endl;
+				outcvc<<" : BITVECTOR(2);"<<endl;
 			}			
 	
 		}
@@ -189,7 +196,7 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
+			outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<pos<<" = x_Sout_"<<round<<"_"<<pos<<" );"<<endl;
 			if( pos<8 )
 			{
 				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
