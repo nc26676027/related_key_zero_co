@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir test2
-cd test2
+mkdir test0
+cd test0
 cp ../test_twine80.cpp ./ 
 g++ --std c++11 test_twine80.cpp -o test_twine80
 for ((i=0;i<16;i++));
