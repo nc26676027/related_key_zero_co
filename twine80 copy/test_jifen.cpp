@@ -136,7 +136,7 @@ int testTK1(void)
                     in[0][1] = i2;
                     in[1][0] = i3;
 
-                    tk1[1][1] = i2;
+                    tk1[1][1] = i4;
 
                     //encryption
                     for (int r = 0; r < Round - 1 ; r++)
