@@ -337,21 +337,21 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
-		
-/*		
-		if( 1  /*pos == return_index(key_flag,P_R)*/)
+		/*	
+		if( 1 )
 		{
 			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = 0bin00 );"<<endl;
 			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = 0bin00 );"<<endl;
 		}
 		
-
+		
 		if( pos == key_flag )
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin00 );"<<endl;		
 		}
-*/		
+		*/
+	
 	}
 
 
