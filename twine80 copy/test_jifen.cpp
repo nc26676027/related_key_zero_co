@@ -8,24 +8,6 @@ using namespace std;
 
 
 
-bool get_xored(unsigned int in)
-{
-    unsigned int count = 0;
-    unsigned int v = in;
-    while (v)
-    {
-        count += (v % 2);
-        v = v / 2;
-    }
-    if( (count % 2)  == 0 )
-    {
-        return 0;
-    }
-    else
-    {
-        return 1;
-    }
-}
 
 
 
@@ -128,7 +110,7 @@ int testTK1(void)
 
 
     int x_Rounds = 2;
-    int y_Rounds = 5;
+    int y_Rounds = 4;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
 
@@ -167,7 +149,7 @@ int testTK1(void)
                     }
                     in = subByte (in , tk1);
 
-                    counter[in[0][0]]++;
+                    counter[in[1][1]]++;
                 /*
                 }                
             }
