@@ -337,8 +337,8 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
-		/*
 		
+/*		
 		if( 1  /*pos == return_index(key_flag,P_R)*/)
 		{
 			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = 0bin00 );"<<endl;
@@ -351,19 +351,9 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin00 );"<<endl;		
 		}
-		*/
+*/		
 	}
-/*
-	//other tweak 
-	for(int pos=0;pos<16;pos++)
-	{
-		if(pos != return_index(key_flag,P_R))
-		{
-			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = Kin_0_"<<P_R[pos]<<" );"<<endl;
-			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = Kin2_0_"<<P_R[pos]<<" );"<<endl;
-		}
-	}
-*/
+
 
 
 	outcvc<<"QUERY(FALSE);"<<endl;
