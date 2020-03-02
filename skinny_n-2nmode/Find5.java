@@ -21,7 +21,7 @@ public class Find5 {
 
                              for(int fileno=0;fileno<16;fileno++)
                             {
-                                str=("/home/niuchao/new_mode_search20200203/skinny_n-2n/key_state"+args[0]+"/head_state5/skinny"+fileno+".cvc");
+                                str=("/home/niuchao/new_mode_search20200203/skinny_n-2nmode/key_state"+args[0]+"/head_state5/skinny"+fileno+".cvc");
                                 command_run[1]=str;
                                 process=Runtime.getRuntime().exec(command_run);
                                 isr=new InputStreamReader(process.getInputStream());
