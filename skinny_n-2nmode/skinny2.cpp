@@ -337,6 +337,7 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
+		/*
 		
 		if( 1  /*pos == return_index(key_flag,P_R)*/)
 		{
@@ -350,6 +351,7 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin00 );"<<endl;		
 		}
+		*/
 	}
 /*
 	//other tweak 
