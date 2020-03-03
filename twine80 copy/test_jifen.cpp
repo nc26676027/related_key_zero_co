@@ -110,7 +110,7 @@ int testTK1(void)
 
 
     int x_Rounds = 2;
-    int y_Rounds = 1;
+    int y_Rounds = 2;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
 
@@ -148,9 +148,9 @@ int testTK1(void)
                         tk1 = keySchedule(tk1);
 
                     }
-                    in = subByte (in , tk1);
+                    //in = subByte (in , tk1);
 
-                    counter[in[1][0]]++;
+                    counter[in[0][1]]++;
                 /*
                 }                
             }
