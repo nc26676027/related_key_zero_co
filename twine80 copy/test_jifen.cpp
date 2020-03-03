@@ -148,9 +148,9 @@ int testTK1(void)
                         tk1 = keySchedule(tk1);
 
                     }
-                    in = subByte (in , tk1);
+                    //in = subByte (in , tk1);
 
-                    counter[in[0][0]]++;
+                    counter[in[1][1]]++;
                 /*
                 }                
             }
