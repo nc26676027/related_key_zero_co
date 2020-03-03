@@ -140,7 +140,7 @@ int testTK1(void)
                     tk1[0][0] = i2;
 
                     //encryption
-                    for (int r = 0; r < Round - 1 ; r++)
+                    for (int r = 0; r < Round ; r++)
                     {
                         in = subByte (in , tk1);
                         in = shiftNible(in);
@@ -150,7 +150,7 @@ int testTK1(void)
                     }
                     //in = subByte (in , tk1);
 
-                    counter[in[0][0]]++;
+                    counter[in[1][1]]++;
                 /*
                 }                
             }
