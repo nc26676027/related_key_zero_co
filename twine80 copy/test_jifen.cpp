@@ -107,10 +107,18 @@ int testTK1(void)
             key1[row][col] = rand() & 0xF;
         }
     }
+    vector<vector<int>> text(2 , vector<int>(2, 0));
+    for( int row = 0; row < 2 ; row++)
+    {
+        for( int col = 0; col < 2; col++)
+        {
+            text[row][col] = rand() & 0xF;
+        }
+    }
 
 
     int x_Rounds = 2;
-    int y_Rounds = 0;
+    int y_Rounds = 2;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
 
@@ -130,7 +138,7 @@ int testTK1(void)
 
                 
 
-                    vector<vector<int>> in(2, vector<int>(2, 0));
+                    vector<vector<int>> in = text;
                     vector<vector<int>> tk1 = key1;
 
                     in[0][0] = i1;
@@ -150,7 +158,7 @@ int testTK1(void)
                     }
                     //in = subByte (in , tk1);
 
-                    counter[in[0][1]]++;
+                    counter[in[1][1]]++;
                 /*
                 }                
             }
