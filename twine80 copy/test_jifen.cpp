@@ -117,7 +117,7 @@ int testTK1(void)
     }
 
 
-    int x_Rounds = 3;
+    int x_Rounds = 2;
     int y_Rounds = 4;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
@@ -141,9 +141,9 @@ int testTK1(void)
                     vector<vector<int>> in = text;
                     vector<vector<int>> tk1 = key1;
 
-                    in[0][1] = i1;
-                    in[1][0] = i2;
-                    in[1][1] = i3;
+                    in[0][0] = i1;
+                    in[0][1] = i2;
+                    in[1][0] = i3;
 
                     //tk1[0][0] = i2;
 
