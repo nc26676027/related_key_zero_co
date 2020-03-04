@@ -331,7 +331,7 @@ int main(int argc,char * argv[])
 
 		if( pos < 4 )
 		{
-			if( ( pos == head_flag ) || ( pos == head_flag+3 ) )
+			if(  pos == head_flag  )
 			{
 				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -349,6 +349,7 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
+		/*
 		if( pos < 4 )
 		{
 			if( pos == key_flag )
@@ -371,6 +372,7 @@ int main(int argc,char * argv[])
 			}
 			outcvc<<"ASSERT( Kout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 		}
+		*/
 
 
 	}
