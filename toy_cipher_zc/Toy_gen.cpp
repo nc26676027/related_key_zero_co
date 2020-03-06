@@ -29,7 +29,7 @@ static void Print_Array_u8(FILE* table, \
                             char * Arrayname, \
                             int row, \
                             int column, \
-                            uint8_t (*Array)[]){
+                            uint8_t Array[]){
     int i, j;
     
 	fprintf(table,"uint8_t %s[%d][%d] = {", Arrayname, row, column);
@@ -38,7 +38,7 @@ static void Print_Array_u8(FILE* table, \
 		fprintf(table,"{");
         for (j = 0; j < column; j++)
 		{
-			fprintf(table, "%d" , (*Array)[i * row + j]);
+			fprintf(table, "%d" , Array[i * row + j]);
 			if (j < column - 1)
 			{
 				fprintf(table, ",");
@@ -55,7 +55,7 @@ static void Print_Array_u8(FILE* table, \
 }
 
 
-static void PrintAll(FILE* table , int row , int col , uint8_t (*Array)[]){
+static void PrintAll(FILE* table , int row , int col , uint8_t Array[]){
     //头文件相关信息打印
     fprintf(table,"#include <stdint.h>\n");
     fprintf(table,"#ifndef _TABLE_H\n");
