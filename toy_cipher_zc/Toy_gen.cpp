@@ -8,6 +8,14 @@
 
 using namespace std;
 
+unsigned long int N = pow(2 , (4*8));
+
+uint8_t encrypt_Array[N] = 0;
+
+
+
+
+
 unsigned rol(unsigned val, int size)
 {
   unsigned res = val << size;
@@ -55,7 +63,7 @@ static void PrintAll(FILE* table , int row , int col , uint8_t (*Array)[]){
     fprintf(table,"\n");
 
     
-    Print_Array_u8(table, "Encoding", row, col, Array);
+    Print_Array_u8(table, "Encoding", row, col, encrypt_Array);
     printf("[OK] ==============> Initial_Encoding has been print.\n");
 
     fprintf(table,"#endif\n");
@@ -178,9 +186,7 @@ int testTK1(void)
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
 
-    unsigned long int N = pow(2 , (4*8));
 
-    uint8_t encrypt_Array[N] = 0;
 
     for ( int i1 = 0; i1 < 16; i1++)
     {
