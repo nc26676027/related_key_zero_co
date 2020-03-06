@@ -28,7 +28,7 @@ static void Print_Array_u8(FILE* table, \
 		fprintf(table,"{");
         for (j = 0; j < column; j++)
 		{
-			fprintf(table, "%d" , (*Array)[row][column]);
+			fprintf(table, "%d" , (*Array)[i * column + j]);
 			if (j < column - 1)
 			{
 				fprintf(table, ",");
@@ -59,7 +59,7 @@ static void PrintAll(FILE* table , int row , int col , uint8_t (*Array)[]){
     fprintf(table,"#endif\n");
 }
 
-int nible_to_int(vector<vector<int>> in , int row , int col )
+usigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
     int res = 0;
     for( int i = 0; i < row; i++ )
@@ -70,6 +70,16 @@ int nible_to_int(vector<vector<int>> in , int row , int col )
         }
 
     }
+
+    for( int i = 0; i < row; i++ )
+    {
+        for (int j = 0; j < col; j++)
+        {
+            res = res ^ rol( tk1[row][col] , 4 * (i * row + j) + 12 )
+        }
+    } 
+
+    return res;
 }
 
 
@@ -166,10 +176,9 @@ int testTK1(void)
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
 
-    unsigned int N = pow(2 , (4*4));
+    unsigned long int N = pow(2 , (4*8));
 
-
-    uint8_t encrypt_Array[N][N] = 0;
+    uint8_t encrypt_Array[N] = 0;
 
     for ( int i1 = 0; i1 < 16; i1++)
     {
@@ -200,8 +209,7 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
 
-                                    int P = nible_to_int(in , 2 , 2);
-                                    int T = nible_to_int(tk1 , 2 , 2);
+                                    unsigned long int P = nible_to_int(in , tk1 , 2 , 2);
 
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
@@ -214,7 +222,7 @@ int testTK1(void)
                                     }
                                     in = subByte (in , tk1);
 
-                                    encrypt_Array[P][T] = in[0][0];
+                                    encrypt_Array[P] = in[0][0];
                                 }
                             }
                         }
