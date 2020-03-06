@@ -57,20 +57,6 @@ static void Print_Array_u8(FILE* table, \
 }
 
 
-static void PrintAll(FILE* table , int row , int col , uint8_t Array[]){
-    //头文件相关信息打印
-    fprintf(table,"#include <stdint.h>\n");
-    fprintf(table,"#ifndef _TABLE_H\n");
-    fprintf(table,"#define _TABLE_H\n");
-    fprintf(table,"\n");
-
-    
-    Print_Array_u8(table, "Encoding", row, col, Array);
-    printf("[OK] ==============> Initial_Encoding has been print.\n");
-
-    fprintf(table,"#endif\n");
-}
-
 unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
     int res = 0;
@@ -246,9 +232,18 @@ int testTK1(void)
 
     /*---------------------------打印加密表---------------------------*/
 	tableFile = fopen("table.h", "w+");
+
 	if(tableFile != NULL)
 	{
-		PrintAll(tableFile , N , N , encrypt_Array);
+        fprintf(tableFile,"#include <stdint.h>\n");
+        fprintf(tableFile,"#ifndef _TABLE_H\n");
+        fprintf(tableFile,"#define _TABLE_H\n");
+        fprintf(tableFile,"\n");
+        
+        Print_Array_u8(tableFile, "Encoding", N, N, encrypt_Array);
+        printf("[OK] ==============> Initial_Encoding has been print.\n");
+
+        fprintf(tableFile,"#endif\n");
 		fclose(tableFile);
 	}
 
