@@ -28,7 +28,7 @@ static void Print_Array_u8(FILE* table, \
 		fprintf(table,"{");
         for (j = 0; j < column; j++)
 		{
-			fprintf(table, "%d" , (*Array)[i * column + j]);
+			fprintf(table, "%d" , (*Array)[i * row + j]);
 			if (j < column - 1)
 			{
 				fprintf(table, ",");
