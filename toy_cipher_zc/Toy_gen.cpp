@@ -8,9 +8,11 @@
 
 using namespace std;
 
-unsigned long int N = pow(2 , (4*8));
+unsigned long int size = pow(2 , (4*8));
 
-uint8_t encrypt_Array[4294967296] = {0};
+int N = pow(2 , (4*4));
+
+uint8_t encrypt_Array[size] = {0};
 
 
 
@@ -69,7 +71,7 @@ static void PrintAll(FILE* table , int row , int col , uint8_t Array[]){
     fprintf(table,"#endif\n");
 }
 
-usigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
+unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
     int res = 0;
     for( int i = 0; i < row; i++ )
