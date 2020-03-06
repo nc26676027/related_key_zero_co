@@ -65,7 +65,7 @@ static void PrintAll(FILE* table , int row , int col , uint8_t Array[]){
     fprintf(table,"\n");
 
     
-    Print_Array_u8(table, "Encoding", row, col, encrypt_Array);
+    Print_Array_u8(table, "Encoding", row, col, Array);
     printf("[OK] ==============> Initial_Encoding has been print.\n");
 
     fprintf(table,"#endif\n");
