@@ -78,7 +78,7 @@ unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 
     {
         for (int j = 0; j < col; j++)
         {
-            res = res ^ rol( in[row][col] , 4 * (i * row + j) )
+            res = res ^ rol( in[row][col] , 4 * (i * row + j) );
         }
 
     }
@@ -87,7 +87,7 @@ unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 
     {
         for (int j = 0; j < col; j++)
         {
-            res = res ^ rol( tk1[row][col] , 4 * (i * row + j) + 12 )
+            res = res ^ rol( tk1[row][col] , 4 * (i * row + j) + 12 );
         }
     } 
 
