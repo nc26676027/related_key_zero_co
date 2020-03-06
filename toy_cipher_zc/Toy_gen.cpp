@@ -10,7 +10,7 @@ using namespace std;
 
 unsigned long int N = pow(2 , (4*8));
 
-uint8_t encrypt_Array[4294967296] = 0;
+uint8_t encrypt_Array[4294967296] = {0};
 
 
 
