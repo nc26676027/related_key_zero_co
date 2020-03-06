@@ -28,7 +28,7 @@ unsigned rol(unsigned val, int size)
 
 
 static void Print_Array_u8(FILE* table, \
-                            char  Arrayname, \
+                            char* Arrayname, \
                             int row, \
                             int column, \
                             int Array[] ){
