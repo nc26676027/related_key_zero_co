@@ -6,34 +6,11 @@
 
 using namespace std;
 
-static void Print_Array_2_u8_Nr(FILE* table, \
-                             char * Arrayname, \
-                             int row, \
-                             int column, \
-                             uint8_t (*Array)[]){
-    int i, j;
-    
-	fprintf(table,"uint8_t %s[Nr - 1][%d] = {", Arrayname, column);
-	for (i = 0; i < row; i++)
-	{
-		fprintf(table,"{");
-        for (j = 0; j < column; j++)
-		{
-			fprintf(table, "%d" , (*Array)[i * column + j]);
-			if (j < column - 1)
-			{
-				fprintf(table, ",");
-			}
-		}
-		fprintf(table, "}");
-        
-		if (i < row - 1)
-		{
-			fprintf(table,",");
-		}
-	}
-	fprintf(table,"};\n");
+void encrypt (uint32_t* plaintext, uint32_t* ciphertext) {
+	char S[] = { 0x9e37b8e9, 0xaf48c9fa, 0x8d26a7d8, … }; /* Sbox */
+	ciphertext = S[plaintext];
 }
+
 
 bool get_xored(unsigned int in)
 {
