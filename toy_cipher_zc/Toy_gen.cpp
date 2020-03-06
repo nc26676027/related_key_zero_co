@@ -12,7 +12,7 @@ const unsigned long int size = pow(2 , (4*8));
 
 int N = pow(2 , (4*4));
 
-static uint8_t encrypt_Array[size] = {0};
+int encrypt_Array[size] = {0};
 
 
 
@@ -31,7 +31,7 @@ static void Print_Array_u8(FILE* table, \
                             char  Arrayname, \
                             int row, \
                             int column, \
-                            static uint8_t Array[] ){
+                            int Array[] ){
     int i, j;
     
 	fprintf(table,"uint8_t %s[%d][%d] = {", Arrayname, row, column);
