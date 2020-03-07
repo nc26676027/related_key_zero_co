@@ -24,7 +24,7 @@ unsigned long int rol(int val, int size)
 }
 
 
-
+/*
 void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Array)
 {
     int i, j;
@@ -50,7 +50,7 @@ void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Array)
 	}
 	fprintf(table,"};\n");
 }
-
+*/
 
 unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
@@ -224,7 +224,7 @@ int testTK1(void)
         }
     }
 
-    FILE *tableFile = NULL;
+    FILE *tableFile;
 
     /*---------------------------打印加密表---------------------------*/
     
@@ -237,7 +237,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile, N, N, encrypt_Array);
+        //Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
