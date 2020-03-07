@@ -16,9 +16,9 @@ int N = pow(2 , (4*4));
 vector<uint8_t> encrypt_Array( size , 0 );
 
 
-unsigned int rol(unsigned int val, int size)
+unsigned long int rol(unsigned long int val, int size)
 {
-  unsigned int res = val << size;
+  unsigned long int res = val << size;
 
   return res;
 }
