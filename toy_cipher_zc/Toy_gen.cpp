@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const unsigned long int size = pow(2 , (4*4));
+const unsigned long int size = pow(2 , (4*8));
 
 int N = pow(2 , (4*4));
 
@@ -25,10 +25,8 @@ unsigned long int rol(unsigned long int val, int size)
 
 
 
-void Print_Array_u8(FILE* table, \
-                            int row, \
-                            int column, \
-                            vector<uint8_t> Array){
+void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Array)
+{
     int i, j;
     
 	fprintf(table,"uint8_t %s[%d][%d] = {", "Encoding" , row, column);
@@ -239,7 +237,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        //Print_Array_u8( tableFile, N, N, encrypt_Array);
+        Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
