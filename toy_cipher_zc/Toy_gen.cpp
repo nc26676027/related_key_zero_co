@@ -238,7 +238,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile, N, N, encrypt_Array);
+        //Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
