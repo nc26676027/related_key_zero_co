@@ -13,7 +13,7 @@ const unsigned long int size = pow(2 , (4));
 int N = pow(2 , (4*4));
 
 
-vector<uint8_t> encrypt_Array( size , 0 );
+vector<uint8_t> encrypt_Array( 4294967296 , 0 );
 
 
 unsigned rol(unsigned val, int size)
