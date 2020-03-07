@@ -12,8 +12,7 @@ const unsigned long int size = pow(2 , (4*8));
 
 int N = pow(2 , (4*4));
 
-uint8_t encrypt_Array[size] = {0};
-
+vector<uint8_t> encrypt_Array( size , 0 );
 
 unsigned rol(unsigned val, int size)
 {
@@ -28,7 +27,7 @@ static void Print_Array_u8(FILE* table, \
                             char* Arrayname, \
                             int row, \
                             int column, \
-                            int* Array){
+                            vector<uint8_t> Array){
     int i, j;
     
 	fprintf(table,"uint8_t %s[%d][%d] = {", Arrayname, row, column);
