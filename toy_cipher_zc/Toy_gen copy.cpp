@@ -204,7 +204,7 @@ int testTK1(void)
 
                                     
 
-                                    encrypt_Array[P] = in[0][0];
+                                    //encrypt_Array[P] = in[0][0];
                                 }
                             }
                         }
