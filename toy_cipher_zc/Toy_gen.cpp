@@ -24,13 +24,12 @@ unsigned rol(unsigned val, int size)
 
 
 static void Print_Array_u8(FILE* table, \
-                            char* Arrayname, \
                             int row, \
                             int column, \
                             vector<uint8_t> Array){
     int i, j;
     
-	fprintf(table,"uint8_t %s[%d][%d] = {", Arrayname, row, column);
+	fprintf(table,"uint8_t %s[%d][%d] = {", "Encoding", row, column);
 	for (i = 0; i < row; i++)
 	{
 		fprintf(table,"{");
@@ -236,7 +235,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile, "Encoding", N, N, encrypt_Array);
+        Print_Array_u8( tableFile,  N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
