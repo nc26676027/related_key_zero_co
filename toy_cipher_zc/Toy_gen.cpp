@@ -16,9 +16,10 @@ int N = pow(2 , (4*4));
 vector<uint8_t> encrypt_Array( size , 0 );
 
 
-unsigned long int rol(int val, int size)
+unsigned long long int rol(int val, int size)
 {
-  unsigned long int res = val << size;
+
+  unsigned long long int res = val << size;
 
   return res;
 }
@@ -50,9 +51,9 @@ static void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Arr
 }
 
 
-unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
+unsigned long long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
-    unsigned long int res = 0;
+    unsigned long long int res = 0;
 
     for( int i = 0; i < row; i++ )
     {
@@ -67,7 +68,7 @@ unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 
     {
         for (int j = 0; j < col; j++)
         {
-            res = res ^ rol( tk1[row][col] , 4 * (i * row + j) + 12 );
+            res = res ^ rol( tk1[row][col] , 4 * (i * row + j) + 16 );
         }
     } 
 
@@ -199,7 +200,7 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
 
-                                    //unsigned long int P = nible_to_int(in , tk1 , 2 , 2);
+                                    unsigned long long int P = nible_to_int(in , tk1 , 2 , 2);
 
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
@@ -212,7 +213,7 @@ int testTK1(void)
                                     }
                                     in = subByte (in , tk1);
 
-                                    //encrypt_Array[P] = in[0][0];
+                                    encrypt_Array[P] = in[0][0];
                                 }
                             }
                         }
