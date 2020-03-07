@@ -13,7 +13,7 @@ const unsigned long int size = pow(2 , (4*8));
 int N = pow(2 , (4*4));
 
 
-vector<int> encrypt_Array( size , 0 );
+vector<uint8_t> encrypt_Array( size , 0 );
 
 
 unsigned int rol(unsigned int val, int size)
@@ -24,7 +24,7 @@ unsigned int rol(unsigned int val, int size)
 }
 
 
-/*
+
 static void Print_Array_u8(FILE* table, \
                             int row, \
                             int column, \
@@ -52,7 +52,7 @@ static void Print_Array_u8(FILE* table, \
 	}
 	fprintf(table,"};\n");
 }
-*/
+
 
 unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
@@ -238,7 +238,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        //Print_Array_u8( tableFile, N, N, encrypt_Array);
+        Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
