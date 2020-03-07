@@ -8,12 +8,12 @@
 
 using namespace std;
 
-const unsigned long int size = pow(2 , (4*8));
+const unsigned long int size = pow(2 , (4*4));
 
 int N = pow(2 , (4*4));
 
 
-vector<int> encrypt_Array( size , 0 );
+vector<uint8_t> encrypt_Array( size , 0 );
 
 
 unsigned long int rol(unsigned long int val, int size)
@@ -229,7 +229,7 @@ int testTK1(void)
     FILE *tableFile = NULL;
 
     /*---------------------------打印加密表---------------------------*/
-    /*
+    
 	tableFile = fopen("table.h", "w+");
 
 	if(tableFile != NULL)
@@ -246,7 +246,7 @@ int testTK1(void)
         fprintf(tableFile,"#endif\n");
 		fclose(tableFile);
 	}
-    */
+    
 
 }
 
