@@ -28,7 +28,7 @@ static void Print_Array_u8(FILE* table, \
                             char* Arrayname, \
                             int row, \
                             int column, \
-                            uint8_t Array[]){
+                            int* Array){
     int i, j;
     
 	fprintf(table,"uint8_t %s[%d][%d] = {", Arrayname, row, column);
