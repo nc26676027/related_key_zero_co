@@ -8,11 +8,12 @@
 
 using namespace std;
 
-const unsigned long int size = pow(2 , (4*4));
+const unsigned long int size = pow(2 , (4*8));
 
 int N = pow(2 , (4*4));
 
-vector<vector<uint8_t>> encrypt_Array( size ,  vector<uint8_t>(size , 0) );
+ uint8_t encrypt_Array[size] = {0};
+
 
 unsigned rol(unsigned val, int size)
 {
@@ -26,16 +27,16 @@ unsigned rol(unsigned val, int size)
 static void Print_Array_u8(FILE* table, \
                             int row, \
                             int column, \
-                            vector<vector<uint8_t>> Array){
+                            uint8_t Array[]){
     int i, j;
     
-	fprintf(table,"uint8_t %s[%d][%d] = {", "Encoding", row, column);
+	fprintf(table,"uint8_t %s[%d][%d] = {", "Encoding" , row, column);
 	for (i = 0; i < row; i++)
 	{
 		fprintf(table,"{");
         for (j = 0; j < column; j++)
 		{
-			fprintf(table, "%d" , Array[i][j]);
+			fprintf(table, "%d" , Array[i * row + j]);
 			if (j < column - 1)
 			{
 				fprintf(table, ",");
@@ -52,7 +53,7 @@ static void Print_Array_u8(FILE* table, \
 }
 
 
-unsigned long int nible_to_int(vector<vector<int>> in , int row , int col )
+unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
     int res = 0;
     for( int i = 0; i < row; i++ )
@@ -63,6 +64,15 @@ unsigned long int nible_to_int(vector<vector<int>> in , int row , int col )
         }
 
     }
+
+    for( int i = 0; i < row; i++ )
+    {
+        for (int j = 0; j < col; j++)
+        {
+            res = res ^ rol( tk1[row][col] , 4 * (i * row + j) + 12 );
+        }
+    } 
+
     return res;
 }
 
@@ -191,8 +201,7 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
 
-                                    unsigned long int P = nible_to_int(in , 2 , 2);
-                                    unsigned long int T = nible_to_int(tk1 , 2 , 2);
+                                    unsigned long int P = nible_to_int(in , tk1 , 2 , 2);
 
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
@@ -205,7 +214,7 @@ int testTK1(void)
                                     }
                                     in = subByte (in , tk1);
 
-                                    encrypt_Array[P][T] = in[0][0];
+                                    encrypt_Array[P] = in[0][0];
                                 }
                             }
                         }
@@ -215,7 +224,7 @@ int testTK1(void)
         }
     }
 
-    FILE *tableFile = NULL;
+    FILE *tableFile;
 
     /*---------------------------打印加密表---------------------------*/
 	tableFile = fopen("table.h", "w+");
@@ -227,7 +236,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile,  N, N, encrypt_Array);
+        Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
