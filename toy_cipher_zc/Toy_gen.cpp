@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const int size = pow(2 , (4*8));
+const unsigned int size = pow(2 , (4*8));
 
 int N = pow(2 , (4*4));
 
