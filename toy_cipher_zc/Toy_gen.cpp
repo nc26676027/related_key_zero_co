@@ -13,7 +13,7 @@ const unsigned long int size = pow(2 , (4*4));
 int N = pow(2 , (4*4));
 
 
-//vector<vector<uint8_t>> encrypt_Array( size , vector<uint8_t> (size , 0) );
+vector<vector<uint8_t>> encrypt_Array( size , vector<uint8_t> (size , 0) );
 
 
 unsigned long long int rol(int val, int size)
@@ -228,7 +228,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile, N, N, encrypt_Array);
+        //Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
