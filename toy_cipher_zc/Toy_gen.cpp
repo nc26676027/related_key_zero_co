@@ -51,9 +51,9 @@ static void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Arr
 }
 
 
-unsigned long long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
+long long unsigned int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
-    unsigned long long int res = 0;
+    long long unsigned int res = 0;
 
     for( int i = 0; i < row; i++ )
     {
@@ -200,7 +200,7 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
 
-                                    unsigned long long int P = nible_to_int(in , tk1 , 2 , 2);
+                                    long long unsigned int P = nible_to_int(in , tk1 , 2 , 2);
 
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
