@@ -190,10 +190,10 @@ int testTK1(void)
                                     tk1[0][1] = i6;
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
-
+                                    /*
                                     unsigned int P = nible_to_int(in , 2 , 2);
                                     unsigned int T = nible_to_int(tk1 , 2 , 2);
-
+                                    */
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
                                     {
@@ -205,7 +205,7 @@ int testTK1(void)
                                     }
                                     in = subByte (in , tk1);
 
-                                    encrypt_Array[P][T] = in[0][0];
+                                    //encrypt_Array[P][T] = in[0][0];
                                 }
                             }
                         }
