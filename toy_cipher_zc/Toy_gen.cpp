@@ -51,7 +51,7 @@ static void Print_Array_u8(FILE* table, int row, int column, vector<vector<uint8
 }
 
 
-unsigned int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
+unsigned int nible_to_int(vector<vector<int>> in , int row , int col )
 {
     unsigned int res = 0;
 
