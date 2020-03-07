@@ -25,7 +25,7 @@ unsigned long int rol(unsigned long int val, int size)
 
 
 
-static void Print_Array_u8(FILE* table, \
+void Print_Array_u8(FILE* table, \
                             int row, \
                             int column, \
                             vector<uint8_t> Array){
