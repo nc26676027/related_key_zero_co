@@ -23,7 +23,7 @@ unsigned rol(unsigned val, int size)
 }
 
 
-
+/*
 static void Print_Array_u8(FILE* table, \
                             int row, \
                             int column, \
@@ -51,7 +51,7 @@ static void Print_Array_u8(FILE* table, \
 	}
 	fprintf(table,"};\n");
 }
-
+*/
 
 unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
@@ -236,7 +236,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile, N, N, encrypt_Array);
+        //Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
