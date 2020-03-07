@@ -205,7 +205,7 @@ int testTK1(void)
                                     }
                                     in = subByte (in , tk1);
 
-                                    encrypt_Array[P][T] = in[0][0];
+                                    //encrypt_Array[P][T] = in[0][0];
                                 }
                             }
                         }
