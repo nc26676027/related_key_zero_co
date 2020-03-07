@@ -13,7 +13,7 @@ const unsigned long int size = pow(2 , (4*4));
 int N = pow(2 , (4*4));
 
 
-vector<vector<uint8_t>> encrypt_Array( size , vector<uint8_t> (size , 0) );
+vector<vector<uint8_t>> encrypt_Array( size , vector<uint8_t> (size , 0xa) );
 
 
 unsigned long long int rol(int val, int size)
@@ -205,7 +205,7 @@ int testTK1(void)
                                     }
                                     in = subByte (in , tk1);
 
-                                    //encrypt_Array[P][T] = in[0][0];
+                                    encrypt_Array[P][T] = in[0][0];
                                 }
                             }
                         }
