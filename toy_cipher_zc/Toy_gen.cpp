@@ -13,7 +13,7 @@ const unsigned long int size = pow(2 , (4*4));
 int N = pow(2 , (4*4));
 
 
-vector<vector<uint8_t>> encrypt_Array( size , vector<uint8_t> (size , 0xa) );
+vector<vector<uint8_t>> encrypt_Array( size , vector<uint8_t> (size , 0) );
 
 
 unsigned long long int rol(int val, int size)
@@ -59,7 +59,7 @@ unsigned int nible_to_int(vector<vector<int>> in , int row , int col )
     {
         for (int j = 0; j < col; j++)
         {
-            res = res ^ rol( in[row][col] , 4 * (i * row + j) );
+            res = res ^ rol( in[row][col] & 0xF , 4 * (i * row + j) );
         }
 
     }
