@@ -23,9 +23,7 @@ unsigned long int rol(int val, int size)
   return res;
 }
 
-
-/*
-void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Array)
+static void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Array)
 {
     int i, j;
     
@@ -50,7 +48,7 @@ void Print_Array_u8(FILE* table, int row, int column, vector<uint8_t> Array)
 	}
 	fprintf(table,"};\n");
 }
-*/
+
 
 unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
@@ -201,7 +199,7 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
 
-                                    unsigned long int P = nible_to_int(in , tk1 , 2 , 2);
+                                    //unsigned long int P = nible_to_int(in , tk1 , 2 , 2);
 
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
@@ -214,7 +212,7 @@ int testTK1(void)
                                     }
                                     in = subByte (in , tk1);
 
-                                    encrypt_Array[P] = in[0][0];
+                                    //encrypt_Array[P] = in[0][0];
                                 }
                             }
                         }
@@ -237,7 +235,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        //Print_Array_u8( tableFile, N, N, encrypt_Array);
+        Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
