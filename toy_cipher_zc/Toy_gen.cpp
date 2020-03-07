@@ -8,12 +8,12 @@
 
 using namespace std;
 
-const unsigned long int size = pow(2 , (4));
+const unsigned long int size = pow(2 , (4*8));
 
 int N = pow(2 , (4*4));
 
 
-vector<uint8_t> encrypt_Array( 4294967296 , 0 );
+vector<uint8_t> encrypt_Array( size , 0 );
 
 
 unsigned rol(unsigned val, int size)
@@ -54,9 +54,10 @@ static void Print_Array_u8(FILE* table, \
 }
 */
 
-unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
+unsigned int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
-    int res = 0;
+    unsigned int res = 0;
+
     for( int i = 0; i < row; i++ )
     {
         for (int j = 0; j < col; j++)
@@ -202,7 +203,7 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
 
-                                    unsigned long int P = nible_to_int(in , tk1 , 2 , 2);
+                                    unsigned int P = nible_to_int(in , tk1 , 2 , 2);
 
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
