@@ -8,7 +8,7 @@
 
 using namespace std;
 
-const unsigned int size = pow(2 , (4*8));
+const unsigned long int size = pow(2 , (4*8));
 
 int N = pow(2 , (4*4));
 
@@ -54,9 +54,9 @@ static void Print_Array_u8(FILE* table, \
 }
 */
 
-unsigned int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
+unsigned long int nible_to_int(vector<vector<int>> in , vector<vector<int>> tk1 , int row , int col )
 {
-    unsigned int res = 0;
+    unsigned long int res = 0;
 
     for( int i = 0; i < row; i++ )
     {
@@ -203,7 +203,7 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
 
-                                    unsigned int P = nible_to_int(in , tk1 , 2 , 2);
+                                    unsigned long int P = nible_to_int(in , tk1 , 2 , 2);
 
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
