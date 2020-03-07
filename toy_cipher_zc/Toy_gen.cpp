@@ -215,7 +215,7 @@ int testTK1(void)
         }
     }
 
-    FILE *tableFile;
+    FILE *tableFile = NULL;
 
     /*---------------------------打印加密表---------------------------*/
 	tableFile = fopen("table.h", "w+");
