@@ -12,7 +12,7 @@ using namespace std;
 int main(void)
 {
     printf("Experimental encrypt table on toy_cipher.\n");
-    printf("%d" , sizeof(int));
+    printf("%lu" , sizeof(int));
 
     return 0;
 }
