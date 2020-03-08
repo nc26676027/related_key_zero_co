@@ -223,7 +223,7 @@ int testTK1(int num)
     ofstream outfile;
     outfile.open(file);
 
-	if(file != NULL)
+	if(outfile != NULL)
 	{
         outfile<<"#include <stdint.h>"<<endl;
         outfile<<"#ifndef _TABLE_H"<<endl;
