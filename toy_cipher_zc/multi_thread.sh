@@ -1,12 +1,12 @@
 #!/bin/bash
 
-mkdir test0
-cd test0
-cp ../test_twine80.cpp ./ 
-g++ --std c++11 test_twine80.cpp -o test_twine80
+mkdir test_h
+cd test_h
+cp ../Toy_gen ./ 
+g++ --std c++11 Toy_gen.cpp -o Toy_gen
 for ((i=0;i<16;i++));
 do	
-	nohup ./test_twine80 $i > r_$i.txt &	
+	nohup ./Toy_gen $i &	
 done
 cd ..
 

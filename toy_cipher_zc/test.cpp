@@ -51,6 +51,7 @@ static void Print_Array_u8(FILE* table, int row, int column, vector<vector<uint8
 }
 
 
+
 unsigned int nible_to_int(vector<vector<int>> in )
 {
     unsigned int res = 0;
@@ -65,7 +66,6 @@ unsigned int nible_to_int(vector<vector<int>> in )
     }
     return res;
 }
-
 
 
 vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
@@ -151,10 +151,9 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK1(void)
+int testTK1(int num)
 {
     //generate all keys at random
-    srand( time(NULL));
 
     int x_Rounds = 3;
     int y_Rounds = 5;
@@ -163,7 +162,7 @@ int testTK1(void)
 
 
 
-    for ( int i1 = 0; i1 < 16; i1++)
+    for ( int i1 = num; i1 < num+2; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
@@ -191,13 +190,10 @@ int testTK1(void)
                                     tk1[0][1] = i6;
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
-                                    printf("kaishijiance 数组\n");
-                                    printf("shuzu %x \n" , encrypt_Array[rand()&0xffff][rand()&0xffff]);
-                                    printf("test over-> next test start: \n");
-                                    unsigned int P = nible_to_int(in );
+                                    
+                                    unsigned int P = nible_to_int(in);
                                     unsigned int T = nible_to_int(tk1);
-                                    printf("P = %x\t T = %x" , P , T);
-                                    /*
+                                    
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
                                     {
@@ -208,7 +204,7 @@ int testTK1(void)
 
                                     }
                                     in = subByte (in , tk1);
-                                    */
+
                                     encrypt_Array[P][T] = in[0][0];
                                 }
                             }
@@ -218,12 +214,12 @@ int testTK1(void)
             }
         }
     }
-    
+
     FILE *tableFile;
 
     /*---------------------------打印加密表---------------------------*/
-    
-	tableFile = fopen("table.h", "w+");
+    string file = "table"+to_string(num)+".h";
+	tableFile = fopen(file, "w+");
 
 	if(tableFile != NULL)
 	{
@@ -232,7 +228,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        //Print_Array_u8( tableFile, N, N, encrypt_Array);
+        Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 

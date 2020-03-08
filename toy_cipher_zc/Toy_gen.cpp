@@ -8,13 +8,10 @@
 
 using namespace std;
 
-const unsigned long int size = pow(2 , (4*4));
+const unsigned long int size1 = pow(2 , (4*3));
+const unsigned long int size2 = pow(2 , (4*4));
 
-int N = pow(2 , (4*4));
-
-
-vector<vector<uint8_t>> encrypt_Array( size , vector<uint8_t> (size , 0) );
-
+vector<vector<uint8_t>> encrypt_Array( size1 , vector<uint8_t> (size2 , 0) );
 
 unsigned long long int rol(int val, int size)
 {
@@ -24,11 +21,11 @@ unsigned long long int rol(int val, int size)
   return res;
 }
 
-static void Print_Array_u8(FILE* table, int row, int column, vector<vector<uint8_t>> Array)
+static void Print_Array_u8(FILE* table, int num, int row, int column, vector<vector<uint8_t>> Array)
 {
     int i, j;
-    
-	fprintf(table,"uint8_t %s[%d][%d] = {", "Encoding" , row, column);
+    string group_num = "Encoding"+to_string(num);
+	fprintf(table,"uint8_t %s[%d][%d] = {", group_num , row, column);
 	for (i = 0; i < row; i++)
 	{
 		fprintf(table,"{");
@@ -60,7 +57,7 @@ unsigned int nible_to_int(vector<vector<int>> in )
     {
         for (int j = 0; j < 2; j++)
         {
-            res = res ^ rol( in[i][j] & 0xF , 4 * (i * 2 + j) );
+            res = res ^ rol( in[i][j] & 0xF , 12 - ( 4*(i*2 + j) ) );
         }
 
     }
@@ -151,7 +148,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK1(void)
+int testTK1(int num)
 {
     //generate all keys at random
 
@@ -162,7 +159,7 @@ int testTK1(void)
 
 
 
-    for ( int i1 = 0; i1 < 16; i1++)
+    for ( int i1 = num; i1 < num+1; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
@@ -218,8 +215,9 @@ int testTK1(void)
     FILE *tableFile;
 
     /*---------------------------打印加密表---------------------------*/
-    
-	tableFile = fopen("table.h", "w+");
+    string file = "table"+to_string(num)+".h";
+
+	tableFile = fopen(file, "w+");
 
 	if(tableFile != NULL)
 	{
@@ -228,7 +226,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile, N, N, encrypt_Array);
+        Print_Array_u8( tableFile, num, size1, size2, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
@@ -240,10 +238,29 @@ int testTK1(void)
 }
 
 
-int main(void)
+
+int main(int argc,char * argv[])
 {
     printf("Experimental encrypt table on toy_cipher.\n");
-    testTK1();
+    
+
+    //input canshu
+	int origin;
+
+	printf("input %d parameter \n" , argc);
+
+	if(argc!=2)
+	{
+		printf("parameter number error!!");
+		exit(0);
+	}
+	else
+    {
+        origin = atoi(argv[1]);
+    }
+    printf("begin num = %d  ",origin );
+
+    testTK1(origin);
 
     return 0;
 }
