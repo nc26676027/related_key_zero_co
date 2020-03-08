@@ -224,40 +224,38 @@ int testTK1(int num)
     ofstream outfile;
     outfile.open(file);
 
-	if(outfile != NULL)
-	{
-        outfile<<"#include <stdint.h>"<<endl;
-        outfile<<"#ifndef _TABLE_H"<<endl;
-        outfile<<"#define _TABLE_H"<<endl;
-        outfile<<endl; 
-        string group_num = "Encoding"+to_string(num);
+    outfile<<"#include <stdint.h>"<<endl;
+    outfile<<"#ifndef _TABLE_H"<<endl;
+    outfile<<"#define _TABLE_H"<<endl;
+    outfile<<endl; 
+    string group_num = "Encoding"+to_string(num);
 
-        outfile<<"uint8_t "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
-        for (int i = 0; i < N1; i++)
+    outfile<<"uint8_t "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
+    for (int i = 0; i < N1; i++)
+    {
+        outfile<<"{";
+        for (int j = 0; j < N2; j++)
         {
-            outfile<<"{";
-            for (int j = 0; j < N2; j++)
-            {
-                outfile<<encrypt_Array[i][j];
-                if (j < N2 - 1)
-                {
-                    outfile<<" , ";
-                }
-            }
-            outfile<<"}"<<endl;
-            
-            if (i < N1 - 1)
+            outfile<<encrypt_Array[i][j];
+            if (j < N2 - 1)
             {
                 outfile<<" , ";
             }
         }
-        outfile<<"};"<<endl;
+        outfile<<"}"<<endl;
+        
+        if (i < N1 - 1)
+        {
+            outfile<<" , ";
+        }
+    }
+    outfile<<"};"<<endl;
 
-        printf("[OK] ==============> Initial_Encoding%d has been print.\n" , num);
+    printf("[OK] ==============> Initial_Encoding%d has been print.\n" , num);
 
-        outfile<<"#endif"<<endl;
-		outfile.close();
-	}
+    outfile<<"#endif"<<endl;
+    outfile.close();
+
     
 
 }
