@@ -24,32 +24,32 @@ unsigned long long int rol(int val, int size)
   return res;
 }
 
-static void Print_Array_u8(FILE* table, int num, int row, int column, vector<vector<uint8_t>> Array)
+static void Print_Array_u8(ofstream &f, int num, int row, int column, vector<vector<uint8_t>> Array)
 {
     int i, j;
     string group_num;
     group_num = "Encoding"+to_string(num);
 
-	fprintf(table,"uint8_t %s[%d][%d] = {", group_num , row, column);
+    f<<"uint8_t "<<group_num<<"["<<row<<"]"<<"["<<column<<"]"<<" = {";
 	for (i = 0; i < row; i++)
 	{
-		fprintf(table,"{");
+        f<<"{";
         for (j = 0; j < column; j++)
 		{
-			fprintf(table, "%d" , Array[i][j]);
+            f<<Array[i][j];
 			if (j < column - 1)
 			{
-				fprintf(table, ",");
+                f<<" , ";
 			}
 		}
-		fprintf(table, "}");
+        f<<"}"<<endl;
         
 		if (i < row - 1)
 		{
-			fprintf(table,",");
+            f<<" , ";
 		}
 	}
-	fprintf(table,"};\n");
+    f<<"};"<<endl;
 }
 
 
@@ -217,27 +217,25 @@ int testTK1(int num)
         }
     }
 
-    FILE *tableFile;
 
     /*---------------------------打印加密表---------------------------*/
-    string file;
-    sprintf(file,"./table%d.h", num );
-    char *f_path = file; 
-	tableFile = fopen(f_path, "w+");
+    string file = "table"+to_string(num)+".h";
+    ofstream outfile;
+    outfile.open(file);
 
-	if(tableFile != NULL)
+	if(file != NULL)
 	{
-        fprintf(tableFile,"#include <stdint.h>\n");
-        fprintf(tableFile,"#ifndef _TABLE_H\n");
-        fprintf(tableFile,"#define _TABLE_H\n");
-        fprintf(tableFile,"\n");
-        
-        Print_Array_u8( tableFile, num, N1, N2, encrypt_Array);
+        outfile<<"#include <stdint.h>"<<endl;
+        outfile<<"#ifndef _TABLE_H"<<endl;
+        outfile<<"#define _TABLE_H"<<endl;
+        outfile<<endl; 
 
-        printf("[OK] ==============> Initial_Encoding has been print.\n");
+        Print_Array_u8( outfile, num, N1, N2, encrypt_Array);
 
-        fprintf(tableFile,"#endif\n");
-		fclose(tableFile);
+        printf("[OK] ==============> Initial_Encoding%d has been print.\n" , num);
+
+        outfile<<"#endif"<<endl;
+		outfile.close();
 	}
     
 
