@@ -221,9 +221,9 @@ int testTK1(int num)
 
     /*---------------------------打印加密表---------------------------*/
     string file;
-    file = "table"+to_string(num)+".h";
-
-	tableFile = fopen(file, "w+");
+    sprintf(file,"./table%d.h", num );
+    char *f_path = file; 
+	tableFile = fopen(f_path, "w+");
 
 	if(tableFile != NULL)
 	{
