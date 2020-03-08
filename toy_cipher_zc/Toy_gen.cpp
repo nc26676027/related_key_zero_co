@@ -209,7 +209,8 @@ int testTK1(int num)
                                     }
                                     in = subByte (in , tk1);
                                     printf("P3*+++++++++++++++++\n");
-                                  
+                                    printf("P = %lu\n" , P);
+                                    printf("T = %lu\n" , T);
                                     encrypt_Array[P][T] = in[0][0];
                                     printf("P4*+++++++++++++++++\n");
 
