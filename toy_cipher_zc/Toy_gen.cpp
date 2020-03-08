@@ -23,7 +23,7 @@ unsigned long long int rol(int val, int size)
 
   return res;
 }
-
+/*
 static void Print_Array_u8(ofstream &f, int num, int row, int column, vector<vector<uint8_t>> Array)
 {
     int i, j;
@@ -51,7 +51,7 @@ static void Print_Array_u8(ofstream &f, int num, int row, int column, vector<vec
 	}
     f<<"};"<<endl;
 }
-
+*/
 
 
 unsigned int nible_to_int(vector<vector<int>> in )
