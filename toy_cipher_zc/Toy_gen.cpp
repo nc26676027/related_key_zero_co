@@ -8,8 +8,11 @@
 
 using namespace std;
 
-const unsigned long int size1 = pow(2 , (4*3));
-const unsigned long int size2 = pow(2 , (4*4));
+const unsigned int size1 = pow(2 , (4*3));
+const unsigned int size2 = pow(2 , (4*4));
+
+int N1 = pow(2 , (4*3));
+int N2 = pow(2 , (4*4));
 
 vector<vector<uint8_t>> encrypt_Array( size1 , vector<uint8_t> (size2 , 0) );
 
@@ -226,7 +229,7 @@ int testTK1(int num)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        Print_Array_u8( tableFile, num, size1, size2, encrypt_Array);
+        Print_Array_u8( tableFile, num, N1, N2, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
