@@ -195,8 +195,8 @@ int testTK1(int num)
                                     tk1[1][1] = i8;
                                     
                                     printf("p1*******************\n");
-                                    unsigned int P = nible_to_int(in);
-                                    unsigned int T = nible_to_int(tk1);
+                                    unsigned long int P = nible_to_int(in);
+                                    unsigned long int T = nible_to_int(tk1);
                                     printf("P2*+++++++++++++++++\n");
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
