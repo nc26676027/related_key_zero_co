@@ -194,6 +194,7 @@ int testTK1(int num)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
                                     
+                                    printf("p1\n");
                                     unsigned int P = nible_to_int(in);
                                     unsigned int T = nible_to_int(tk1);
                                     
@@ -218,7 +219,7 @@ int testTK1(int num)
         }
     }
 
-
+    printf("p2\n");
     /*---------------------------打印加密表---------------------------*/
     string file = "table"+to_string(num)+".h";
     ofstream outfile;
