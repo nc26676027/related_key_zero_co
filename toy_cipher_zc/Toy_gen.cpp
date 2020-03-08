@@ -51,21 +51,21 @@ static void Print_Array_u8(FILE* table, int row, int column, vector<vector<uint8
 }
 
 
-unsigned int nible_to_int(vector<vector<int>> in , int row , int col )
+
+unsigned int nible_to_int(vector<vector<int>> in )
 {
     unsigned int res = 0;
 
-    for( int i = 0; i < row; i++ )
+    for( int i = 0; i < 2; i++ )
     {
-        for (int j = 0; j < col; j++)
+        for (int j = 0; j < 2; j++)
         {
-            res = res ^ rol( in[row][col] & 0xF , 4 * (i * row + j) );
+            res = res ^ rol( in[i][j] & 0xF , 4 * (i * 2 + j) );
         }
 
     }
     return res;
 }
-
 
 
 vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
@@ -191,8 +191,8 @@ int testTK1(void)
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
                                     
-                                    unsigned int P = nible_to_int(in , 2 , 2);
-                                    unsigned int T = nible_to_int(tk1 , 2 , 2);
+                                    unsigned int P = nible_to_int(in);
+                                    unsigned int T = nible_to_int(tk1);
                                     
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
@@ -228,7 +228,7 @@ int testTK1(void)
         fprintf(tableFile,"#define _TABLE_H\n");
         fprintf(tableFile,"\n");
         
-        //Print_Array_u8( tableFile, N, N, encrypt_Array);
+        Print_Array_u8( tableFile, N, N, encrypt_Array);
 
         printf("[OK] ==============> Initial_Encoding has been print.\n");
 
