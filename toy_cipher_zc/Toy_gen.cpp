@@ -229,8 +229,28 @@ int testTK1(int num)
         outfile<<"#ifndef _TABLE_H"<<endl;
         outfile<<"#define _TABLE_H"<<endl;
         outfile<<endl; 
+        string group_num = "Encoding"+to_string(num);
 
-        Print_Array_u8( outfile, num, N1, N2, encrypt_Array);
+        outfile<<"uint8_t "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
+        for (int i = 0; i < N1; i++)
+        {
+            outfile<<"{";
+            for (int j = 0; j < N2; j++)
+            {
+                outfile<<encrypt_Array[i][j];
+                if (j < N2 - 1)
+                {
+                    outfile<<" , ";
+                }
+            }
+            outfile<<"}"<<endl;
+            
+            if (i < N1 - 1)
+            {
+                outfile<<" , ";
+            }
+        }
+        outfile<<"};"<<endl;
 
         printf("[OK] ==============> Initial_Encoding%d has been print.\n" , num);
 
