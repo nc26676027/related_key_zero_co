@@ -190,7 +190,9 @@ int testTK1(void)
                                     tk1[0][1] = i6;
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
-                                    printf("kaishijiance ");
+                                    printf("kaishijiance 数组");
+                                    printf("shuzu %x " , encrypt_Array[rand()&0xffff][rand()&0xffff]);
+                                    printf("test over-> next test start: \n");
                                     unsigned int P = nible_to_int(in , 2 , 2);
                                     unsigned int T = nible_to_int(tk1 , 2 , 2);
                                     printf("P = %x\t T = %x" , P , T);
