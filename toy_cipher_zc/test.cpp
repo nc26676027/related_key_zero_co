@@ -51,15 +51,15 @@ static void Print_Array_u8(FILE* table, int row, int column, vector<vector<uint8
 }
 
 
-unsigned int nible_to_int(vector<vector<int>> in , int row , int col )
+unsigned int nible_to_int(vector<vector<int>> in )
 {
     unsigned int res = 0;
 
-    for( int i = 0; i < row; i++ )
+    for( int i = 0; i < 2; i++ )
     {
-        for (int j = 0; j < col; j++)
+        for (int j = 0; j < 2; j++)
         {
-            res = res ^ rol( in[row][col] & 0xF , 4 * (i * row + j) );
+            res = res ^ rol( in[i][j] & 0xF , 4 * (i * 2 + j) );
         }
 
     }
