@@ -9,7 +9,7 @@
 
 using namespace std;
 
-const unsigned long int size1 = pow(2 , (4*3));
+const unsigned long int size1 = pow(2 , (4*4));
 const unsigned long int size2 = pow(2 , (4*4));
 
 int N1 = pow(2 , (4*3));
