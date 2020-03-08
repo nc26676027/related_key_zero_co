@@ -154,6 +154,7 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 int testTK1(void)
 {
     //generate all keys at random
+    srand( time(NULL));
 
     int x_Rounds = 3;
     int y_Rounds = 5;
