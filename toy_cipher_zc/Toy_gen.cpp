@@ -27,7 +27,9 @@ unsigned long long int rol(int val, int size)
 static void Print_Array_u8(FILE* table, int num, int row, int column, vector<vector<uint8_t>> Array)
 {
     int i, j;
-    string group_num = "Encoding"+to_string(num);
+    string group_num;
+    group_num = "Encoding"+to_string(num);
+
 	fprintf(table,"uint8_t %s[%d][%d] = {", group_num , row, column);
 	for (i = 0; i < row; i++)
 	{
@@ -218,7 +220,8 @@ int testTK1(int num)
     FILE *tableFile;
 
     /*---------------------------打印加密表---------------------------*/
-    string file = "table"+to_string(num)+".h";
+    string file;
+    file = "table"+to_string(num)+".h";
 
 	tableFile = fopen(file, "w+");
 
