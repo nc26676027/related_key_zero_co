@@ -194,8 +194,8 @@ int testTK1(void)
                                     printf("kaishijiance 数组\n");
                                     printf("shuzu %x \n" , encrypt_Array[rand()&0xffff][rand()&0xffff]);
                                     printf("test over-> next test start: \n");
-                                    unsigned int P = nible_to_int(in , 2 , 2);
-                                    unsigned int T = nible_to_int(tk1 , 2 , 2);
+                                    unsigned int P = nible_to_int(in );
+                                    unsigned int T = nible_to_int(tk1);
                                     printf("P = %x\t T = %x" , P , T);
                                     /*
                                     //encryption
