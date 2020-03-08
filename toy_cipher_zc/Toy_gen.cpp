@@ -208,8 +208,11 @@ int testTK1(int num)
 
                                     }
                                     in = subByte (in , tk1);
-
+                                    printf("P3*+++++++++++++++++\n");
+                                  
                                     encrypt_Array[P][T] = in[0][0];
+                                    printf("P4*+++++++++++++++++\n");
+
                                 }
                             }
                         }
@@ -219,7 +222,7 @@ int testTK1(int num)
         }
     }
 
-    printf("p3++++++++++++++++++++++++++\n");
+    printf("p5++++++++++++++++++++++++++\n");
     /*---------------------------打印加密表---------------------------*/
     string file = "table"+to_string(num)+".h";
     ofstream outfile;
