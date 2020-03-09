@@ -1,16 +1,21 @@
 #include<stdio.h>
 #include<iostream>
+#include<fstream>
 #include<vector>
 #include<time.h>
 #include<cmath>
+#include<stdint.h>
+#include<stdlib.h>
 
 using namespace std;
 
-void encrypt (uint32_t* plaintext, uint32_t* ciphertext) {
-	char S[] = { 0x9e37b8e9, 0xaf48c9fa, 0x8d26a7d8, … }; /* Sbox */
-	ciphertext = S[plaintext];
-}
 
+const unsigned long int size1 = pow(2 , (4*3));
+
+int N1 = pow(2 , (4*3));
+int N2 = pow(2 , (4*4));
+
+vector<unsigned int> counter( size1 , 0 );
 
 bool get_xored(unsigned int in)
 {
@@ -31,9 +36,180 @@ bool get_xored(unsigned int in)
     }
 }
 
+unsigned long long int rol(int val, int size)
+{
+
+  unsigned long long int res = val << size;
+
+  return res;
+}
+
+unsigned long long int ror(int val, int size)
+{
+
+  unsigned long long int res = val >> size;
+
+  return res;
+}
+
+
+unsigned int nible_to_int(vector<vector<int>> in )
+{
+    unsigned int res = 0;
+
+    for( int i = 0; i < 2; i++ )
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            res = res ^ rol( in[i][j] & 0xF , 12 - ( 4*(i*2 + j) ) );
+        }
+
+    }
+    return res;
+}
 
 
 
+int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
+{
+
+    unsigned int xor = 0;
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding0[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding1[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding2[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding3[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding4[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding5[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding6[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding7[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding8[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding9[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding10[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding11[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding12[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding13[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding14[i][j]);
+        }
+    }
+
+    for(int i = 0;i < N1;i++)
+    {
+        for(int j = 0;j < N2;j++)
+        {
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding15[i][j]);
+        }
+    }
+
+    bool judge = get_xored(xor);
+    if( ! judge )
+    {
+        unsigned index = (alpha2 >> 4);
+        counter[index]++;
+    }
+}
 
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
@@ -47,61 +223,6 @@ int testTK1( int num )
     srand( time(NULL));
 
     vector<vector<int>> alpha1(2 , vector<int>(2, 0));
-    for( int row = 0; row < 2 ; row++)
-    {
-        for( int col = 0; col < 2; col++)
-        {
-            if( (row*2+col) == 2 )
-            {
-                alpha1[row][col] = 0x7;
-            }
-            else
-            {
-                alpha1[row][col] = 0x0;
-            }
-
-        }
-    }
-    vector<vector<int>> alpha2(2 , vector<int>(2, 0));
-    for( int row = 0; row < 2 ; row++)
-    {
-        for( int col = 0; col < 2; col++)
-        {
-            if( (row*2+col) == 3 )
-            {
-                alpha2[row][col] = 0x7;
-            }
-            else if((row*2+col) == 0)
-            {
-                alpha2[row][col] = 0x6;
-            }
-            else if((row*2+col) == 1)
-            {
-                alpha2[row][col] = 0x0;
-            }
-            else if((row*2+col) == 2)
-            {
-                alpha2[row][col] = 0xc;
-            }             
-
-        }
-    }
-    vector<vector<int>> beta(2 , vector<int>(2, 0));
-    for( int row = 0; row < 2 ; row++)
-    {
-        for( int col = 0; col < 2; col++)
-        {
-            if( (row*2+col) == 0 )
-            {
-                beta[row][col] = 0x1;
-            }
-            else
-            {
-                beta[row][col] = 0x0;
-            }
-
-        }
-    }
 
 
     int x_Rounds = 5;
@@ -118,16 +239,7 @@ int testTK1( int num )
         {
             for ( int i3 = 0; i3 < 16; i3++)
             {
-                for ( int i4 = 0; i4 < 16; i4++)
-                {
-                    for ( int i5 = 0; i5 < 16; i5++)
-                    {
-                        for ( int i6 = 0; i6 < 16; i6++)
-                        {
-                            for ( int i7 = 0; i7 < 16; i7++)
-                            {
-                                for ( int i8 = 0; i8 < 16; i8++)
-                                {
+
                                     vector<vector<int>> in(2, vector<int>(2, 0));
                                     vector<vector<int>> tk1(2, vector<int>(2, 0));
 
@@ -185,11 +297,7 @@ int testTK1( int num )
                                     {
                                         counter++;
                                     }
-                                }
-                            }
-                        }
-                    }
-                }
+
             }
         }
     }
