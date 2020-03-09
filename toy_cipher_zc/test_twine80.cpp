@@ -6,6 +6,22 @@
 #include<cmath>
 #include<stdint.h>
 #include<stdlib.h>
+#include "table_h\table0.h"
+#include "table_h\table1.h"
+#include "table_h\table2.h"
+#include "table_h\table3.h"
+#include "table_h\table4.h"
+#include "table_h\table5.h"
+#include "table_h\table6.h"
+#include "table_h\table7.h"
+#include "table_h\table8.h"
+#include "table_h\table9.h"
+#include "table_h\table10.h"
+#include "table_h\table11.h"
+#include "table_h\table12.h"
+#include "table_h\table13.h"
+#include "table_h\table14.h"
+#include "table_h\table15.h"
 
 using namespace std;
 
