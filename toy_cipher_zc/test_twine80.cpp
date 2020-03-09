@@ -282,10 +282,11 @@ int testTK1( int num )
             }
         }
     }
+    string file = "counter"+to_string(num);
 
     ofstream outfile;
 
-    outfile.open("counter.txt");
+    outfile.open(file);
 
     for(int i = num;i < num+1;i++)
     {
