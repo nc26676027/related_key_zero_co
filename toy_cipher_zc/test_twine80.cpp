@@ -223,15 +223,45 @@ int testTK1( int num )
     srand( time(NULL));
 
     vector<vector<int>> alpha1(2 , vector<int>(2, 0));
+    vector<vector<int>> alpha2(2 , vector<int>(2, 0));
+    vector<vector<int>> beta(2 , vector<int>(2, 0));
 
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            if( ( (i*2 + j) == 0 ) || ( (i*2 + j) == 3 ) )
+            {
+                alpha1[i][j] = 0xF & rand();
+            }
+            else
+            {
+                alpha1[i][j] = 0;
+            }            
+        
+        }
+        
+    }
 
-    int x_Rounds = 5;
-    int y_Rounds = 5;
-    int Round = x_Rounds+y_Rounds;
-    printf("  Number of rounds : %d\n" , Round);
+    alpha2[1][1] = 0;
 
-    unsigned long int N = pow(2 , (4*8));
-    unsigned long int counter = 0;
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            if( (i*2 + j) == 0 )
+            {
+                beta[i][j] = 0xF & rand();
+            }
+            else
+            {
+                alpha1[i][j] = 0;
+            }            
+        
+        }
+        
+    }
+    
 
     for ( int i1 = num; i1 < num+1; i1++)
     {
@@ -239,75 +269,49 @@ int testTK1( int num )
         {
             for ( int i3 = 0; i3 < 16; i3++)
             {
+                alpha2[0][0] = i1;
+                alpha2[0][1] = i2;
+                alpha2[1][0] = i3;
 
-                                    vector<vector<int>> in(2, vector<int>(2, 0));
-                                    vector<vector<int>> tk1(2, vector<int>(2, 0));
+                unsigned a1 = nible_to_int(alpha1);
+                unsigned a2 = nible_to_int(alpha2);
+                unsigned b = nible_to_int(beta);
 
-                                    in[0][0] = i1;
-                                    in[0][1] = i2;
-                                    in[1][0] = i3;
-                                    in[1][1] = i4;
-                                    tk1[0][0] = i5;
-                                    tk1[0][1] = i6;
-                                    tk1[1][0] = i7;
-                                    tk1[1][1] = i8;
-
-
-                                    vector<vector<int>> K = tk1;
-                                    vector<vector<int>> P = in;
-
-                                    //encryption
-                                    for (int r = 0; r < Round - 1 ; r++)
-                                    {
-                                        in = subByte (in , tk1);
-                                        in = shiftNible(in);
-
-                                        tk1 = keySchedule(tk1);
-
-                                    }
-                                    in = subByte (in , tk1);
-
-                                    int XOR = 0;
-
-                                    for( int i = 0; i < 2; i++)
-                                    {
-                                        for( int j =0; j < 2; j++)
-                                        {
-                                            XOR = XOR ^ ( K[i][j] & alpha2[i][j] );
-                                        }
-                                    }
-                                    
-                                    for( int i = 0; i < 2; i++)
-                                    {
-                                        for( int j =0; j < 2; j++)
-                                        {
-                                            XOR = XOR ^ ( P[i][j] & alpha1[i][j] );
-                                        }
-                                    }
-                                    for( int i = 0; i < 2; i++)
-                                    {
-                                        for( int j =0; j < 2; j++)
-                                        {
-                                            XOR = XOR ^ ( in[i][j] & beta[i][j] );
-                                        }
-                                    }
-
-                                    bool judge = get_xored(XOR);
-                                    if( ! judge )
-                                    {
-                                        counter++;
-                                    }
+                encrypt_all(a1 , a2 , b);
 
             }
         }
     }
 
+    ofstream outfile;
 
-    printf("N:%lu\n", N );
-    printf("counter:%lu\n", counter);
-    printf("result = %lu\n", N/counter);
+    outfile.open("counter.txt");
 
-    cout << endl;
+    for(int i = num;i < num+1;i++)
+    {
+        outfile<<"the counter of number:"<<num<<" is {"<<endl;
+        for (int j = 0; j < 16; j++)
+        {
+            outfile<<"{ ";
+            for(int k = 0;k < 16; k++)
+            {
+                unsigned index = rol(num , 8) ^ rol(j , 4) ^ k;
+                outfile<<counter[index];
+                if(k < 15)
+                {
+                    outfile<<" , ";
+                }
+            }
+            outfile<<"};"<<endl;
+
+        }
+        outfile<<" };"<<endl;
+    }
+
+    outfile.close();
+
+
+
 }
 
 
