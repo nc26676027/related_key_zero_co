@@ -15,7 +15,7 @@ const unsigned long int size2 = pow(2 , (4*4));
 int N1 = pow(2 , (4*3));
 int N2 = pow(2 , (4*4));
 
-vector<vector<uint8_t>> encrypt_Array( size1 , vector<uint8_t> (size2 , 0) );
+vector<vector<unsigned int>> encrypt_Array( size1 , vector<unsigned int> (size2 , 0) );
 
 unsigned long long int rol(int val, int size)
 {
@@ -223,12 +223,12 @@ int testTK1(int num)
     outfile.open(file);
 
     outfile<<"#include <stdint.h>"<<endl;
-    outfile<<"#ifndef _TABLE_H"<<endl;
-    outfile<<"#define _TABLE_H"<<endl;
+    outfile<<"#ifndef _TABLE"<<num<<"_H"<<endl;
+    outfile<<"#define _TABLE"<<num<<"_H"<<endl;
     outfile<<endl; 
     string group_num = "Encoding"+to_string(num);
 
-    outfile<<"uint8_t "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
+    outfile<<"unsigned int "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
     for (int i = 0; i < N1; i++)
     {
         outfile<<"{";
