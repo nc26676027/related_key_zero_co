@@ -6,6 +6,7 @@
 #include<cmath>
 #include<stdint.h>
 #include<stdlib.h>
+/*
 #include "table_h/table0.h"
 #include "table_h/table1.h"
 #include "table_h/table2.h"
@@ -22,6 +23,11 @@
 #include "table_h/table13.h"
 #include "table_h/table14.h"
 #include "table_h/table15.h"
+*/
+#include "_h/table0.h"
+
+
+
 
 using namespace std;
 
