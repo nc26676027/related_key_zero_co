@@ -15,7 +15,7 @@ const unsigned long int size2 = pow(2 , (4*4));
 int N1 = pow(2 , (4*3));
 int N2 = pow(2 , (4*4));
 
-vector<vector<unsigned int>> encrypt_Array( size1 , vector<unsigned int> (size2 , 0) );
+vector<vector<uint8_t>> encrypt_Array( size1 , vector<uint8_t> (size2 , 0) );
 
 unsigned long long int rol(int val, int size)
 {
@@ -228,13 +228,13 @@ int testTK1(int num)
     outfile<<endl; 
     string group_num = "Encoding"+to_string(num);
 
-    outfile<<"unsigned int "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
+    outfile<<"uint8_t "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
     for (int i = 0; i < N1; i++)
     {
         outfile<<"{";
         for (int j = 0; j < N2; j++)
         {
-            outfile<<encrypt_Array[i][j];
+            outfile<<unsigned(encrypt_Array[i][j]);
             if (j < N2 - 1)
             {
                 outfile<<" , ";
