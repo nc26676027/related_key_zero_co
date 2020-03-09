@@ -24,7 +24,23 @@
 #include "table_h/table14.h"
 #include "table_h/table15.h"
 */
-#include "_h/table0.h"
+#include "test_h/table0.h"
+#include "test_h/table1.h"
+#include "test_h/table2.h"
+#include "test_h/table3.h"
+#include "test_h/table4.h"
+#include "test_h/table5.h"
+#include "test_h/table6.h"
+#include "test_h/table7.h"
+#include "test_h/table8.h"
+#include "test_h/table9.h"
+#include "test_h/table10.h"
+#include "test_h/table11.h"
+#include "test_h/table12.h"
+#include "test_h/table13.h"
+#include "test_h/table14.h"
+#include "test_h/table15.h"
+
 
 
 
@@ -101,7 +117,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding0[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding0[i][j]) );
         }
     }
 
@@ -109,7 +125,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding1[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding1[i][j]) );
         }
     }
 
@@ -117,7 +133,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding2[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding2[i][j]) );
         }
     }
 
@@ -125,7 +141,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding3[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding3[i][j]) );
         }
     }
 
@@ -133,7 +149,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding4[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding4[i][j]) );
         }
     }
 
@@ -141,7 +157,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding5[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding5[i][j]) );
         }
     }
 
@@ -149,7 +165,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding6[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding6[i][j]) );
         }
     }
 
@@ -157,7 +173,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding7[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding7[i][j]) );
         }
     }
 
@@ -165,7 +181,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding8[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding8[i][j]) );
         }
     }
 
@@ -173,7 +189,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding9[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding9[i][j]) );
         }
     }
 
@@ -181,7 +197,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding10[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding10[i][j]) );
         }
     }
 
@@ -189,7 +205,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding11[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding11[i][j]) );
         }
     }
 
@@ -197,7 +213,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding12[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding12[i][j]) );
         }
     }
 
@@ -205,7 +221,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding13[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding13[i][j]) );
         }
     }
 
@@ -213,7 +229,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding14[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding14[i][j]) );
         }
     }
 
@@ -221,7 +237,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & Encoding15[i][j]);
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding15[i][j]) );
         }
     }
 
