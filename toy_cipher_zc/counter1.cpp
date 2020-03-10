@@ -9,32 +9,6 @@
 
 #include "../table_h/table0.h"
 #include "../table_h/table1.h"
-/*
-#include "../table_h/table2.h"
-#include "../table_h/table3.h"
-*/
-
-/*
-#include "test_h/table0.h"
-#include "test_h/table1.h"
-#include "test_h/table2.h"
-#include "test_h/table3.h"
-#include "test_h/table4.h"
-#include "test_h/table5.h"
-#include "test_h/table6.h"
-#include "test_h/table7.h"
-#include "test_h/table8.h"
-#include "test_h/table9.h"
-#include "test_h/table10.h"
-#include "test_h/table11.h"
-#include "test_h/table12.h"
-#include "test_h/table13.h"
-#include "test_h/table14.h"
-#include "test_h/table15.h"
-*/
-
-
-
 
 using namespace std;
 
@@ -42,7 +16,7 @@ using namespace std;
 const unsigned long int size1 = pow(2 , (4*3));
 
 int N1 = pow(2 , (4*3));
-int N2 = pow(2 , (4*2));
+int N2 = pow(2 , (4*4));
 
 vector<unsigned int> counter( size1 , 0 );
 
@@ -131,7 +105,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK1( int num )
+int testTK1()
 {
 	
 
@@ -180,7 +154,7 @@ int testTK1( int num )
     }
     
 
-    for ( int i1 = num; i1 < num+1; i1++)
+    for ( int i1 = 0; i1 < 16; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
@@ -201,30 +175,27 @@ int testTK1( int num )
     }
 
     /*---------------------------打印计数器---------------------------*/
-    string file = "counterone"+to_string(num)+".h";
+    string file = "counterone"+".h";
     ofstream outfile;
     outfile.open(file);
 
     outfile<<"#include <stdint.h>"<<endl;
-    outfile<<"#ifndef _COUNTERONE"<<num<<"_H"<<endl;
-    outfile<<"#define _COUNTERONE"<<num<<"_H"<<endl;
+    outfile<<"#ifndef _COUNTERONE_H"<<endl;
+    outfile<<"#define _COUNTERONE_H"<<endl;
     outfile<<endl; 
-    string group_num = "counterone"+to_string(num);
+    string group_num = "counterone";
 
-    outfile<<"unsigned "<<group_num<<"["<<N2<<"]"<<" = "<<endl;
-    outfile<<"  {"<<endl;   
-    for (int j = 0; j < 16; j++)
-    {
-        for(int k = 0;k < 16; k++)
+    outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<" = "<<endl;
+    outfile<<"  {"<<endl;
+    for (int i = 0; i < N1; i++)
+    { 
+
+        outfile<<counter[i];            
+        if ( i < N1-1 )
         {
-            unsigned index = rol(num , 8) ^ rol(j , 4) ^ k;
-            outfile<<counter[index];            
-            if ( (j*16 + k) <255 )
-            {
-                outfile<<" , ";
-            }
-            
-        }
+            outfile<<" , ";
+        }                
+
     }
     outfile<<"  };"<<endl;
 
@@ -236,30 +207,11 @@ int testTK1( int num )
 }
 
 
-int main(int argc,char * argv[])
+int main()
 {
     printf("Experimental verification of distinguisher on TK1.\n");
     
-
-    //input canshu
-	int origin;
-
-	printf("input %d parameter \n" , argc);
-
-	if(argc!=2)
-	{
-		printf("parameter number error!!");
-		exit(0);
-	}
-	else
-    {
-        origin = atoi(argv[1]);
-    }
-    printf("begin num = %d  ",origin );
-
-
-
-    testTK1(origin);
+    testTK1();
 
 
     return 0;

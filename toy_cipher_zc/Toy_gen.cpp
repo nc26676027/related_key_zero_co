@@ -24,35 +24,7 @@ unsigned long long int rol(int val, int size)
 
   return res;
 }
-/*
-static void Print_Array_u8(ofstream &f, int num, int row, int column, vector<vector<uint8_t>> Array)
-{
-    int i, j;
-    string group_num;
-    group_num = "Encoding"+to_string(num);
 
-    f<<"uint8_t "<<group_num<<"["<<row<<"]"<<"["<<column<<"]"<<" = {";
-	for (i = 0; i < row; i++)
-	{
-        f<<"{";
-        for (j = 0; j < column; j++)
-		{
-            f<<Array[i][j];
-			if (j < column - 1)
-			{
-                f<<" , ";
-			}
-		}
-        f<<"}"<<endl;
-        
-		if (i < row - 1)
-		{
-            f<<" , ";
-		}
-	}
-    f<<"};"<<endl;
-}
-*/
 
 
 unsigned int nible_to_int(vector<vector<int>> in )
@@ -184,17 +156,23 @@ int testTK1(int num)
                                     vector<vector<int>> in(2, vector<int>(2, 0));
                                     vector<vector<int>> tk1(2, vector<int>(2, 0));
 
-                                    in[0][0] = i1;
+                                    in[0][0] = 0;
                                     in[0][1] = i2;
                                     in[1][0] = i3;
                                     in[1][1] = i4;
+                                    unsigned long int P = nible_to_int(in);  
+
+                                    in[0][0] = i1;
+                                    in[0][1] = i2;
+                                    in[1][0] = i3;
+                                    in[1][1] = i4;     
 
                                     tk1[0][0] = i5;
                                     tk1[0][1] = i6;
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
                                     
-                                    unsigned long int P = nible_to_int(in);
+                                    
                                     unsigned long int T = nible_to_int(tk1);
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
@@ -206,6 +184,7 @@ int testTK1(int num)
 
                                     }
                                     in = subByte (in , tk1);
+                                    
                                     encrypt_Array[P][T] = in[0][0];
 
                                 }
