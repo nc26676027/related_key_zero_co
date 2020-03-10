@@ -7,14 +7,10 @@
 #include<stdint.h>
 #include<stdlib.h>
 
-#include "../table_h/table0.h"
-#include "../table_h/table1.h"
+
 #include "../table_h/table2.h"
 #include "../table_h/table3.h"
-#include "../table_h/table4.h"
-#include "../table_h/table5.h"
-#include "../table_h/table6.h"
-#include "../table_h/table7.h"
+
 
 /*
 #include "test_h/table0.h"
@@ -105,7 +101,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
 {
 
     unsigned int xor = 0;
-
+    /*
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
@@ -121,7 +117,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding1[i][j]) );
         }
     }
-
+    */
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
@@ -137,7 +133,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding3[i][j]) );
         }
     }
-
+    /*
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
@@ -169,7 +165,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding7[i][j]) );
         }
     }
-    /*
+    
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
@@ -315,15 +311,15 @@ int testTK1( int num )
     }
 
     /*---------------------------打印计数器---------------------------*/
-    string file = "counterone"+to_string(num)+".h";
+    string file = "countertwo"+to_string(num)+".h";
     ofstream outfile;
     outfile.open(file);
 
     outfile<<"#include <stdint.h>"<<endl;
-    outfile<<"#ifndef _COUNTERONE"<<num<<"_H"<<endl;
-    outfile<<"#define _COUNTERONE"<<num<<"_H"<<endl;
+    outfile<<"#ifndef _COUNTERTWO"<<num<<"_H"<<endl;
+    outfile<<"#define _COUNTERTWO"<<num<<"_H"<<endl;
     outfile<<endl; 
-    string group_num = "counterone"+to_string(num);
+    string group_num = "countertwo"+to_string(num);
 
     outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<" = "<<endl;
     outfile<<"  {"<<endl;   

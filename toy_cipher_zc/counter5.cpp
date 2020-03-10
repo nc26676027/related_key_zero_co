@@ -102,13 +102,13 @@ unsigned int nible_to_int(vector<vector<int>> in )
 int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
 {
 
-    unsigned int XOR = 0;
+    unsigned int xor = 0;
 
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
         {
-            XOR = XOR ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding0[i][j]) );
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding0[i][j]) );
         }
     }
 
@@ -116,7 +116,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            XOR = XOR ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding1[i][j]) );
+            xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding1[i][j]) );
         }
     }
     /*
@@ -232,7 +232,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
         }
     }
     */
-    bool judge = get_xored(XOR);
+    bool judge = get_xored(xor);
     if( ! judge )
     {
         unsigned index = (alpha2 >> 4);
