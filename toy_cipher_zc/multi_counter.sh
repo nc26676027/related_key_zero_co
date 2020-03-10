@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir counter0_h
-cd counter0_h
+mkdir counter_h
+cd counter_h
 cp ../counter*.cpp ./ 
 g++ --std c++11 counter1.cpp -o counter1
 g++ --std c++11 counter2.cpp -o counter2
@@ -12,16 +12,9 @@ g++ --std c++11 counter6.cpp -o counter6
 g++ --std c++11 counter7.cpp -o counter7
 g++ --std c++11 counter8.cpp -o counter8
 
-for ((i=0;i<1;i++));
+for ((i=1;i<9;i++));
 do	
-	nohup ./counter1 $i &	
-	nohup ./counter2 $i &	
-	nohup ./counter3 $i &	
-	nohup ./counter4 $i &		
-	nohup ./counter5 $i &	
-	nohup ./counter6 $i &	
-	nohup ./counter7 $i &	
-	nohup ./counter8 $i &	
+	nohup ./counter$i  &	
 
 done
 cd ..
