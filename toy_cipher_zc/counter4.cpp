@@ -123,9 +123,13 @@ int testTK1()
     {
         for (int j = 0; j < 2; j++)
         {
-            if( ( (i*2 + j) == 0 ) || ( (i*2 + j) == 3 ) )
+            if( ( i*2 + j) == 0  )
             {
                 alpha1[i][j] = 0xF;
+            }
+            else if( (i*2 + j) == 3 )
+            {
+                alpha1[i][j] = 0xa;
             }
             else
             {
