@@ -9,9 +9,10 @@
 
 #include "../table_h/table0.h"
 #include "../table_h/table1.h"
+/*
 #include "../table_h/table2.h"
 #include "../table_h/table3.h"
-
+*/
 
 /*
 #include "test_h/table0.h"
@@ -118,7 +119,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding1[i][j]) );
         }
     }
-
+    /*
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
@@ -134,7 +135,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding3[i][j]) );
         }
     }
-    /*
+    
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
