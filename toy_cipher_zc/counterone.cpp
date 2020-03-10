@@ -6,7 +6,7 @@
 #include<cmath>
 #include<stdint.h>
 #include<stdlib.h>
-/*
+
 #include "table_h/table0.h"
 #include "table_h/table1.h"
 #include "table_h/table2.h"
@@ -23,7 +23,7 @@
 #include "table_h/table13.h"
 #include "table_h/table14.h"
 #include "table_h/table15.h"
-*/
+/*
 #include "test_h/table0.h"
 #include "test_h/table1.h"
 #include "test_h/table2.h"
@@ -40,7 +40,7 @@
 #include "test_h/table13.h"
 #include "test_h/table14.h"
 #include "test_h/table15.h"
-
+*/
 
 
 
@@ -176,7 +176,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding7[i][j]) );
         }
     }
-
+    /*
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
@@ -184,7 +184,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding8[i][j]) );
         }
     }
-
+    
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
@@ -240,7 +240,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
             xor = xor ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding15[i][j]) );
         }
     }
-
+    */
     bool judge = get_xored(xor);
     if( ! judge )
     {
@@ -320,36 +320,34 @@ int testTK1( int num )
             }
         }
     }
-    string file = "counter"+to_string(num);
 
+    /*---------------------------打印计数器---------------------------*/
+    string file = "counterone"+to_string(num)+".h";
     ofstream outfile;
-
     outfile.open(file);
 
-    for(int i = num;i < num+1;i++)
+    outfile<<"#include <stdint.h>"<<endl;
+    outfile<<"#ifndef _COUNTERONE"<<num<<"_H"<<endl;
+    outfile<<"#define _COUNTERONE"<<num<<"_H"<<endl;
+    outfile<<endl; 
+    string group_num = "counterone"+to_string(num);
+
+    outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<" = "<<endl;
+    outfile<<"  {"<<endl;   
+    for (int j = 0; j < 16; j++)
     {
-        outfile<<"the counter of number:"<<num<<" is {"<<endl;
-        for (int j = 0; j < 16; j++)
+        for(int k = 0;k < 16; k++)
         {
-            outfile<<"{ ";
-            for(int k = 0;k < 16; k++)
-            {
-                unsigned index = rol(num , 8) ^ rol(j , 4) ^ k;
-                outfile<<counter[index];
-                if(k < 15)
-                {
-                    outfile<<" , ";
-                }
-            }
-            outfile<<"};"<<endl;
-
+            unsigned index = rol(num , 8) ^ rol(j , 4) ^ k;
+            outfile<<counter[index];
         }
-        outfile<<" };"<<endl;
     }
+    outfile<<"  };"<<endl;
 
+    printf("[OK] ==============> Initial_Encoding%d has been print.\n" , num);
+
+    outfile<<"#endif"<<endl;
     outfile.close();
-
-
 
 }
 
