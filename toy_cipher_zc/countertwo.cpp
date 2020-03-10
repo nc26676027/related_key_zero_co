@@ -7,14 +7,7 @@
 #include<stdint.h>
 #include<stdlib.h>
 
-#include "../table_h/table0.h"
-#include "../table_h/table1.h"
-#include "../table_h/table2.h"
-#include "../table_h/table3.h"
-#include "../table_h/table4.h"
-#include "../table_h/table5.h"
-#include "../table_h/table6.h"
-#include "../table_h/table7.h"
+
 #include "../table_h/table8.h"
 #include "../table_h/table9.h"
 #include "../table_h/table10.h"
@@ -270,7 +263,7 @@ int testTK1( int num )
         {
             if( ( (i*2 + j) == 0 ) || ( (i*2 + j) == 3 ) )
             {
-                alpha1[i][j] = 0xF & rand();
+                alpha1[i][j] = 0xF ;
             }
             else
             {
@@ -289,7 +282,7 @@ int testTK1( int num )
         {
             if( (i*2 + j) == 0 )
             {
-                beta[i][j] = 0xF & rand();
+                beta[i][j] = 0xa ;
             }
             else
             {

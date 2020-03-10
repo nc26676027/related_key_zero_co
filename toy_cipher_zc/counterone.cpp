@@ -15,14 +15,7 @@
 #include "../table_h/table5.h"
 #include "../table_h/table6.h"
 #include "../table_h/table7.h"
-#include "../table_h/table8.h"
-#include "../table_h/table9.h"
-#include "../table_h/table10.h"
-#include "../table_h/table11.h"
-#include "../table_h/table12.h"
-#include "../table_h/table13.h"
-#include "../table_h/table14.h"
-#include "../table_h/table15.h"
+
 /*
 #include "test_h/table0.h"
 #include "test_h/table1.h"
@@ -270,7 +263,7 @@ int testTK1( int num )
         {
             if( ( (i*2 + j) == 0 ) || ( (i*2 + j) == 3 ) )
             {
-                alpha1[i][j] = 0xF & rand();
+                alpha1[i][j] = 0xF;
             }
             else
             {
@@ -289,7 +282,7 @@ int testTK1( int num )
         {
             if( (i*2 + j) == 0 )
             {
-                beta[i][j] = 0xF & rand();
+                beta[i][j] = 0xa;
             }
             else
             {
