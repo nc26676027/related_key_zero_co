@@ -7,8 +7,8 @@
 #include<stdint.h>
 #include<stdlib.h>
 
-#include "../table_h/table0.h"
-#include "../table_h/table1.h"
+#include "../table_h/table10.h"
+#include "../table_h/table11.h"
 /*
 #include "../table_h/table2.h"
 #include "../table_h/table3.h"
@@ -108,7 +108,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            XOR = XOR ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding0[i][j]) );
+            XOR = XOR ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding10[i][j]) );
         }
     }
 
@@ -116,7 +116,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            XOR = XOR ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding1[i][j]) );
+            XOR = XOR ^ (alpha1 & i) ^ (alpha2 & j) ^(beta & unsigned(Encoding11[i][j]) );
         }
     }
 
@@ -201,15 +201,15 @@ int testTK1( int num )
     }
 
     /*---------------------------打印计数器---------------------------*/
-    string file = "counterone"+to_string(num)+".h";
+    string file = "countersix"+to_string(num)+".h";
     ofstream outfile;
     outfile.open(file);
 
     outfile<<"#include <stdint.h>"<<endl;
-    outfile<<"#ifndef _COUNTERONE"<<num<<"_H"<<endl;
-    outfile<<"#define _COUNTERONE"<<num<<"_H"<<endl;
+    outfile<<"#ifndef _COUNTERSIX"<<num<<"_H"<<endl;
+    outfile<<"#define _COUNTERSIX"<<num<<"_H"<<endl;
     outfile<<endl; 
-    string group_num = "counterone"+to_string(num);
+    string group_num = "countersix"+to_string(num);
 
     outfile<<"unsigned "<<group_num<<"["<<N2<<"]"<<" = "<<endl;
     outfile<<"  {"<<endl;   
