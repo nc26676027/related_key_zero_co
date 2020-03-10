@@ -9,20 +9,20 @@
 
 using namespace std;
 
-#include"counter0_h/counterone0"
-#include"counter0_h/countertwo0"
-#include"counter0_h/counterthree0"
-#include"counter0_h/counterfour0"
-#include"counter0_h/counterfive0"
-#include"counter0_h/countersix0"
-#include"counter0_h/counterseven0"
-#include"counter0_h/countereight0"
+#include"counter_h/counterone.h"
+#include"counter_h/countertwo.h"
+#include"counter_h/counterthree.h"
+#include"counter_h/counterfour.h"
+#include"counter_h/counterfive.h"
+#include"counter_h/countersix.h"
+#include"counter_h/counterseven.h"
+#include"counter_h/countereight.h"
 
 
 const unsigned long int size1 = pow(2 , (4*2));
 
 int N1 = pow(2 , (4*3));
-int N2 = pow(2 , (4*2));
+int N2 = pow(2 , (4*4));
 
 vector<unsigned int> counter( size1 , 0 );
 
@@ -31,10 +31,10 @@ int main()
     printf("add all counter on toy_cipher.\n");
     
     ofstream outfile;
-    outfile.open("counter0.txt");
+    outfile.open("counter.txt");
     for (int i = 0; i < size1; i++)
     {
-        counter[i] = counterone0[i] + countertwo0[i] + counterthree0[i] + counterfour0[i] + counterfive0[i] + countersix0[i] + counterseven0[i] + countereight0[i];
+        counter[i] = counterone[i] + countertwo[i] + counterthree[i] + counterfour[i] + counterfive[i] + countersix[i] + counterseven[i] + countereight[i];
     }
 
     for(int j = 0;j < size1;j++)
