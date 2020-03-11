@@ -14,8 +14,8 @@ g++ --std c++11 counter8.cpp -o counter8
 
 for ((i=2;i<9;i++));
 do	
-	nohup ./counter$i  &	
-
+	nohup ./counter$i  &
+	
 done
 cd ..
 
