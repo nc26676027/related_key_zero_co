@@ -98,6 +98,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     }
 
     bool judge = get_xored(XOR);
+    
     if( ! judge )
     {
         unsigned index = ror(alpha2 , 4);
