@@ -82,8 +82,15 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
+            XOR = 0;
             unsigned p0 = i ^ rol(0xc , 12 ); 
             XOR = XOR ^ (alpha1 & p0) ^ (alpha2 & j) ^(beta & rol(unsigned(Encoding12[i][j]) , 12) );
+            bool judge = get_xored(XOR);
+            if( ! judge )
+            {
+                unsigned index = ror(alpha2 , 4);
+                counter[index]++;
+            }
         }
     }
 
@@ -91,17 +98,19 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
+            XOR = 0;
             unsigned p1 = i ^ rol(0xd , 12 ); 
             XOR = XOR ^ (alpha1 & p1) ^ (alpha2 & j) ^(beta & rol(unsigned(Encoding13[i][j]) , 12) );
+            bool judge = get_xored(XOR);
+            if( ! judge )
+            {
+                unsigned index = ror(alpha2 , 4);
+                counter[index]++;
+            }
         }
     }
 
-    bool judge = get_xored(XOR);
-    if( ! judge )
-    {
-        unsigned index = ror(alpha2 , 4);
-        counter[index]++;
-    }
+
 }
 
 
