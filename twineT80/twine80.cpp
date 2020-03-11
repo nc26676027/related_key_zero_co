@@ -137,7 +137,7 @@ int main(int argc,char * argv[])
 	outcvc<<dec;
 
 	//state variable claim
-    for(int round=0;round<=x_ROUND;round++)
+    for(int round=0;round < x_ROUND;round++)
     {
 		
         for(int pos=0;pos<16;pos++)
@@ -168,7 +168,7 @@ int main(int argc,char * argv[])
     }
 	
 	//backward state variable claim
-	for(int round = y_ROUND;round>=0;round--)
+	for(int round = 0;round < y_ROUND;round++)
 	{
         for(int pos=0;pos<16;pos++)
         {
@@ -232,7 +232,7 @@ int main(int argc,char * argv[])
 	}
 	
 //ASSERT 
-	for(int round=0;round<x_ROUND;round++)
+	for(int round=0;round < x_ROUND;round++)
 	{	
 		int index = 0;
 		//forward state update
@@ -252,47 +252,53 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( x_Xout_"<<round<<"_"<<pos<<" = x_Fin_"<<round<<"_"<<pos<<" );"<<endl;
 				
 			}
-			
-			outcvc<<"ASSERT( x_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = x_Xout_"<<round<<"_"<<pos<<" );"<<endl;
-			
-			if((pos == RK[index])&&(pos<16))
+			if(round < x_ROUND-1)
 			{
-				outcvc<<"ASSERT( RKin_"<<round<<"_"<<(RK[index])<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
+				outcvc<<"ASSERT( x_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = x_Xout_"<<round<<"_"<<pos<<" );"<<endl;
+			}
+			
+			if( pos == RK[index] )
+			{
+				outcvc<<"ASSERT( RKin_"<<round<<"_"<<pos<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
 				index++;		
 			}		
 			
 		}	
 		
 	}
-
-	for(int round=y_ROUND-1;round>=0;round--)
+//backward assert
+	for(int round=0;round < y_ROUND;round++)
 	{	
-		//backward state update
+		int index = 0;
+		//forward state update
 		for(int pos=0;pos<16;pos++)
-		{
-			if(round<y_ROUND-1)
-			{
-				outcvc<<"ASSERT( y_Xout_"<<round<<"_"<<h_inv[pos]<<" = y_Fin_"<<round+1<<"_"<<pos<<" );"<<endl;
-			}
-
+		{			
 			if(pos%2 == 0)
 			{
-				string a = "y_Xout_"+to_string(round)+"_"+to_string(pos);
+				string a = "y_Fin_"+to_string(round)+"_"+to_string(pos);
 				string b = "y_Sin_"+to_string(round)+"_"+to_string(pos);
-				outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				outcvc<<"ASSERT( y_Xout_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 				outcvc<<"ASSERT( NOT( LAT[y_Sout_"<<round<<"_"<<pos<<"@y_Sin_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
-				outcvc<<"ASSERT( "<<"y_Sout_"<<round<<"_"<<pos<<" = y_Xout_"<<round<<"_"<<pos+1<<" );"<<endl;
+				outcvc<<"ASSERT( "<<"y_Sout_"<<round<<"_"<<pos<<" = y_Fin_"<<round<<"_"<<pos+1<<" );"<<endl;
 			}
 			else
 			{
-				outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<pos<<" = y_Xout_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( y_Xout_"<<round<<"_"<<pos<<" = y_Fin_"<<round<<"_"<<pos<<" );"<<endl;
+				
 			}
-			if((pos%2 == 0)&&(pos<16))
+			if(round < x_ROUND-1)
 			{
-				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<RK[pos/2]<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;			
+				outcvc<<"ASSERT( y_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = y_Xout_"<<round<<"_"<<pos<<" );"<<endl;
+			}
+			
+			if( pos == RK[index] )
+			{
+				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
+				index++;		
 			}		
 			
-		}		
+		}	
+		
 	}
 
 	//key schedule
@@ -353,10 +359,10 @@ int main(int argc,char * argv[])
 		}
 		if(pos == key_flag)
 		{
-			outcvc<<"ASSERT( MK_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
 
-		outcvc<<"ASSERT( Kin_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+		outcvc<<"ASSERT( BKout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 
 	}
 
