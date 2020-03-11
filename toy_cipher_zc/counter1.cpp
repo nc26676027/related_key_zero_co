@@ -181,7 +181,7 @@ int testTK1()
     }
 
     /*---------------------------打印计数器---------------------------*/
-    string file = "counterone"+".h";
+    string file = "counterone.h";
     ofstream outfile;
     outfile.open(file);
 
@@ -205,7 +205,6 @@ int testTK1()
     }
     outfile<<"  };"<<endl;
 
-    printf("[OK] ==============> Initial_Encoding%d has been print.\n" , num);
 
     outfile<<"#endif"<<endl;
     outfile.close();
