@@ -78,12 +78,13 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
 
     unsigned int XOR = 0;
 
+
     for(int i = 0;i < N1;i++)
     {
         for(int j = 0;j < N2;j++)
         {
-            int p0 = i ^ rol(0x0 , 12 ); 
-            XOR = XOR ^ (alpha1 & p0) ^ (alpha2 & j) ^(beta & unsigned(Encoding0[i][j]) );
+            unsigned p0 = i ^ rol(0x0 , 12 ); 
+            XOR = XOR ^ (alpha1 & p0) ^ (alpha2 & j) ^ (beta & rol(unsigned(Encoding0[i][j]) , 12) );
         }
     }
 
@@ -91,15 +92,15 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            int p1 = i ^ rol(0x1 , 12 ); 
-            XOR = XOR ^ (alpha1 & p1) ^ (alpha2 & j) ^(beta & unsigned(Encoding1[i][j]) );
+            unsigned p1 = i ^ rol(0x1 , 12 ); 
+            XOR = XOR ^ (alpha1 & p1) ^ (alpha2 & j) ^ (beta & rol(unsigned(Encoding1[i][j]) , 12) );
         }
     }
 
     bool judge = get_xored(XOR);
     if( ! judge )
     {
-        unsigned index = (alpha2 >> 4);
+        unsigned index = ror(alpha2 , 4);
         counter[index]++;
     }
 }
