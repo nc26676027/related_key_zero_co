@@ -82,7 +82,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            int p0 = i ^ rol(0x2 , 12 ); 
+            unsigned p0 = i ^ rol(0x2 , 12 ); 
             XOR = XOR ^ (alpha1 & p0) ^ (alpha2 & j) ^(beta & rol(unsigned(Encoding2[i][j]) , 12) );
         }
     }
@@ -91,7 +91,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
     {
         for(int j = 0;j < N2;j++)
         {
-            int p1 = i ^ rol(0x3 , 12 ); 
+            unsigned p1 = i ^ rol(0x3 , 12 ); 
             XOR = XOR ^ (alpha1 & p1) ^ (alpha2 & j) ^(beta & rol(unsigned(Encoding3[i][j]) , 12) );
         }
     }
