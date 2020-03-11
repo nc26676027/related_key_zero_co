@@ -19,7 +19,7 @@ using namespace std;
 #include"counter_h/countereight.h"
 
 
-const unsigned long int size1 = pow(2 , (4*2));
+const unsigned long int size1 = pow(2 , (4*3));
 
 int N1 = pow(2 , (4*3));
 int N2 = pow(2 , (4*4));
