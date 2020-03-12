@@ -323,7 +323,7 @@ int main(int argc,char * argv[])
 	
 	for(int pos=0;pos<16;pos++)
 	{
-		outcvc<<"ASSERT( x_Fin_"<<x_ROUND-1<<"_"<<pos<<" = y_Fin_0_"<<pos<<" );"<<endl;
+		outcvc<<"ASSERT( x_Xout_"<<x_ROUND-1<<"_"<<pos<<" = y_Fin_0_"<<h[pos]<<" );"<<endl;
 	}
 	
 
