@@ -280,7 +280,7 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( y_Xout_"<<round<<"_"<<pos<<" = y_Fin_"<<round<<"_"<<pos<<" );"<<endl;
 				
 			}
-			if(round < x_ROUND-1)
+			if(round < y_ROUND-1)
 			{
 				outcvc<<"ASSERT( y_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = y_Xout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
