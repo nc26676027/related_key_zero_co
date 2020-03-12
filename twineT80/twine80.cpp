@@ -313,7 +313,7 @@ int main(int argc,char * argv[])
 			}
 			if (round < ROUND-1)
 			{
-				outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = BKout_"<<round<<"_"<<Pi[pos]<<" );"<<endl;
+				outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = BKout_"<<round<<"_"<<pi[pos]<<" );"<<endl;
 			}
 			
 			
