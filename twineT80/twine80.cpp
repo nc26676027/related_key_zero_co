@@ -253,7 +253,7 @@ int main(int argc,char * argv[])
 			
 			if( pos == RK[index] )
 			{
-				outcvc<<"ASSERT( RKin_"<<round<<"_"<<pos<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
+				outcvc<<"ASSERT( RKin_"<<round<<"_"<<index<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
 				index++;		
 			}		
 			
@@ -287,7 +287,7 @@ int main(int argc,char * argv[])
 			
 			if( pos == RK[index] )
 			{
-				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
+				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<index<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
 				index++;		
 			}		
 			
