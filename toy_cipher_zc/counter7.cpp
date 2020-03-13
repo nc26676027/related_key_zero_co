@@ -149,7 +149,28 @@ int testTK1()
         
     }
 
-    alpha2[1][1] = 0;
+    for (int i = 0; i < 2; i++)
+    {
+        for (int j = 0; j < 2; j++)
+        {
+
+            if( (i*2 + j) == 3 )
+            {
+                alpha2[i][j] = 0;
+            }
+            else if( (i*2 + j) == 0 )
+            {
+                alpha2[i][j] = 0x4;
+            } 
+            else if( (i*2 + j) == 1 )
+            {
+                alpha2[i][j] = 0x8;
+            }      
+                         
+        
+        }
+        
+    }
 
     for (int i = 0; i < 2; i++)
     {
@@ -169,14 +190,16 @@ int testTK1()
     }
     
 
+    /*
     for ( int i1 = 0; i1 < 16; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
+            */
             for ( int i3 = 0; i3 < 16; i3++)
             {
-                alpha2[0][0] = i1;
-                alpha2[0][1] = i2;
+                //alpha2[0][0] = i1;
+                //alpha2[0][1] = i2;
                 alpha2[1][0] = i3;
 
                 unsigned a1 = nible_to_int(alpha1);
@@ -186,8 +209,10 @@ int testTK1()
                 encrypt_all(a1 , a2 , b);
 
             }
+            /*
         }
     }
+    /*
 
     /*---------------------------打印计数器---------------------------*/
     string file = "counterseven.h";
