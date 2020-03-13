@@ -67,30 +67,23 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 
     int RK[6] = {14, 10, 8, 6, 2, 0};
 
-    int index = 0;
-    vector<vector<int>> xor_tk = in;
+    int index = 5;
 
     vector<vector<int>> out = in;
+
+
     for (int i = 0;i < 4; i++)
     {
         for( int j = 0; j < 4; j++)
         {
             if( (i*4 + j) == RK[index] )
             {
-               xor_tk[i][j] = in[i][j] ^ rk[ i ][ j ];
-               index ++;
+               out[i][j] = sbox[ rk[ index/4 ][ index%4 ] ^ in[i][j] ] ^ in[i][j+1];
+               index--;
             }
-        }
-    }
-
-    for (int i = 0;i < 4; i++)
-    {
-        for( int j = 0; j < 4; j++)
-        {
-            if( (j % 2) == 1 )
+            else if( ( (i*4 + j) == 4 ) || ( (i*4 + j) == 12 ))
             {
-               out[i][j] = sbox[ in[i][j-1] ^ xor_tk[i][j] ] ^ in[i][j];
-               index ++;
+                out[i][j] = sbox[ in[i][j] ] ^ in[i][j];
             }
             else
             {
