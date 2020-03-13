@@ -51,6 +51,13 @@ int SR[16] = { 0,  1,  2,  3,
 
 */
 
+int pi[16] = { 6,  7,  8,  9,
+			  10, 11, 12, 13,
+			  14, 15,  1,  0,
+			   4,  2,  3,  5};
+
+int RK[6] = {14, 10, 8, 6, 2, 0};
+
 vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 {
     vector<int> sbox = {0xc, 0x0, 0xf, 0xa,
@@ -58,17 +65,31 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int RK[6] = { 1,  3,  4,  6, 13, 14, 15, 16 };
+    int RK[6] = {14, 10, 8, 6, 2, 0};
 
     int index = 0;
+    vector<vector<int>> xor_tk = in;
+
     vector<vector<int>> out = in;
+    for (int i = 0;i < 4; i++)
+    {
+        for( int j = 0; j < 4; j++)
+        {
+            if( (i*4 + j) == RK[index] )
+            {
+               xor_tk[i][j] = in[i][j] ^ rk[ i ][ j ];
+               index ++;
+            }
+        }
+    }
+
     for (int i = 0;i < 4; i++)
     {
         for( int j = 0; j < 4; j++)
         {
             if( (j % 2) == 1 )
             {
-               out[i][j] = sbox[ in[i][j-1] ^ rk[ RK[index]/4 ][ RK[index]%4 ] ] ^ in[i][j];
+               out[i][j] = sbox[ in[i][j-1] ^ xor_tk[i][j] ] ^ in[i][j];
                index ++;
             }
             else

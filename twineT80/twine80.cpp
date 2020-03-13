@@ -226,7 +226,7 @@ int main(int argc,char * argv[])
 //ASSERT 
 	for(int round=0;round < x_ROUND;round++)
 	{	
-		int index = 0;
+		int index = 5;
 		//forward state update
 		for(int pos=0;pos<16;pos++)
 		{
@@ -252,7 +252,7 @@ int main(int argc,char * argv[])
 			if( pos == RK[index] )
 			{
 				outcvc<<"ASSERT( RKin_"<<round<<"_"<<index<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
-				index++;		
+				index--;		
 			}		
 			
 		}	
@@ -261,7 +261,7 @@ int main(int argc,char * argv[])
 //backward assert
 	for(int round=0;round < y_ROUND;round++)
 	{	
-		int index = 0;
+		int index = 5;
 		//forward state update
 		for(int pos=0;pos<16;pos++)
 		{			
@@ -286,7 +286,7 @@ int main(int argc,char * argv[])
 			if( pos == RK[index] )
 			{
 				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<index<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;	
-				index++;		
+				index--;		
 			}		
 			
 		}	
