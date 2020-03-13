@@ -58,7 +58,7 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int RK[8] = { 1,  3,  4,  6, 13, 14, 15, 16 };
+    int RK[6] = { 1,  3,  4,  6, 13, 14, 15, 16 };
 
     int index = 0;
     vector<vector<int>> out = in;
