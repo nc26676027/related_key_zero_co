@@ -9,14 +9,14 @@
 
 using namespace std;
 
-#include"counter_h/counterone.h"
-#include"counter_h/countertwo.h"
-#include"counter_h/counterthree.h"
-#include"counter_h/counterfour.h"
-#include"counter_h/counterfive.h"
-#include"counter_h/countersix.h"
-#include"counter_h/counterseven.h"
-#include"counter_h/countereight.h"
+#include"counter0_h/counterone.h"
+#include"counter0_h/countertwo.h"
+#include"counter0_h/counterthree.h"
+#include"counter0_h/counterfour.h"
+#include"counter0_h/counterfive.h"
+#include"counter0_h/countersix.h"
+#include"counter0_h/counterseven.h"
+#include"counter0_h/countereight.h"
 
 
 const unsigned long int size1 = pow(2 , (4*3));
@@ -31,7 +31,7 @@ int main()
     printf("add all counter on toy_cipher.\n");
     
     ofstream outfile;
-    outfile.open("counter.txt");
+    outfile.open("counter0.txt");
     for (int i = 0; i < size1; i++)
     {
         counter[i] = counterone[i] + countertwo[i] + counterthree[i] + counterfour[i] + counterfive[i] + countersix[i] + counterseven[i] + countereight[i];
