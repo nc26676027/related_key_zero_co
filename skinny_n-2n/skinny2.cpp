@@ -347,17 +347,7 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;		
 		}
 	}
-/*
-	//other tweak 
-	for(int pos=0;pos<16;pos++)
-	{
-		if(pos != return_index(key_flag,P_R))
-		{
-			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = Kin_0_"<<P_R[pos]<<" );"<<endl;
-			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = Kin2_0_"<<P_R[pos]<<" );"<<endl;
-		}
-	}
-*/
+
 
 
 	outcvc<<"QUERY(FALSE);"<<endl;
