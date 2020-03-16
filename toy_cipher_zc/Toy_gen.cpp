@@ -9,13 +9,13 @@
 
 using namespace std;
 
-const unsigned long int size1 = pow(2 , (4*4));
-const unsigned long int size2 = pow(2 , (4*4));
+const unsigned long int size1 = pow(2 , (4*3));
+const unsigned long int size2 = pow(2 , (4*3));
 
-int N1 = pow(2 , (4*3));
-int N2 = pow(2 , (4*4));
+int N1 = pow(2 , (4*2));
+int N2 = pow(2 , (4*3));
 
-vector<vector<uint8_t>> encrypt_Array( size1 , vector<uint8_t> (size2 , 0) );
+vector<vector<unsigned>> encrypt_Array( size1 , vector<unsigned> (size2 , 0) );
 
 unsigned long long int rol(int val, int size)
 {
@@ -27,7 +27,7 @@ unsigned long long int rol(int val, int size)
 
 
 
-unsigned int nible_to_int(vector<vector<int>> in )
+unsigned int nible_to_int1(vector<vector<int>> in )
 {
     unsigned int res = 0;
 
@@ -35,7 +35,30 @@ unsigned int nible_to_int(vector<vector<int>> in )
     {
         for (int j = 0; j < 2; j++)
         {
-            res = res ^ rol( in[i][j] & 0xF , 12 - ( 4*(i*2 + j) ) );
+            if ( i*2 + j == 3 )
+            {
+                res = res ^ rol( in[i][j] & 0xF , 4 );               
+            }           
+            
+        }
+
+    }
+    return res;
+}
+
+unsigned int nible_to_int2(vector<vector<int>> in )
+{
+    unsigned int res = 0;
+
+    for( int i = 0; i < 2; i++ )
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            if( i*2 + j != 3 )
+            {
+                res = res ^ rol( in[i][j] & 0xF , 8 - ( 4*(i*2 + j) ) );
+            }
+            
         }
 
     }
@@ -156,24 +179,18 @@ int testTK1(int num)
                                     vector<vector<int>> in(2, vector<int>(2, 0));
                                     vector<vector<int>> tk1(2, vector<int>(2, 0));
 
-                                    in[0][0] = 0;
-                                    in[0][1] = i2;
-                                    in[1][0] = i3;
-                                    in[1][1] = i4;
-                                    unsigned long int P = nible_to_int(in);  
-
                                     in[0][0] = i1;
                                     in[0][1] = i2;
                                     in[1][0] = i3;
-                                    in[1][1] = i4;     
+                                    in[1][1] = i4;  
 
                                     tk1[0][0] = i5;
                                     tk1[0][1] = i6;
                                     tk1[1][0] = i7;
                                     tk1[1][1] = i8;
                                     
-                                    
-                                    unsigned long int T = nible_to_int(tk1);
+                                    unsigned  P = nible_to_int1(in);                                      
+                                    unsigned  T = nible_to_int2(tk1);
                                     //encryption
                                     for (int r = 0; r < Round - 1 ; r++)
                                     {
@@ -185,7 +202,9 @@ int testTK1(int num)
                                     }
                                     in = subByte (in , tk1);
                                     
-                                    encrypt_Array[P][T] = in[0][0];
+                                    P = P ^ ( in[0][0] & 0xF );
+
+                                    encrypt_Array[P][T] += 1;
 
                                 }
                             }
@@ -207,7 +226,7 @@ int testTK1(int num)
     outfile<<endl; 
     string group_num = "Encoding"+to_string(num);
 
-    outfile<<"uint8_t "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
+    outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
     for (int i = 0; i < N1; i++)
     {
         outfile<<"{";
