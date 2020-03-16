@@ -118,37 +118,17 @@ vector<vector<int>> shiftNible(vector<vector<int>> in )
 //key update
 vector<vector<int>> keySchedule(vector<vector<int>> in )
 {
-    vector<int> sbox = {0xc, 0x0, 0xf, 0xa,
-				        0x2, 0xb, 0x9, 0x5,
-				        0x8, 0x3, 0xd, 0x7,
-				        0x1, 0xe, 0x6, 0x4};
 
-    int pi[16] = { 6,  7,  8,  9,
-                  10, 11, 12, 13,
-                  14, 15,  1,  0,
-                   4,  2,  3,  5};
+    int Rot[16] = {  6,  7,  8,  9,
+                    10, 11, 12, 13,
+                    14, 15,  1,  0,
+                     4,  2,  3,  5};
     //permutation
-    vector<vector<int>> rot(5, vector<int>(4, 0));
-    vector<vector<int>> out(5, vector<int>(4, 0));
-    for ( int i = 0; i < 20; i++)
-    {
-        if( i == 1 )
-        {
-            rot[0][1] =  in[0][0] ^ in[0][1];
-        }
-        else if ( i == 4 )
-        {
-            rot[1][0] = in[4][0] ^ in[1][0];
-        }
-        else
-        {
-            rot[ i / 4 ][ i % 4 ] = in[ i / 4 ][ i % 4 ];
-        }
+    vector<vector<int>> out(4, vector<int>(4, 0));
 
-    }
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < 16; i++)
     {
-        out[ Rot[i] / 4][ Rot[i] % 4 ] = rot[ i / 4 ][ i % 4 ];
+        out[ i / 4 ][ i % 4 ] = in[ Rot[i] / 4 ][ Rot[i] % 4 ];
     }
 
     return out;
@@ -162,12 +142,12 @@ int testTK1(void)
 {
     //generate all keys at random
     srand( time(NULL));
-    vector<vector<int>> key1(5 , vector<int>(4, 0));
-    for( int row = 0; row < 5 ; row++)
+    vector<vector<int>> key(5 , vector<int>(4, 0));
+    for( int row = 0; row < 4 ; row++)
     {
         for( int col = 0; col < 4; col++)
         {
-            key1[row][col] = rand() & 0xF;
+            key[row][col] = rand() & 0xF;
         }
     }
 
@@ -181,31 +161,42 @@ int testTK1(void)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
-            vector<vector<int>> in(4, vector<int>(4, 0));
-            vector<vector<int>> tk1 = key1;
-
-
-            in[3][2] = i1;
-
-            tk1[3][1] = i2;
-
-
-            //encryption
-
-            for (int r = 0; r < Round - 1 ; r++)
+            for ( int i3 = 0; i3 < 16; i3++)
             {
-                in = subByte (in , tk1);
-                in = shiftNible(in);
+                for ( int i4 = 0; i4 < 16; i4++)
+                {
+                    for ( int i5 = 0; i5 < 16; i5++)
+                    {
+                        vector<vector<int>> in(4, vector<int>(4, 0));
+                        vector<vector<int>> tk1 = key;
 
-                tk1 = keySchedule(tk1);
 
+                        in[0][2] = i1;
+                        in[1][3] = i2;
+                        in[2][0] = i3;
+                        in[3][0] = i4;
+
+                        tk1[3][1] = i5;
+
+
+                        //encryption
+
+                        for (int r = 0; r < Round - 1 ; r++)
+                        {
+                            in = subByte (in , tk1);
+                            in = shiftNible(in);
+
+                            tk1 = keySchedule(tk1);
+
+                        }
+                        in = subByte (in , tk1);
+
+                        counter[in[1][2]]++;
+
+
+                    }
+                }
             }
-            in = subByte (in , tk1);
-
-            counter[in[2][0]]++;
-
-
-            
         }
     }
     for (int i = 0; i < 16; i++)
