@@ -123,10 +123,10 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
 				        0x8, 0x3, 0xd, 0x7,
 				        0x1, 0xe, 0x6, 0x4};
 
-    int Rot[20] = {19, 16, 17, 18,  0,
-                    1,  2,  3,  4,  5,
-                    6,  7,  8,  9, 10,
-                   11, 12, 13, 14, 15};
+    int pi[16] = { 6,  7,  8,  9,
+                  10, 11, 12, 13,
+                  14, 15,  1,  0,
+                   4,  2,  3,  5};
     //permutation
     vector<vector<int>> rot(5, vector<int>(4, 0));
     vector<vector<int>> out(5, vector<int>(4, 0));
