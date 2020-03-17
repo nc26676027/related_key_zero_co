@@ -9,14 +9,14 @@
 
 using namespace std;
 
-#include"counter_h/counterone.h"
-#include"counter_h/countertwo.h"
-#include"counter_h/counterthree.h"
-#include"counter_h/counterfour.h"
-#include"counter_h/counterfive.h"
-#include"counter_h/countersix.h"
-#include"counter_h/counterseven.h"
-#include"counter_h/countereight.h"
+#include"counter1_h/counterone.h"
+#include"counter1_h/countertwo.h"
+#include"counter1_h/counterthree.h"
+#include"counter1_h/counterfour.h"
+#include"counter1_h/counterfive.h"
+#include"counter1_h/countersix.h"
+#include"counter1_h/counterseven.h"
+#include"counter1_h/countereight.h"
 
 
 const unsigned long int size1 = pow(2 , (4*3));
@@ -34,11 +34,18 @@ int main()
     outfile.open("counter.txt");
     for (int i = 0; i < size1; i++)
     {
-        counter[i] = counterone[i] + countertwo[i] + counterthree[i] + counterfour[i] + counterfive[i] + countersix[i] + counterseven[i] + countereight[i];
+        for (int j = 0; j < size1; j++)
+        {
+            counter[i][j] = counterone[i][j] + countertwo[i][j] + counterthree[i][j] + counterfour[i][j] + counterfive[i][j] + countersix[i][j] + counterseven[i][j] + countereight[i][j];
+        }
     }
 
-    for(int j = 0;j < size1;j++)
+    for(int i = 0;i < size1;i++)
     {
+        for(int j = 0;j < size1;j++)
+        {
+            
+        }
         outfile<<"counter =  (   "<<counter[j]<<"   )"<<endl;
         
     }

@@ -18,7 +18,7 @@ const unsigned long int size1 = pow(2 , (4*3));
 int N1 = pow(2 , (4*2));
 int N2 = pow(2 , (4*3));
 
-vector<unsigned> counter( size1 , vector<unsigned> (size1 , 0) );
+vector<vector<unsigned>> counter( size1 , vector<unsigned> (size1 , 0) );
 
 bool get_xored(unsigned int in)
 {
