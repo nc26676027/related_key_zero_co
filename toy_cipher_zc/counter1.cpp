@@ -160,23 +160,23 @@ int testTK1()
 
 
     
-    
+    /*
     for ( int i1 = 0; i1 < 16; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {            
             for ( int i3 = 0; i3 < 16; i3++)
-            {
+            {*/
                 for ( int i4 = 0; i4 < 16; i4++)
                 {
                     for ( int i5 = 0; i5 < 16; i5++)
                     {            
                         for ( int i6 = 0; i6 < 16; i6++)
                         {
-                            alpha1[0][0] = i1;
-                            alpha1[1][1] = i2;
+                            //alpha1[0][0] = i1;
+                            //alpha1[1][1] = i2;
 
-                            beta[0][0] = i3;
+                            //beta[0][0] = i3;
 
                             alpha2[0][0] = i4;
                             alpha2[0][1] = i5;
@@ -191,11 +191,11 @@ int testTK1()
 
                         }
                     }
-                }
+                }/*
             }            
         }
     }
-    
+    */
     
     /*---------------------------打印计数器---------------------------*/
     string file = "counterone.h";
