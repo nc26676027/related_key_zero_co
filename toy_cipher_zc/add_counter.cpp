@@ -22,7 +22,7 @@ using namespace std;
 const unsigned long int size1 = pow(2 , (4*3));
 
 int N1 = pow(2 , (4*3));
-int N2 = pow(2 , (4*4));
+int N2 = pow(2 , (4*3));
 
 vector<unsigned int> counter( size1 , 0 );
 

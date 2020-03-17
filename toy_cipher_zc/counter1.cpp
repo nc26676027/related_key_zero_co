@@ -7,18 +7,18 @@
 #include<stdint.h>
 #include<stdlib.h>
 
-#include "../table_h/table0.h"
-#include "../table_h/table1.h"
+#include "../table0_h/table0.h"
+#include "../table0_h/table1.h"
 
 using namespace std;
 
 
 const unsigned long int size1 = pow(2 , (4*3));
 
-int N1 = pow(2 , (4*3));
-int N2 = pow(2 , (4*4));
+int N1 = pow(2 , (4*2));
+int N2 = pow(2 , (4*3));
 
-vector<unsigned int> counter( size1 , 0 );
+vector<unsigned> counter( size1 , vector<unsigned> (size1 , 0) );
 
 bool get_xored(unsigned int in)
 {
@@ -56,7 +56,7 @@ unsigned long long int ror(int val, int size)
 }
 
 
-unsigned int nible_to_int(vector<vector<int>> in )
+unsigned int nible_to_int1(vector<vector<int>> in )
 {
     unsigned int res = 0;
 
@@ -64,7 +64,35 @@ unsigned int nible_to_int(vector<vector<int>> in )
     {
         for (int j = 0; j < 2; j++)
         {
-            res = res ^ rol( in[i][j] & 0xF , 12 - ( 4*(i*2 + j) ) );
+            if ( i*2 + j == 3 )
+            {
+                res = res ^ rol( in[i][j] & 0xF , 4 );               
+            }
+            else if ( i*2 + j == 0 )
+            {
+                res = res ^ rol( in[i][j] & 0xF , 8 );
+            }
+                       
+            
+        }
+
+    }
+    return res;
+}
+
+unsigned int nible_to_int2(vector<vector<int>> in )
+{
+    unsigned int res = 0;
+
+    for( int i = 0; i < 2; i++ )
+    {
+        for (int j = 0; j < 2; j++)
+        {
+            if( i*2 + j != 3 )
+            {
+                res = res ^ rol( in[i][j] & 0xF , 8 - ( 4*(i*2 + j) ) );
+            }
+            
         }
 
     }
@@ -73,7 +101,7 @@ unsigned int nible_to_int(vector<vector<int>> in )
 
 
 
-int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
+int encrypt_all( unsigned alpha1 , unsigned alpha2 )
 {
 
     unsigned int XOR = 0;
@@ -84,14 +112,13 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
         for(int j = 0;j < N2;j++)
         {
             XOR = 0;
-            unsigned p0 = i ^ rol(0x0 , 12 ); 
-            XOR = XOR ^ (alpha1 & p0) ^ (alpha2 & j) ^ (beta & rol(unsigned(Encoding0[i][j]) , 12) );
+            unsigned p0 = i ^ rol(0x0 , 8); 
+            XOR = XOR ^ (alpha1 & p0) ^ (alpha2 & j);
             bool judge = get_xored(XOR);
             
             if( ! judge )
             {
-                unsigned index = ror(alpha2 , 4);
-                counter[index]++;
+                counter[alpha1][alpha2] += unsigned(Encoding0[i][j]);
             }
         }
     }
@@ -101,14 +128,14 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 , unsigned beta )
         for(int j = 0;j < N2;j++)
         {
             XOR = 0;
-            unsigned p1 = i ^ rol(0x1 , 12 ); 
-            XOR = XOR ^ (alpha1 & p1) ^ (alpha2 & j) ^ (beta & rol(unsigned(Encoding1[i][j]) , 12) );
+            unsigned p1 = i ^ rol(0x1 , 8); 
+            XOR = XOR ^ (alpha1 & p1) ^ (alpha2 & j);
+
             bool judge = get_xored(XOR);
             
             if( ! judge )
             {
-                unsigned index = ror(alpha2 , 4);
-                counter[index]++;
+                counter[alpha1][alpha2] += unsigned(Encoding1[i][j]);
             }
         }
     }
@@ -131,91 +158,44 @@ int testTK1()
     vector<vector<int>> alpha2(2 , vector<int>(2, 0));
     vector<vector<int>> beta(2 , vector<int>(2, 0));
 
-    for (int i = 0; i < 2; i++)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            if( ( i*2 + j) == 0  )
-            {
-                alpha1[i][j] = 0xF;
-            }
-            else if( (i*2 + j) == 3 )
-            {
-                alpha1[i][j] = 0xa;
-            }
-            else
-            {
-                alpha1[i][j] = 0;
-            }            
-        
-        }
-        
-    }
 
     
-    for (int i = 0; i < 2; i++)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-
-            if( (i*2 + j) == 3 )
-            {
-                alpha2[i][j] = 0;
-            }
-            else if( (i*2 + j) == 0 )
-            {
-                alpha2[i][j] = 0x4;
-            } 
-            else if( (i*2 + j) == 1 )
-            {
-                alpha2[i][j] = 0x8;
-            }      
-                         
-        
-        }
-        
-    }
-
-    for (int i = 0; i < 2; i++)
-    {
-        for (int j = 0; j < 2; j++)
-        {
-            if( (i*2 + j) == 0 )
-            {
-                beta[i][j] = 0xa;
-            }
-            else
-            {
-                beta[i][j] = 0;
-            }            
-        
-        }
-        
-    }
     
-    /*
     for ( int i1 = 0; i1 < 16; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
-        {
-            */
+        {            
             for ( int i3 = 0; i3 < 16; i3++)
             {
-                //alpha2[0][0] = i1;
-                //alpha2[0][1] = i2;
-                alpha2[1][0] = i3;
+                for ( int i4 = 0; i4 < 16; i4++)
+                {
+                    for ( int i5 = 0; i5 < 16; i5++)
+                    {            
+                        for ( int i6 = 0; i6 < 16; i6++)
+                        {
+                            alpha1[0][0] = i1;
+                            alpha1[1][1] = i2;
 
-                unsigned a1 = nible_to_int(alpha1);
-                unsigned a2 = nible_to_int(alpha2);
-                unsigned b = nible_to_int(beta);
+                            beta[0][0] = i3;
 
-                encrypt_all(a1 , a2 , b);
+                            alpha2[0][0] = i4;
+                            alpha2[0][1] = i5;
+                            alpha2[1][0] = i6;
 
-            }
-            /*
+                            unsigned a1 = nible_to_int1(alpha1);
+                            unsigned a2 = nible_to_int2(alpha2);
+                            a1 = a1 ^ ( beta[0][0] & 0xF );
+
+                            encrypt_all( a1 , a2 );
+
+
+                        }
+                    }
+                }
+            }            
         }
     }
-    /*
+    
     
     /*---------------------------打印计数器---------------------------*/
     string file = "counterone.h";
@@ -228,19 +208,26 @@ int testTK1()
     outfile<<endl; 
     string group_num = "counterone";
 
-    outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<" = "<<endl;
-    outfile<<"  {"<<endl;
-    for (int i = 0; i < N1; i++)
-    { 
-
-        outfile<<counter[i];            
-        if ( i < N1-1 )
+    outfile<<"unsigned "<<group_num<<"["<<N2<<"]"<<"["<<N2<<"]"<<" = {";
+    for (int i = 0; i < N2; i++)
+    {
+        outfile<<"{";
+        for (int j = 0; j < N2; j++)
+        {
+            outfile<<unsigned(counter[i][j]);
+            if (j < N2 - 1)
+            {
+                outfile<<" , ";
+            }
+        }
+        outfile<<"}"<<endl;
+        
+        if (i < N2 - 1)
         {
             outfile<<" , ";
-        }                
-
+        }
     }
-    outfile<<"  };"<<endl;
+    outfile<<"};"<<endl;
 
 
     outfile<<"#endif"<<endl;

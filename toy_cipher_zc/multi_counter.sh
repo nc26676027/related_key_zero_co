@@ -1,7 +1,7 @@
 #!/bin/bash
 
-mkdir counter0_h
-cd counter0_h
+mkdir counter1_h
+cd counter1_h
 cp ../counter*.cpp ./ 
 g++ --std c++11 counter1.cpp -o counter1
 g++ --std c++11 counter2.cpp -o counter2
