@@ -6,9 +6,12 @@
 #include<cmath>
 #include<stdint.h>
 #include<stdlib.h>
-
+/*
 #include "../table0_h/table0.h"
 #include "../table0_h/table1.h"
+*/
+#include "table0_h/table0.h"
+#include "table0_h/table1.h"
 
 using namespace std;
 
