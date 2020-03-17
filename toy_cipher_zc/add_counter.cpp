@@ -39,16 +39,32 @@ int main()
             counter[i][j] = counterone[i][j] + countertwo[i][j] + counterthree[i][j] + counterfour[i][j] + counterfive[i][j] + countersix[i][j] + counterseven[i][j] + countereight[i][j];
         }
     }
-
-    for(int i = 0;i < size1;i++)
+    string group_num = "last_counter";
+    outfile<<"unsigned "<<group_num<<"["<<N2<<"]"<<"["<<N2<<"]"<<" = {";
+    for (int i = 0; i < N2; i++)
     {
-        for(int j = 0;j < size1;j++)
+        outfile<<"{";
+        for (int j = 0; j < N2; j++)
         {
-            
+            outfile<<unsigned(counter[i][j]);
+            if (j < N2 - 1)
+            {
+                outfile<<"     ,     ";
+            }
         }
-        outfile<<"counter =  (   "<<counter[j]<<"   )"<<endl;
+        outfile<<"}"<<endl;
         
+        if (i < N2 - 1)
+        {
+            //outfile<<" , ";
+            outfile<<"***********************"<<endl;
+            outfile<<"***********************"<<endl;
+            outfile<<"***********************"<<endl;
+
+        }
     }
+    outfile<<"};"<<endl;
+    outfile<<"***********************"<<endl;
     
 
 
