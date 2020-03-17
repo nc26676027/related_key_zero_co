@@ -149,7 +149,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK1()
+int testTK1(int num)
 {
 	
 
@@ -163,23 +163,23 @@ int testTK1()
 
 
     
-    /*
-    for ( int i1 = 0; i1 < 16; i1++)
+    
+    for ( int i1 = num; i1 < num+1; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {            
             for ( int i3 = 0; i3 < 16; i3++)
-            {*/
+            {
                 for ( int i4 = 0; i4 < 16; i4++)
                 {
                     for ( int i5 = 0; i5 < 16; i5++)
                     {            
                         for ( int i6 = 0; i6 < 16; i6++)
                         {
-                            //alpha1[0][0] = i1;
-                            //alpha1[1][1] = i2;
+                            alpha1[0][0] = i1;
+                            alpha1[1][1] = i2;
 
-                            //beta[0][0] = i3;
+                            beta[0][0] = i3;
 
                             alpha2[0][0] = i4;
                             alpha2[0][1] = i5;
@@ -194,11 +194,11 @@ int testTK1()
 
                         }
                     }
-                }/*
+                }
             }            
         }
     }
-    */
+    
     
     /*---------------------------打印计数器---------------------------*/
     string file = "counterone.h";
@@ -212,7 +212,7 @@ int testTK1()
     string group_num = "counterone";
 
     outfile<<"unsigned "<<group_num<<"["<<N2<<"]"<<"["<<N2<<"]"<<" = {";
-    for (int i = 0; i < N2; i++)
+    for (int i = 0; i < N1; i++)
     {
         outfile<<"{";
         for (int j = 0; j < N2; j++)
@@ -239,12 +239,28 @@ int testTK1()
 }
 
 
-int main()
+int main(int argc,char * argv[])
 {
-    printf("Experimental verification of distinguisher on TK1.\n");
+    printf("Experimental encrypt table on toy_cipher.\n");
     
-    testTK1();
 
+    //input canshu
+	int origin;
+
+	printf("input %d parameter \n" , argc);
+
+	if(argc!=2)
+	{
+		printf("parameter number error!!");
+		exit(0);
+	}
+	else
+    {
+        origin = atoi(argv[1]);
+    }
+    printf("begin num = %d  ",origin );
+
+    testTK1(origin);
 
     return 0;
 }
