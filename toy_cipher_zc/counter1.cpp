@@ -6,22 +6,22 @@
 #include<cmath>
 #include<stdint.h>
 #include<stdlib.h>
-/*
+
 #include "../table0_h/table0.h"
 #include "../table0_h/table1.h"
-*/
-#include "table0_h/table0.h"
-#include "table0_h/table1.h"
+
 
 using namespace std;
 
 
-const unsigned long int size1 = pow(2 , (4*3));
+const unsigned long int size1 = pow(2 , (4*2));
+const unsigned long int size2 = pow(2 , (4*3));
+
 
 int N1 = pow(2 , (4*2));
 int N2 = pow(2 , (4*3));
 
-vector<vector<unsigned>> counter( size1 , vector<unsigned> (size1 , 0) );
+vector<vector<unsigned>> counter( size1 , vector<unsigned> (size2 , 0) );
 
 bool get_xored(unsigned int in)
 {
@@ -70,12 +70,11 @@ unsigned int nible_to_int1(vector<vector<int>> in )
             if ( i*2 + j == 3 )
             {
                 res = res ^ rol( in[i][j] & 0xF , 4 );               
-            }
-            else if ( i*2 + j == 0 )
+            } 
+            else if ( i*2 + j == 0 )   
             {
-                res = res ^ rol( in[i][j] & 0xF , 8 );
-            }
-                       
+                 res = res ^ rol( in[i][j] & 0xF , 8 );
+            }                   
             
         }
 
@@ -108,6 +107,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
 {
 
     unsigned int XOR = 0;
+    unsigned a1 = alpha1 & 0xff;
 
 
     for(int i = 0;i < N1;i++)
@@ -121,7 +121,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
             
             if( ! judge )
             {
-                counter[alpha1][alpha2] += unsigned(Encoding0[i][j]);
+                counter[a1][alpha2] += unsigned(Encoding0[i][j]);
             }
         }
     }
@@ -137,8 +137,8 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
             bool judge = get_xored(XOR);
             
             if( ! judge )
-            {
-                counter[alpha1][alpha2] += unsigned(Encoding1[i][j]);
+            {                
+                counter[a1][alpha2] += unsigned(Encoding1[i][j]);
             }
         }
     }
@@ -201,17 +201,17 @@ int testTK1(int num)
     
     
     /*---------------------------打印计数器---------------------------*/
-    string file = "counterone.h";
+    string file = "counterone"+to_string(num)+".h";
     ofstream outfile;
     outfile.open(file);
 
     outfile<<"#include <stdint.h>"<<endl;
-    outfile<<"#ifndef _COUNTERONE_H"<<endl;
-    outfile<<"#define _COUNTERONE_H"<<endl;
+    outfile<<"#ifndef _COUNTERONE"<<num<<"_H"<<endl;
+    outfile<<"#define _COUNTERONE"<<num<<"_H"<<endl;
     outfile<<endl; 
-    string group_num = "counterone";
+    string group_num = "counterone"+to_string(num);
 
-    outfile<<"unsigned "<<group_num<<"["<<N2<<"]"<<"["<<N2<<"]"<<" = {";
+    outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
     for (int i = 0; i < N1; i++)
     {
         outfile<<"{";
@@ -225,7 +225,7 @@ int testTK1(int num)
         }
         outfile<<"}"<<endl;
         
-        if (i < N2 - 1)
+        if (i < N1 - 1)
         {
             outfile<<" , ";
         }

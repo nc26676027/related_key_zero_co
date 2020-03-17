@@ -10,15 +10,18 @@
 #include "../table0_h/table14.h"
 #include "../table0_h/table15.h"
 
+
 using namespace std;
 
 
-const unsigned long int size1 = pow(2 , (4*3));
+const unsigned long int size1 = pow(2 , (4*2));
+const unsigned long int size2 = pow(2 , (4*3));
+
 
 int N1 = pow(2 , (4*2));
 int N2 = pow(2 , (4*3));
 
-vector<vector<unsigned>> counter( size1 , vector<unsigned> (size1 , 0) );
+vector<vector<unsigned>> counter( size1 , vector<unsigned> (size2 , 0) );
 
 bool get_xored(unsigned int in)
 {
@@ -67,12 +70,11 @@ unsigned int nible_to_int1(vector<vector<int>> in )
             if ( i*2 + j == 3 )
             {
                 res = res ^ rol( in[i][j] & 0xF , 4 );               
-            }
-            else if ( i*2 + j == 0 )
+            } 
+            else if ( i*2 + j == 0 )   
             {
-                res = res ^ rol( in[i][j] & 0xF , 8 );
-            }
-                       
+                 res = res ^ rol( in[i][j] & 0xF , 8 );
+            }                   
             
         }
 
@@ -105,6 +107,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
 {
 
     unsigned int XOR = 0;
+    unsigned a1 = alpha1 & 0xff;
 
 
     for(int i = 0;i < N1;i++)
@@ -118,7 +121,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
             
             if( ! judge )
             {
-                counter[alpha1][alpha2] += unsigned(Encoding14[i][j]);
+                counter[a1][alpha2] += unsigned(Encoding14[i][j]);
             }
         }
     }
@@ -134,8 +137,8 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
             bool judge = get_xored(XOR);
             
             if( ! judge )
-            {
-                counter[alpha1][alpha2] += unsigned(Encoding15[i][j]);
+            {                
+                counter[a1][alpha2] += unsigned(Encoding15[i][j]);
             }
         }
     }
@@ -146,7 +149,7 @@ int encrypt_all( unsigned alpha1 , unsigned alpha2 )
 
 // Test d i s t i n g u i s h e r f o r twe ak able BC with one tweakey l i n e
 
-int testTK1()
+int testTK1(int num)
 {
 	
 
@@ -161,7 +164,7 @@ int testTK1()
 
     
     
-    for ( int i1 = 0; i1 < 16; i1++)
+    for ( int i1 = num; i1 < num+1; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {            
@@ -198,18 +201,18 @@ int testTK1()
     
     
     /*---------------------------打印计数器---------------------------*/
-    string file = "countereight.h";
+    string file = "countereight"+to_string(num)+".h";
     ofstream outfile;
     outfile.open(file);
 
     outfile<<"#include <stdint.h>"<<endl;
-    outfile<<"#ifndef _COUNTEREIGHT_H"<<endl;
-    outfile<<"#define _COUNTEREIGHT_H"<<endl;
+    outfile<<"#ifndef _COUNTEREIGHT"<<num<<"_H"<<endl;
+    outfile<<"#define _COUNTEREIGHT"<<num<<"_H"<<endl;
     outfile<<endl; 
-    string group_num = "countereight";
+    string group_num = "countereight"+to_string(num);
 
-    outfile<<"unsigned "<<group_num<<"["<<N2<<"]"<<"["<<N2<<"]"<<" = {";
-    for (int i = 0; i < N2; i++)
+    outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
+    for (int i = 0; i < N1; i++)
     {
         outfile<<"{";
         for (int j = 0; j < N2; j++)
@@ -222,7 +225,7 @@ int testTK1()
         }
         outfile<<"}"<<endl;
         
-        if (i < N2 - 1)
+        if (i < N1 - 1)
         {
             outfile<<" , ";
         }
@@ -236,12 +239,28 @@ int testTK1()
 }
 
 
-int main()
+int main(int argc,char * argv[])
 {
-    printf("Experimental verification of distinguisher on TK1.\n");
+    printf("Experimental encrypt table on toy_cipher.\n");
     
-    testTK1();
 
+    //input canshu
+	int origin;
+
+	printf("input %d parameter \n" , argc);
+
+	if(argc!=2)
+	{
+		printf("parameter number error!!");
+		exit(0);
+	}
+	else
+    {
+        origin = atoi(argv[1]);
+    }
+    printf("begin num = %d  ",origin );
+
+    testTK1(origin);
 
     return 0;
 }
