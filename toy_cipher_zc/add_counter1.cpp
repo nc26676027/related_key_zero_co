@@ -9,14 +9,14 @@
 
 using namespace std;
 
-#include"counter1_h/counterone1.h"
-#include"counter1_h/countertwo1.h"
-#include"counter1_h/counterthree1.h"
-#include"counter1_h/counterfour1.h"
-#include"counter1_h/counterfive1.h"
-#include"counter1_h/countersix1.h"
-#include"counter1_h/counterseven1.h"
-#include"counter1_h/countereight1.h"
+#include"/counter1_h/counterone1.h"
+#include"/counter1_h/countertwo1.h"
+#include"/counter1_h/counterthree1.h"
+#include"/counter1_h/counterfour1.h"
+#include"/counter1_h/counterfive1.h"
+#include"/counter1_h/countersix1.h"
+#include"/counter1_h/counterseven1.h"
+#include"/counter1_h/countereight1.h"
 
 
 const unsigned long int size1 = pow(2 , (4*2));
