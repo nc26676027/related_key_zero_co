@@ -42,7 +42,7 @@ int main()
             counter[i][j] = counterone4[i][j] + countertwo4[i][j] + counterthree4[i][j] + counterfour4[i][j] + counterfive4[i][j] + countersix4[i][j] + counterseven4[i][j] + countereight4[i][j];
             if ( counter[i][j] != size3)
             {
-                printf("the counter is not zero-correlation is %d , %d : %lu\n" , i , j , counter[i][j]);
+                printf("the counter is not zero-correlation is %d , %d : %u\n" , i , j , counter[i][j]);
                 count++;
             }
         }
@@ -77,7 +77,7 @@ int main()
     outfile<<"#endif"<<endl;
     outfile.close();
 
-}
+
 
     return 0;
 }
