@@ -19,9 +19,11 @@
 #include"counter1_h/countereight1.h"
 
 using namespace std;
+
 const unsigned long int size1 = pow(2 , (4*2));
 const unsigned long int size2 = pow(2 , (4*3));
-
+const unsigned long int size3 = pow(2 , (4*7));
+int count = 0;
 
 int N1 = pow(2 , (4*2));
 int N2 = pow(2 , (4*3));
@@ -33,14 +35,22 @@ int main()
     printf("add all counter on toy_cipher.\n");
     
     ofstream outfile;
-    outfile.open("counter1.txt");
+    outfile.open("counter1.h");
     for (int i = 0; i < size1; i++)
     {
         for (int j = 0; j < size2; j++)
         {
             counter[i][j] = counterone1[i][j] + countertwo1[i][j] + counterthree1[i][j] + counterfour1[i][j] + counterfive1[i][j] + countersix1[i][j] + counterseven1[i][j] + countereight1[i][j];
+            if ( counter[i][j] != size3)
+            {
+                printf("the counter is not zero-correlation is %d , %d : %lu\n" , i , j , counter[i][j]);
+                count++;
+            }
         }
+
     }
+    printf("the total number of none zero-correlation is %d\n" , count);
+
     string group_num = "last_counter";
     outfile<<"unsigned "<<group_num<<"["<<N1<<"]"<<"["<<N2<<"]"<<" = {";
     for (int i = 0; i < N1; i++)
@@ -51,34 +61,23 @@ int main()
             outfile<<unsigned(counter[i][j]);
             if (j < N2 - 1)
             {
-                outfile<<"     ,     ";
-            }
-            if ( j % 6 == 0)
-            {
-                outfile<<"    "<<endl;
+                outfile<<" , ";
             }
         }
         outfile<<"}"<<endl;
         
         if (i < N1 - 1)
         {
-            //outfile<<" , ";
-            outfile<<"***********************"<<endl;
-            outfile<<"***********************"<<endl;
-            outfile<<"***********************"<<endl;
-
+            outfile<<" , ";
         }
     }
     outfile<<"};"<<endl;
-    outfile<<"***********************"<<endl;
-    
 
 
-
-
-    
-
+    outfile<<"#endif"<<endl;
     outfile.close();
+
+}
 
     return 0;
 }
