@@ -7,7 +7,7 @@
 #include<stdint.h>
 #include<stdlib.h>
 
-using namespace std;
+
 
 #include"/counter1_h/counterone1.h"
 #include"/counter1_h/countertwo1.h"
@@ -18,7 +18,7 @@ using namespace std;
 #include"/counter1_h/counterseven1.h"
 #include"/counter1_h/countereight1.h"
 
-
+using namespace std;
 const unsigned long int size1 = pow(2 , (4*2));
 const unsigned long int size2 = pow(2 , (4*3));
 
