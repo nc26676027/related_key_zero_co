@@ -9,14 +9,14 @@
 
 
 
-#include "counter0_h/counterone0.h"
-#include "counter0_h/countertwo0.h"
-#include "counter0_h/counterthree0.h"
-#include "counter0_h/counterfour0.h"
-#include "counter0_h/counterfive0.h"
-#include "counter0_h/countersix0.h"
-#include "counter0_h/counterseven0.h"
-#include "counter0_h/countereight0.h"
+#include "../counter0_h/counterone0.h"
+#include "../counter0_h/countertwo0.h"
+#include "../counter0_h/counterthree0.h"
+#include "../counter0_h/counterfour0.h"
+#include "../counter0_h/counterfive0.h"
+#include "../counter0_h/countersix0.h"
+#include "../counter0_h/counterseven0.h"
+#include "../counter0_h/countereight0.h"
 
 using namespace std;
 

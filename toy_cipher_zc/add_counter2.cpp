@@ -8,14 +8,14 @@
 #include<stdlib.h>
 
 
-#include"counter2_h/counterone2.h"
-#include"counter2_h/countertwo2.h"
-#include"counter2_h/counterthree2.h"
-#include"counter2_h/counterfour2.h"
-#include"counter2_h/counterfive2.h"
-#include"counter2_h/countersix2.h"
-#include"counter2_h/counterseven2.h"
-#include"counter2_h/countereight2.h"
+#include"../counter2_h/counterone2.h"
+#include"../counter2_h/countertwo2.h"
+#include"../counter2_h/counterthree2.h"
+#include"../counter2_h/counterfour2.h"
+#include"../counter2_h/counterfive2.h"
+#include"../counter2_h/countersix2.h"
+#include"../counter2_h/counterseven2.h"
+#include"../counter2_h/countereight2.h"
 
 using namespace std;
 

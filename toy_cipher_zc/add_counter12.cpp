@@ -8,14 +8,15 @@
 #include<stdlib.h>
 
 
-#include"../counter3_h/counterone3.h"
-#include"../counter3_h/countertwo3.h"
-#include"../counter3_h/counterthree3.h"
-#include"../counter3_h/counterfour3.h"
-#include"../counter3_h/counterfive3.h"
-#include"../counter3_h/countersix3.h"
-#include"../counter3_h/counterseven3.h"
-#include"../counter3_h/countereight3.h"
+
+#include "../counter12_h/counterone12.h"
+#include "../counter12_h/countertwo12.h"
+#include "../counter12_h/counterthree12.h"
+#include "../counter12_h/counterfour12.h"
+#include "../counter12_h/counterfive12.h"
+#include "../counter12_h/countersix12.h"
+#include "../counter12_h/counterseven12.h"
+#include "../counter12_h/countereight12.h"
 
 using namespace std;
 
@@ -24,6 +25,7 @@ const unsigned long int size2 = pow(2 , (4*3));
 
 const unsigned long int size3 = pow(2 , 31);
 int count = 0;
+
 int N1 = pow(2 , (4*2));
 int N2 = pow(2 , (4*3));
 
@@ -34,12 +36,12 @@ int main()
     printf("add all counter on toy_cipher.\n");
     
     ofstream outfile;
-    outfile.open("counter3.h");
+    outfile.open("counter12.h");
     for (int i = 0; i < size1; i++)
     {
         for (int j = 0; j < size2; j++)
         {
-            counter[i][j] = counterone3[i][j] + countertwo3[i][j] + counterthree3[i][j] + counterfour3[i][j] + counterfive3[i][j] + countersix3[i][j] + counterseven3[i][j] + countereight3[i][j];
+            counter[i][j] = counterone12[i][j] + countertwo12[i][j] + counterthree12[i][j] + counterfour12[i][j] + counterfive12[i][j] + countersix12[i][j] + counterseven12[i][j] + countereight12[i][j];
             if ( counter[i][j] != size3)
             {
                 printf("the counter is not zero-correlation is %d , %d : %u\n" , i , j , counter[i][j]);
