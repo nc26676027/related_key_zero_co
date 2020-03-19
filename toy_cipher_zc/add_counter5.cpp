@@ -22,7 +22,7 @@ using namespace std;
 const unsigned long int size1 = pow(2 , (4*2));
 const unsigned long int size2 = pow(2 , (4*3));
 
-const unsigned long int size3 = pow(2 , (4*7));
+const unsigned long int size3 = pow(2 , 31);
 int count = 0;
 
 int N1 = pow(2 , (4*2));
