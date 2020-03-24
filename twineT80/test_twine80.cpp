@@ -176,7 +176,7 @@ int testTK1(void)
                         in[2][0] = i3;
                         in[3][0] = i4;
 
-                        tk1[3][1] = i5;
+                        tk1[1][2] = i5;
 
 
                         //encryption
