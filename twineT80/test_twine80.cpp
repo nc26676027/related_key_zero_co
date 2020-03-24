@@ -191,7 +191,7 @@ int testTK1(void)
                         }
                         in = subByte (in , tk1);
 
-                        counter[in[1][3]]++;
+                        counter[in[0][2]]++;
 
 
                     }
