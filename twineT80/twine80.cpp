@@ -21,7 +21,7 @@ string tobits(int num, int bit_num)
 	return res;
 }
 
-
+int head[4] = {2, 7, 8, 12};
 
 int h[16] = { 5,  0,  1,  4,
               7, 12,  3,  8,
@@ -79,7 +79,7 @@ int main(int argc,char * argv[])
 	
 	//program main
 	ofstream outcvc;
-    int x_ROUND = 9;
+    int x_ROUND = 2;
 	int y_ROUND = 8;
 	int ROUND = x_ROUND+y_ROUND;
 
@@ -325,21 +325,24 @@ int main(int argc,char * argv[])
 	}
 	
 
-
+	int ind = 0;
 	//assert active state
 	for(int pos=0;pos<16;pos++)
 	{
 		if(pos<16)
 		{
-			if(pos == head_flag)
-			{
-				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
-			}
-			else
+			if(pos == head[ind])
 			{
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
+				ind++;
 			}
-			if(pos == tail_flag)
+			
+			else if(pos != 1)
+			{
+				outcvc<<"ASSERT( NOT(x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
+			}
+
+			if(pos == 2)
 			{
 				outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -349,7 +352,7 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
-		if(pos == key_flag)
+		if(pos == 6)
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
