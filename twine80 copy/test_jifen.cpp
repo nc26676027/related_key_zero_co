@@ -67,9 +67,9 @@ vector<vector<int>> keySchedule(vector<vector<int>> in )
     vector<vector<int>> out(2, vector<int>(2, 0));
     for ( int i = 0; i < 4; i++)
     {
-        if( i == 1 )
+        if( i == 0 )
         {
-            rot[0][1] = in[0][0] ^ in[0][1];
+            rot[0][0] = sbox[in[0][0]];
         }
         else
         {
@@ -137,7 +137,7 @@ int testTK1(void)
                     in[0][1] = i1;
                     in[1][0] = i2;
 
-                    tk1[1][1] = i3;
+                    tk1[0][0] = i3;
 
                     //encryption
                     for (int r = 0; r < (Round - 1) ; r++)
