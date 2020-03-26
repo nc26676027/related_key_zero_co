@@ -302,10 +302,12 @@ int main(int argc,char * argv[])
 			{
 				string a = "Kout_"+to_string(round)+"_"+to_string(pos); 
 				string b = "KSin_"+to_string(round)+"_"+to_string(pos);
-				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
-				//outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
-				outcvc<<"ASSERT( KSin_"<<round<<"_"<<pos<<" = KSout_"<<round<<"_"<<pos<<" );"<<endl;
-				outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_"<<pos+1<<" );"<<endl;
+				outcvc<<"ASSERT( "<<a<<" = "<<b<<" );"<<endl;
+				outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+
+				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = KSout_"<<round<<"_"<<pos<<" );"<<endl;
+				//outcvc<<"ASSERT( KSin_"<<round<<"_"<<pos<<" = KSout_"<<round<<"_"<<pos<<" );"<<endl;
+				//outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_"<<pos+1<<" );"<<endl;
 			}
 			else
 			{
