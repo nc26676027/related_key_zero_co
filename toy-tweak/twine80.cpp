@@ -73,8 +73,8 @@ int main(int argc,char * argv[])
 	
 	//program main
 	ofstream outcvc;
-    int x_ROUND = 5;
-	int y_ROUND = 5;
+    int x_ROUND = 6;
+	int y_ROUND = 6;
 	int ROUND = x_ROUND+y_ROUND;
 
 
