@@ -73,7 +73,7 @@ int main(int argc,char * argv[])
 	
 	//program main
 	ofstream outcvc;
-    int x_ROUND = 3;
+    int x_ROUND = 5;
 	int y_ROUND = 5;
 	int ROUND = x_ROUND+y_ROUND;
 
@@ -303,7 +303,8 @@ int main(int argc,char * argv[])
 				string a = "Kout_"+to_string(round)+"_"+to_string(pos); 
 				string b = "KSin_"+to_string(round)+"_"+to_string(pos);
 				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
-				outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+				//outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_"<<pos<<"@KSout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+				outcvc<<"ASSERT( KSin_"<<round<<"_"<<pos<<" = KSout_"<<round<<"_"<<pos<<" );"<<endl;
 				outcvc<<"ASSERT( "<<"KSout_"<<round<<"_"<<pos<<" = Rotin_"<<round<<"_"<<pos+1<<" );"<<endl;
 			}
 			else
@@ -331,7 +332,7 @@ int main(int argc,char * argv[])
 
 		if( pos < 4 )
 		{
-			if(  pos == 0  )
+			if(  pos == head_flag  )
 			{
 				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -339,7 +340,7 @@ int main(int argc,char * argv[])
 			{
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
-			if(pos == 0)
+			if(pos == tail_flag)
 			{
 				outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -352,7 +353,7 @@ int main(int argc,char * argv[])
 		
 		if( pos < 4 )
 		{
-			if( pos == 3 )
+			if( pos == key_flag )
 			{
 				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
