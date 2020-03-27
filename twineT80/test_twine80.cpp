@@ -4,52 +4,7 @@
 #include<time.h>
 
 using namespace std;
-/*
-unsigned rol(unsigned val, int size)
-{
-  unsigned res = val << size;
-  res |= val >> (4 - size);
-  res &= 0x0000000f;
-  return res;
-}
 
-//循环右移
-unsigned ror(unsigned val, int size)
-{
-  unsigned res = val >> size;
-  res |= val << (4 - size);
-  res &= 0x0000000f;
-  return res;
-}
-
-
-//original MC layer matrix
-
-int sbox[16] = {0xc, 0x0, 0xf, 0xa,
-				0x2, 0xb, 0x9, 0x5,
-				0x8, 0x3, 0xd, 0x7,
-				0x1, 0xe, 0x6, 0x4};
-
-//original linear layer
-int h[16] = {5,  0,  1,  4,
-             7, 12,  3,  8,
-            13,  6,  9,  2,
-            15, 10, 11, 14};
-
-int rot[20] = {19, 16, 17, 18,  0,
-				1,  2,  3,  4,  5,
-				6,  7,  8,  9, 10,
-			   11, 12, 13, 14, 15,};
-
-int RK[8] = { 1,  3,  4,  6, 13, 14, 15, 16};
-
-
-int SR[16] = { 0,  1,  2,  3,
-               5,  6,  7,  4,
-              10, 11,  8,  9,
-              15, 12, 13, 14};
-
-*/
 
 int pi[16] = { 6,  7,  8,  9,
 			  10, 11, 12, 13,
@@ -78,16 +33,16 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
         {
             if( (i*4 + j) == RK[index] )
             {
-               out[i][j] = sbox[ rk[ index/4 ][ index%4 ] ^ in[i][j] ] ^ in[i][j+1];
+               out[i][j+1] = sbox[ rk[ index/4 ][ index%4 ] ^ in[i][j] ] ^ in[i][j+1];
                index--;
             }
             else if( ( (i*4 + j) == 4 ) || ( (i*4 + j) == 12 ))
             {
-                out[i][j] = sbox[ in[i][j] ] ^ in[i][j];
+                out[i][j+1] = sbox[ in[i][j] ] ^ in[i][j+1];
             }
             else
             {
-                out[i][j] = in[i][j];
+                out[i][j-1] = in[i][j-1];
             }
 
         }
