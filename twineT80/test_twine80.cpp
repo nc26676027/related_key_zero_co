@@ -97,7 +97,7 @@ int testTK1(void)
 {
     //generate all keys at random
     srand( time(NULL));
-    vector<vector<int>> key(5 , vector<int>(4, 0));
+    vector<vector<int>> key(4 , vector<int>(4, 0));
     for( int row = 0; row < 4 ; row++)
     {
         for( int col = 0; col < 4; col++)
@@ -146,7 +146,7 @@ int testTK1(void)
                         }
                         in = subByte (in , tk1);
 
-                        counter[in[0][2]]++;
+                        counter[in[3][2]]++;
 
 
                     }
