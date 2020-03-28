@@ -106,7 +106,7 @@ int testTK1(void)
         }
     }
 
-    int x_Rounds = 2;
+    int x_Rounds = 3;
     int y_Rounds = 8;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
