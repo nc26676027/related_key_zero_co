@@ -36,7 +36,7 @@ vector<vector<int>> subByte(vector<vector<int>> in , vector<vector<int>> rk )
                out[i][j+1] = sbox[ rk[ index/4 ][ index%4 ] ^ in[i][j] ] ^ in[i][j+1];
                index--;
             }
-            else if( ( (i*4 + j) == 4 ) || ( (i*4 + j) == 12 ))
+            else if( ( (i*4 + j) == 4 ) || ( (i*4 + j) == 12 ) )
             {
                 out[i][j+1] = sbox[ in[i][j] ] ^ in[i][j+1];
             }
