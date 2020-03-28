@@ -167,31 +167,42 @@ int testTK1(void)
     {
         for ( int i2 = 0; i2 < 16; i2++)
         {
-            vector<vector<int>> in(4, vector<int>(4, 0));
-            vector<vector<int>> tk1 = key1;
-
-
-            in[3][2] = i1;
-
-            tk1[3][1] = i2;
-
-
-            //encryption
-
-            for (int r = 0; r < Round - 1 ; r++)
+            for ( int i3 = 0; i3 < 16; i3++)
             {
-                in = subByte (in , tk1);
-                in = shiftNible(in);
+                for ( int i4 = 0; i4 < 16; i4++)
+                {
+                    for ( int i5 = 0; i5 < 16; i5++)
+                    {
+                        vector<vector<int>> in(4, vector<int>(4, 0));
+                        vector<vector<int>> tk1 = key1;
 
-                tk1 = keySchedule(tk1);
 
+                        in[0][0] = i1;
+                        in[1][0] = i2;
+                        in[2][2] = i3;
+                        in[3][3] = i4;
+
+                        tk1[4][1] = i5;
+
+
+                        //encryption
+
+                        for (int r = 0; r < Round - 1 ; r++)
+                        {
+                            in = subByte (in , tk1);
+                            in = shiftNible(in);
+
+                            tk1 = keySchedule(tk1);
+
+                        }
+                        in = subByte (in , tk1);
+
+                        counter[in[2][0]]++;
+
+
+                    }
+                }
             }
-            in = subByte (in , tk1);
-
-            counter[in[2][0]]++;
-
-
-            
         }
     }
     for (int i = 0; i < 16; i++)
