@@ -77,7 +77,7 @@ int main(int argc,char * argv[])
 	
 	//program main
 	ofstream outcvc;
-    int x_ROUND = 9;
+    int x_ROUND = 2;
 	int y_ROUND = 8;
 	int ROUND = x_ROUND+y_ROUND;
 
@@ -329,14 +329,14 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if(pos == 8)
+			if(pos == head[ind])
 			{
-				outcvc<<"ASSERT( NOT(x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
-				//ind++;
+				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
+				ind++;
 			}
 			else
 			{
-				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( NOT(x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
 			}
 
 			if(pos == 2)
