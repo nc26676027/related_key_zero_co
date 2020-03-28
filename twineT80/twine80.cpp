@@ -334,7 +334,7 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 				ind++;
 			}
-			else
+			else if (pos != 1)
 			{
 				outcvc<<"ASSERT( NOT(x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
 			}
