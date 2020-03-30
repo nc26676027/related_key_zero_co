@@ -117,8 +117,8 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 7;
-    int y_ROUND = 8;
+    int x_ROUND = 2;
+    int y_ROUND = 7;
     int ROUND = x_ROUND+y_ROUND;
 
 	P_make(ROUND);
@@ -315,15 +315,15 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( pos == head_flag )
+			if( pos == 11 )
 			{
-				outcvc<<"ASSERT( NOT( x_Sin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
+				outcvc<<"ASSERT(  x_Sin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
 			else
 			{
-				outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( NOT(x_Sin_0_"<<pos<<" = 0bin0000) );"<<endl;
 			}
-			if(pos == tail_flag)
+			if(pos == 5)
 			{
 				outcvc<<"ASSERT( NOT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -341,7 +341,7 @@ int main(int argc,char * argv[])
 		}
 		
 
-		if( pos == key_flag )
+		if( pos == 14 )
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;		

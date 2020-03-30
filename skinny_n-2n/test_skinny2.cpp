@@ -239,7 +239,7 @@ int testTK2()
                 in = shiftRow(in, tk1, tk2);
 
 
-                counter[in[1][1]]++;
+                counter[in[1][0]]++;
             }
 
         }
