@@ -315,7 +315,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( (pos == 11) || (pos == 12) )
+			if( (pos == 11) || (pos == 13) )
 			{
 				outcvc<<"ASSERT(  x_Sin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
