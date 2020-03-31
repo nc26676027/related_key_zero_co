@@ -455,7 +455,7 @@ int main(int argc,char * argv[])
 	
 	for(int pos=0;pos<16;pos++)
 	{
-		if( pos == 12 )
+		if( pos == 13 )
 		{
 			outcvc<<"ASSERT( x_Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
