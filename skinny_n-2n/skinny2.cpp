@@ -315,7 +315,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( pos == 10)
+			if( pos == 9)
 			{
 				outcvc<<"ASSERT(  x_Sin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
