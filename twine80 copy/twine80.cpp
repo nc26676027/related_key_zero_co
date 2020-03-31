@@ -334,9 +334,9 @@ int main(int argc,char * argv[])
 
 		if( pos < 4 )
 		{
-			if(  pos == 2 )
+			if(  pos != 2 )
 			{
-				outcvc<<"ASSERT( NOT(x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
+				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
 
 			if(pos == 0)
