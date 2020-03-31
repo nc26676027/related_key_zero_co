@@ -324,10 +324,12 @@ int main(int argc,char * argv[])
 			{
 				outcvc<<"ASSERT( NOT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
+			/*
 			else
 			{
 				outcvc<<"ASSERT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
-			}		
+			}
+			*/		
 			
 		}
 		
