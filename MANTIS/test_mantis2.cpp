@@ -175,9 +175,7 @@ int testTK1()
 
                                     vector<vector<int>> in(4, vector<int>(4, 0));
                                     vector<vector<int>> tk = key;
-                                    in[2][2] = i1;
-
-                        
+                                    in[2][2] = i1;                        
                                     tk[3][1] = i2;
 
                                     //encryption

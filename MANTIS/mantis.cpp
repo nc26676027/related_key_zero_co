@@ -123,7 +123,7 @@ int main(int argc,char * argv[])
     int y_ROUND = 5;
     int ROUND = x_ROUND+y_ROUND;
 
-	P_make(3);
+	//P_make(3);
 	
 	//gen lat 
 	for(int a=0;a<16;a++)
@@ -430,22 +430,23 @@ int main(int argc,char * argv[])
 
 
 
-
+	int index = 0; 
 	int head[6] = {2, 7, 8, 12, 13, 15};
 	//int head[1] = { 10 };
 	//assert active state
 	for(int pos=0;pos<16;pos++)
 	{
 		//if( (pos == head[0])||(pos == head[1])||(pos == head[2])||(pos == head[3])||(pos == head[4])||(pos == head[5]) )
-		if( pos == head[0] )
+		if( pos != head[index] )
 		{
 			outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
 		else
 		{
-			outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
+			index++;
 		}
-		if(pos == tail_flag)
+
+		if(pos == 1)
 		{
 			outcvc<<"ASSERT( NOT( y_Sout_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 		}
@@ -457,18 +458,13 @@ int main(int argc,char * argv[])
 	
 	for(int pos=0;pos<16;pos++)
 	{
-		if(pos == return_index(tail_flag,P_R) )
+		if( pos == 12 )
 		{
 			outcvc<<"ASSERT( x_Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
-		if(pos == tail_flag)
-		{
-			outcvc<<"ASSERT( y_LPin_"<<y_ROUND-2<<"_"<<pos<<" = y_Sout_"<<y_ROUND-2<<"_"<<pos<<" );"<<endl;
-		}
-		else
-		{
-			outcvc<<"ASSERT( y_LPin_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 );"<<endl;
-		}
+
+		outcvc<<"ASSERT( y_LPin_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 );"<<endl;
+		
 		
 		
 		
