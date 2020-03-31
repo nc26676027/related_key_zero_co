@@ -334,11 +334,6 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 				ind++;
 			}
-			else
-			{
-				outcvc<<"ASSERT( NOT(x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
-			}
-
 			if(pos == 2)
 			{
 				outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
