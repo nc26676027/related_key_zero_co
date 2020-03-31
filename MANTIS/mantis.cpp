@@ -443,7 +443,7 @@ int main(int argc,char * argv[])
 		}
 
 
-		if(pos == 0)
+		if(pos == 8)
 		{
 			outcvc<<"ASSERT( NOT( y_Sout_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 		}
