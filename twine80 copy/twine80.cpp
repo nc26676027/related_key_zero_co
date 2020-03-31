@@ -363,7 +363,7 @@ int main(int argc,char * argv[])
 
 	}
 
-	//outcvc<<"ASSERT( NOT(x_Fin_0_0 = 0bin0000) );"<<endl;
+	outcvc<<"ASSERT( NOT(x_Fin_0_0 = 0bin0000) );"<<endl;
 
 
 
