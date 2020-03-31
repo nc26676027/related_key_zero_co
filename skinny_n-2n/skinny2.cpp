@@ -37,7 +37,7 @@ int sbox[16] = {0xc, 0x6, 0x9, 0x0,
 				0x1, 0xa, 0x2, 0xb,
 				0x3, 0x8, 0x5, 0xd,
 				0x4, 0xe, 0x7, 0xf};
-				
+
 int inv_SR[16] = { 0,  1,  2,  3,
               	   7,  4,  5,  6,
                   10, 11,  8,  9,
@@ -356,7 +356,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( pos != head_flag)
+			if( (pos != head_flag) || (pos != head_flag+1))
 			{
 				outcvc<<"ASSERT(  x_Sin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
