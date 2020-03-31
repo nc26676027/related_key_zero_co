@@ -47,6 +47,7 @@ int P[16] = {9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
 
 int P_R[16]={9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
 
+int LAT[16][16] = {0};
 
 void P_make(int round){
 
@@ -122,7 +123,33 @@ int main(int argc,char * argv[])
     int ROUND = x_ROUND+y_ROUND;
 
 	P_make(ROUND);
-
+	//gen lat 
+	for(int a=0;a<16;a++)
+	{
+		for(int b=0;b<16;b++)
+		{
+			for(int i=0;i<16;i++)
+			{
+				int a_i = a&i , b_si = sbox[i]&b , t = 0;
+				while (a_i)
+				{
+					t = t ^ (a_i%2);
+					a_i /= 2;
+				}
+				while (b_si)
+				{
+					t = t ^ (b_si%2);
+					b_si /= 2;
+				}
+				if(t == 0)
+				{
+					LAT[a][b]++;
+				}	
+    
+			}
+			LAT[a][b] -= 8;
+		}
+	}
 
     //gen CVC
     outcvc.open(filename);
