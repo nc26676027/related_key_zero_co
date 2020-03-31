@@ -356,12 +356,12 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( pos == 11 )
+			if( (pos == 1) || (pos == 2) )
 			{
 				outcvc<<"ASSERT(  x_Sin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
 
-			if(pos == 5)
+			if(pos == 0)
 			{
 				outcvc<<"ASSERT( NOT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}			
