@@ -119,7 +119,7 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 4;
+    int x_ROUND = 2;
     int y_ROUND = 5;
     int ROUND = x_ROUND+y_ROUND;
 
@@ -437,16 +437,13 @@ int main(int argc,char * argv[])
 	for(int pos=0;pos<16;pos++)
 	{
 		//if( (pos == head[0])||(pos == head[1])||(pos == head[2])||(pos == head[3])||(pos == head[4])||(pos == head[5]) )
-		if( pos != head[index] )
+		if( pos == 10 )
 		{
 			outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
-		else
-		{
-			index++;
-		}
 
-		if(pos == 10)
+
+		if(pos == 0)
 		{
 			outcvc<<"ASSERT( NOT( y_Sout_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 		}
