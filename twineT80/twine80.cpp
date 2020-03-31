@@ -329,12 +329,13 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if(pos != head_flag)
+			if(pos == head[ind])
 			{
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
+				ind++;
 			}
 
-			if(pos == tail_flag)
+			if(pos == 2)
 			{
 				outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -345,7 +346,7 @@ int main(int argc,char * argv[])
 			
 		}
 		
-		if(pos == key_flag)
+		if(pos == 6)
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
