@@ -446,7 +446,7 @@ int main(int argc,char * argv[])
 			index++;
 		}
 
-		if(pos == 1)
+		if(pos == 0)
 		{
 			outcvc<<"ASSERT( NOT( y_Sout_"<<y_ROUND-2<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 		}
@@ -469,16 +469,7 @@ int main(int argc,char * argv[])
 		
 		
 	}
-	/*
-	//other tweak 
-	for(int pos=0;pos<16;pos++)
-	{
-		if(pos != key_flag)
-		{
-			outcvc<<"ASSERT( y_LPin_"<<y_ROUND-2<<"_"<<pos<<" = x_Kin_0_"<<pos<<" );"<<endl;
-		}
-	}
-	*/
+
 
 
 	outcvc<<"QUERY(FALSE);"<<endl;
