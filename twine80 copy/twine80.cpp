@@ -73,7 +73,7 @@ int main(int argc,char * argv[])
 	
 	//program main
 	ofstream outcvc;
-    int x_ROUND = 3;
+    int x_ROUND = 5;
 	int y_ROUND = 5;
 	int ROUND = x_ROUND+y_ROUND;
 
@@ -334,9 +334,9 @@ int main(int argc,char * argv[])
 
 		if( pos < 4 )
 		{
-			if(  (pos == 1) || (pos == 2)  )
+			if(  pos == 2 )
 			{
-				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( NOT(x_Fin_0_"<<pos<<" = 0bin0000) );"<<endl;
 			}
 
 			if(pos == 0)
@@ -352,7 +352,7 @@ int main(int argc,char * argv[])
 		
 		if( pos < 4 )
 		{
-			if( pos == 3 )
+			if( pos == 1 )
 			{
 				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
