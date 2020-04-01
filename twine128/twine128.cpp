@@ -93,7 +93,7 @@ int main(int argc,char * argv[])
 	
 	//program main
 	ofstream outcvc;
-    int x_ROUND = 10;
+    int x_ROUND = 9;
 	int y_ROUND = 9;
 	int ROUND = x_ROUND+y_ROUND;
 
@@ -375,14 +375,11 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if(pos == head_flag)
+			if(pos != head_flag)
 			{
-				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
+				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
-			else
-			{
-				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
-			}
+
 			if(pos == tail_flag)
 			{
 				outcvc<<"ASSERT( NOT( y_Xout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
