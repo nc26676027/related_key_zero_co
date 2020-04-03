@@ -522,7 +522,7 @@ int main(int argc,char * argv[])
 	//assert active state
 	for(int pos=0;pos<20;pos++)
 	{
-		if(pos<16)
+		if(pos<8)
 		{
             if (head_flag < 8)
             {
