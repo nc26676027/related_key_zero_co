@@ -385,7 +385,7 @@ int main(int argc,char * argv[])
             outcvc<<"ASSERT( x_Rot_"<<round<<"_"<<rot[pos]<<" = x_Rin_"<<round<<"_"<<pos<<" );"<<endl;
             outcvc<<"ASSERT( x_Pin_"<<round<<"_"<<pos<<" = x_Rot_"<<round<<"_"<<pos<<" );"<<endl;
             //pass Sbox
-            outcvc<<"ASSERT( NOT( LAT"<<pos<<"[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] == 0bin0 ) );"<<endl;
+            outcvc<<"ASSERT( NOT( LAT"<<pos<<"[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
 
             //key XOR
             outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<pos<<" = Kout_"<<round<<"_"<<pos<<" );"<<endl;
@@ -408,7 +408,7 @@ int main(int argc,char * argv[])
             outcvc<<"ASSERT( y_Rot_"<<round<<"_"<<rot[pos]<<" = y_Rin_"<<round<<"_"<<pos<<" );"<<endl;
             outcvc<<"ASSERT( y_Pin_"<<round<<"_"<<pos<<" = y_Rot_"<<round<<"_"<<pos<<" );"<<endl;
             //pass Sbox
-            outcvc<<"ASSERT( NOT( LAT"<<pos<<"[y_Sin_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] == 0bin0 ) );"<<endl;
+            outcvc<<"ASSERT( NOT( LAT"<<pos<<"[y_Sin_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
 
             //key XOR
             outcvc<<"ASSERT( y_Sin_"<<round<<"_"<<pos<<" = Kout_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
