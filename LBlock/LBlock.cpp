@@ -534,7 +534,7 @@ int main(int argc,char * argv[])
             }
             else
             {
-                if(pos != head_flag)
+                if( pos != (head_flag-8) )
                 {
                     outcvc<<"ASSERT( x_Rin_0_"<<pos<<" = 0bin0000  );"<<endl;
                 }
@@ -555,7 +555,7 @@ int main(int argc,char * argv[])
             }
             else
             {
-                if(pos == tail_flag)
+                if( pos == (tail_flag-8) )
                 {
                     outcvc<<"ASSERT( NOT( y_Rin_"<<y_ROUND<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
                 }
@@ -569,11 +569,12 @@ int main(int argc,char * argv[])
 			
 		}
 
-
+        
 		if(pos == key_flag)
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 		}
+        
 
 		outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin0000 );"<<endl;
 
