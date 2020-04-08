@@ -219,7 +219,7 @@ int main(int argc,char * argv[])
 	//program main
 	ofstream outcvc;
     int x_ROUND = 8;
-	int y_ROUND = 8;
+	int y_ROUND = 7;
 	int ROUND = x_ROUND+y_ROUND;
 
 
@@ -569,7 +569,7 @@ int main(int argc,char * argv[])
 			
 		}
 
-        
+        /*
 		if(pos == key_flag)
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
@@ -577,6 +577,7 @@ int main(int argc,char * argv[])
         
 
 		outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin0000 );"<<endl;
+        */
 
 	}
 
