@@ -572,7 +572,7 @@ int main(int argc,char * argv[])
         
 		if(pos == key_flag)
 		{
-			outcvc<<"ASSERT( Kin_0_"<<pos<<"[1:1] = 0bin0 );"<<endl;
+			outcvc<<"ASSERT( Kin_0_"<<pos<<"[2:2] = 0bin0 );"<<endl;
 		}
         
 
