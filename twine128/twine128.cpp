@@ -371,7 +371,7 @@ int main(int argc,char * argv[])
 
 
 	//assert active state
-	for(int pos=0;pos<20;pos++)
+	for(int pos=0;pos<32;pos++)
 	{
 		if(pos<16)
 		{
