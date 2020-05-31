@@ -271,7 +271,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( (pos != head_flag) || (pos != head_flag+8) )
+			if( (pos != head_flag) && (pos != head_flag+8) )
 			{
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
