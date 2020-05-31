@@ -265,7 +265,7 @@ int main(int argc,char * argv[])
 		}
 	}
 
-
+	outcvc<<"ASSERT( x_Fin_0_4"<<" = x_Fin_0_12 );"<<endl;
 	//assert active state
 	for(int pos=0;pos<16;pos++)
 	{
