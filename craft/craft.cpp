@@ -22,7 +22,7 @@ string tobits(int num, int bit_num)
 }
 
 
-LAT[16][16] = {
+int LAT[16][16] = {
     { 8 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 } ,
     { 0 , 2 , 4 , 2 , -2 , 0 , 2 , 0 , -2 , 0 , 2 , 0 , 4 , -2 , 0 , -2 } ,
     { 0 , 4 , 0 , 0 , 4 , 0 , 0 , 0 , -4 , 0 , 0 , 0 , 0 , 4 , 0 , 0 } ,
@@ -56,36 +56,6 @@ int P[16] = {15, 12, 13, 14, 10, 9, 8, 11, 6, 5, 4, 7, 1, 2, 3, 0};
 
 int Q[16] = {12, 10, 15, 5, 14, 8, 9, 2, 11, 3, 7, 4, 6, 0, 1, 13};
 
-void P_make(int round){
-
-	int tem[16];
-
-	for (int i=0 ;i<16;i++)
-		tem[i]=P_R[i];
-
-	for (int i=0 ; i<round-2; i++){
-        for (int j=0;j<16;j++){
-            tem[j]=P_R[P[j]];
-        }
-
-		for (int j=0;j<16;j++)
-			P_R[j]=tem[j];
-	}
-	
-}
-
-int return_index(int pos , int matrix[])
-{
-	int index;
-	for(int i=0;i<16;i++)
-	{
-		if(pos == matrix[i])
-		{
-			index = i;
-		}
-	}
-	return index;
-}
 
 
 string branch(string a,string b)
