@@ -27,25 +27,15 @@ string tobits(int num, int bit_num)
 //original MC layer matrix
 int MCT[4][4]=
 {
-	1,1,0,1,
-	0,0,1,0,
-	1,0,1,1,
-	1,0,0,0
+	1,0,0,0,
+	0,1,0,0,
+	1,0,1,0,
+	1,1,0,1
 };
 
-int inv_SR[16] = { 0,  1,  2,  3,
-              	   7,  4,  5,  6,
-                  10, 11,  8,  9,
-                  13, 14, 15, 12};
 
-int SR[16] = 	 { 0,  1,  2,  3,
-            	   5,  6,  7,  4,
-            	  10, 11,  8,  9,
-             	  15, 12, 13, 14};
 
-int P[16] = {9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
-
-int P_R[16]={9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
+int P[16] = {15, 12, 13, 14, 10, 9, 8, 11, 6, 5, 4, 7, 1, 2, 3, 0};
 
 
 void P_make(int round){
@@ -110,29 +100,38 @@ int main(int argc,char * argv[])
         key_flag = atoi(argv[1]);
         head_flag = atoi(argv[2]);
         tail_flag = atoi(argv[3]);
-		filename = "skinny"+to_string(atoi(argv[3]))+".cvc";
+		filename = "craft"+to_string(atoi(argv[3]))+".cvc";
     }
     printf("key_flag=%d , head_flag=%d , tail_flag=%d\n fileno = %d",key_flag,head_flag,tail_flag,tail_flag);
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 6;
-    int y_ROUND = 6;
+    int x_ROUND = 3;
+    int y_ROUND = 3;
     int ROUND = x_ROUND+y_ROUND;
 
-	P_make(ROUND);
+	//P_make(ROUND);
 
 
     //gen CVC
     outcvc.open(filename);
 
     //state variable claim
+	outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
+	for(int input_lc=0x0;input_lc<16;input_lc++)
+	{
+		for(int output_lc=0x0;output_lc<16;output_lc++)
+		{
+			outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<((LAT[input_lc][output_lc] == 0)?0:1)<<" );"<<endl;
+		}
+	}
+	outcvc<<dec;
     for(int round=0;round<x_ROUND;round++)//up
     {
         for(int pos=0;pos<16;pos++)
         {
             
-            outcvc<<"x_Sin_"<<round<<"_"<<pos<<" , x_Sout_"<<round<<"_"<<pos<<" , x_SRout_"<<round<<"_"<<pos<<" , x_MCout_"<<round<<"_"<<pos;
+            outcvc<<"x_Fin_"<<round<<"_"<<pos<<" , x_Sout_"<<round<<"_"<<pos<<" , x_SRout_"<<round<<"_"<<pos<<" , x_MCout_"<<round<<"_"<<pos;
             if(pos < 15)
             {
                 outcvc<<" , ";
@@ -148,7 +147,7 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"y_Sin_"<<round<<"_"<<pos<<" , y_Sout_"<<round<<"_"<<pos<<" , y_SRout_"<<round<<"_"<<pos<<" , y_MCout_"<<round<<"_"<<pos;
+			outcvc<<"y_Fin_"<<round<<"_"<<pos<<" , y_Sout_"<<round<<"_"<<pos<<" , y_SRout_"<<round<<"_"<<pos<<" , y_MCout_"<<round<<"_"<<pos;
 			if(pos<15)
 			{
 				outcvc<<" , ";
@@ -166,7 +165,7 @@ int main(int argc,char * argv[])
 		for(int pos=0;pos<16;pos++)
 		{
 		
-			outcvc<<"Kin_"<<round<<"_"<<pos<<" , LPout_"<<round<<"_"<<pos<<" , Kin2_"<<round<<"_"<<pos<<" , LPout2_"<<round<<"_"<<pos<<" , Kin3_"<<round<<"_"<<pos<<" , LPout3_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos<<" , RKin2_"<<round<<"_"<<pos<<" , RKin3_"<<round<<"_"<<pos;
+			outcvc<<"Kin_"<<round<<"_"<<pos<<" , LPout_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos;
 			if(pos<15)
 			{
 				outcvc<<" , ";
@@ -186,62 +185,54 @@ int main(int argc,char * argv[])
 	//state update
 	for(int round=0;round<x_ROUND;round++)//up
 	{
-		for(int pos=0;pos<16;pos++)
-		{
-			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
-			if( pos<8 )
-			{
-				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
-			}
-
-			
-			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<SR[pos]<<" = x_Sout_"<<round<<"_"<<pos<<" );"<<endl;
-			
-		}
 		//mix Col
 	 	for(int col=0;col<4;col++)
-		 {
-			 outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col<<" = BVXOR( x_MCout_"<<round<<"_"<<col<<" , BVXOR( x_MCout_"<<round<<"_"<<col+4<<" , x_MCout_"<<round<<"_"<<col+12<<" ) ) );"<<endl;
-			 outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col+4<<" = x_MCout_"<<round<<"_"<<col+8<<" );"<<endl;
-			 outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col+8<<" = BVXOR( x_MCout_"<<round<<"_"<<col<<" , BVXOR( x_MCout_"<<round<<"_"<<col+8<<" , x_MCout_"<<round<<"_"<<col+12<<" ) ) );"<<endl;
-			 outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col+12<<" = x_MCout_"<<round<<"_"<<col<<" );"<<endl;
-		 }
+		{
+			outcvc<<"ASSERT( x_Fin_"<<round<<"_"<<col<<" = x_MCout_"<<round<<"_"<<col<<" );"<<endl;
+			outcvc<<"ASSERT( x_Fin_"<<round<<"_"<<col+4<<" = x_MCout_"<<round<<"_"<<col+4<<" );"<<endl;
+			outcvc<<"ASSERT( x_Fin_"<<round<<"_"<<col+8<<" = BVXOR( x_MCout_"<<round<<"_"<<col<<" , x_MCout_"<<round<<"_"<<col+8<<" ) );"<<endl;
+			outcvc<<"ASSERT( x_Fin_"<<round<<"_"<<col+12<<" = BVXOR( x_MCout_"<<round<<"_"<<col<<" , BVXOR( x_MCout_"<<round<<"_"<<col+4<<" , x_MCout_"<<round<<"_"<<col+12<<" ) ) );"<<endl;
+		}
+		//ADD_ROUND-TWEAK and permute
+		for(int pos=0;pos<16;pos++)
+		{
+			outcvc<<"ASSERT( x_MCout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
+
+			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<P[pos]<<" = x_MCout_"<<round<<"_"<<pos<<" );"<<endl;
+		}
+
 		if( round<x_ROUND-1)
 		{
 			for(int pos=0;pos<16;pos++)
 			{
-				outcvc<<"ASSERT( x_Sin_"<<round+1<<"_"<<pos<<" = x_MCout_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( NOT( LAT[x_SRout_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
 			}
 		}
 	}
 	//down
 	for(int round=0;round<y_ROUND;round++)
 	{
+		//mix Col
+	 	for(int col=0;col<4;col++)
+		{
+			outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<col<<" = y_MCout_"<<round<<"_"<<col<<" );"<<endl;
+			outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<col+4<<" = y_MCout_"<<round<<"_"<<col+4<<" );"<<endl;
+			outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<col+8<<" = BVXOR( y_MCout_"<<round<<"_"<<col<<" , y_MCout_"<<round<<"_"<<col+8<<" ) );"<<endl;
+			outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<col+12<<" = BVXOR( y_MCout_"<<round<<"_"<<col<<" , BVXOR( y_MCout_"<<round<<"_"<<col+4<<" , y_MCout_"<<round<<"_"<<col+12<<" ) ) );"<<endl;
+		}
+		//ADD_ROUND-TWEAK and permute
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
-			if( pos<8 )
-			{
-				outcvc<<"ASSERT( RKin_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
-			}
-			outcvc<<"ASSERT( y_Sout_"<<round<<"_"<<inv_SR[pos]<<" = y_SRout_"<<round<<"_"<<pos<<" );"<<endl;
-			
+			outcvc<<"ASSERT( y_MCout_"<<round<<"_"<<pos<<" = RKin_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
+
+			outcvc<<"ASSERT( y_SRout_"<<round<<"_"<<P[pos]<<" = y_MCout_"<<round<<"_"<<pos<<" );"<<endl;
 		}
-		//Mix COL
-	 	for(int col=0;col<4;col++)
-		 {
-			 outcvc<<"ASSERT( y_SRout_"<<round<<"_"<<col<<" = BVXOR( y_MCout_"<<round<<"_"<<col<<" , BVXOR( y_MCout_"<<round<<"_"<<col+4<<" , y_MCout_"<<round<<"_"<<col+12<<" ) ) );"<<endl;
-			 outcvc<<"ASSERT( y_SRout_"<<round<<"_"<<col+4<<" = y_MCout_"<<round<<"_"<<col+8<<" );"<<endl;
-			 outcvc<<"ASSERT( y_SRout_"<<round<<"_"<<col+8<<" = BVXOR( y_MCout_"<<round<<"_"<<col<<" , BVXOR( y_MCout_"<<round<<"_"<<col+8<<" , y_MCout_"<<round<<"_"<<col+12<<" ) ) );"<<endl;
-			 outcvc<<"ASSERT( y_SRout_"<<round<<"_"<<col+12<<" = y_MCout_"<<round<<"_"<<col<<" );"<<endl;
-		 }	
-		 
-		 	
+
 		if( round<y_ROUND-1)
 		{
 			for(int pos=0;pos<16;pos++)
 			{
-				outcvc<<"ASSERT( y_Sin_"<<round+1<<"_"<<pos<<" = y_MCout_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( NOT( LAT[y_SRout_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
 			}
 		}
 	}
@@ -249,7 +240,7 @@ int main(int argc,char * argv[])
 	//connection up and down
 	for(int pos=0;pos<16;pos++)
 	{
-		outcvc<<"ASSERT( x_MCout_"<<(x_ROUND-1)<<"_"<<pos<<" = y_Sin_0_"<<pos<<" );"<<endl;
+		outcvc<<"ASSERT( x_Sout_"<<(x_ROUND-1)<<"_"<<pos<<" = y_Fin_0_"<<pos<<" );"<<endl;
 	}
 	
 	//key update up
