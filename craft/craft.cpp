@@ -153,7 +153,7 @@ int main(int argc,char * argv[])
 		for(int pos=0;pos<16;pos++)
 		{
 		
-			outcvc<<"Kin_"<<round<<"_"<<pos<<" , LPout_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos;
+			outcvc<<"Kin_"<<round<<"_"<<pos<<" , LPin_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos;
 			if(pos<15)
 			{
 				outcvc<<" , ";
@@ -244,21 +244,22 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
+			string a = "Kin"+to_string(round)+"_"+to_string(pos);
+			string b = "LPin_"+to_string(round)+"_"+to_string(pos);
+
+			outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+
 			if ( (round % 4) < 2 )
 			{
-				outcvc<<"ASSERT( LPout_"<<round<<"_"<<pos<<" = Kin_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			else
 			{
-				outcvc<<"ASSERT( LPout_"<<round<<"_"<<pos<<" = Kin_"<<round<<"_"<<Q[pos]<<" );"<<endl;
+				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<Q[pos]<<" );"<<endl;
 			}
 					
 
 	
-			string a = "LPout_"+to_string(round)+"_"+to_string(pos);
-			string b = "RKin_"+to_string(round)+"_"+to_string(pos);
-
-			outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 
 
 
