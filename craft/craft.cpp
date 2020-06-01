@@ -266,7 +266,7 @@ int main(int argc,char * argv[])
 		}
 	}
 
-	outcvc<<"ASSERT( x_Fin_0_4 = x_Fin_0_12 );"<<endl;
+	//outcvc<<"ASSERT( x_Fin_0_4 = x_Fin_0_12 );"<<endl;
 	//outcvc<<"ASSERT( NOT( x_Fin_0_4 = 0bin0000 ) );"<<endl;
 
 	//assert active state
@@ -274,12 +274,12 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( (pos != 4)&&(pos != 12) )
+			if( pos != head_flag )
 			{
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
 	
-			if(pos == tail_flag)
+			if( pos == tail_flag )
 			{
 				outcvc<<"ASSERT( NOT( y_Sout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
@@ -296,7 +296,6 @@ int main(int argc,char * argv[])
 		if( pos == key_flag )
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
-
 		}
 	}
 
