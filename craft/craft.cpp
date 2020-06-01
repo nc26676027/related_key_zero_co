@@ -54,7 +54,7 @@ int MCT[4][4]=
 
 int P[16] = {15, 12, 13, 14, 10, 9, 8, 11, 6, 5, 4, 7, 1, 2, 3, 0};
 
-int Q[16] = {13, 14, 7, 9, 11, 3, 12, 10, 5, 6, 1, 8, 0, 15, 4, 2};
+int Q[16] = {0xc, 0xa, 0xf, 0x5, 0xe, 0x8, 0x9, 0x2, 0xb, 0x3, 0x7, 0x4, 0x6, 0x0, 0x1, 0xd };
 
 
 
@@ -250,7 +250,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<"ASSERT( LPout_"<<round<<"_"<<Q[pos]<<" = Kin_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( LPout_"<<round<<"_"<<pos<<" = Kin_"<<round<<"_"<<Q[pos]<<" );"<<endl;
 			}
 					
 
