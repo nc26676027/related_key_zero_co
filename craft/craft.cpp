@@ -244,18 +244,18 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			string a = "Kin"+to_string(round)+"_"+to_string(pos);
+			string a = "Kin_"+to_string(round)+"_"+to_string(pos);
 			string b = "LPin_"+to_string(round)+"_"+to_string(pos);
 
 			outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 
 			if ( (round % 4) < 2 )
 			{
-				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( RKin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			else
 			{
-				outcvc<<"ASSERT( Kin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<Q[pos]<<" );"<<endl;
+				outcvc<<"ASSERT( RKin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<Q[pos]<<" );"<<endl;
 			}
 					
 
