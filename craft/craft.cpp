@@ -295,7 +295,7 @@ int main(int argc,char * argv[])
 			
 		}
 		
-		outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin1000 );"<<endl;
+		outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin0000 );"<<endl;
 	
 
 		if( pos == 11 )
