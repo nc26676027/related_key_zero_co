@@ -363,7 +363,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( (pos != head_flag) && (pos != head_flag+1) )
+			if( pos != head_flag )
 			{
 				outcvc<<"ASSERT(  x_Sin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
