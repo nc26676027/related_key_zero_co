@@ -280,7 +280,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
+				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000  );"<<endl;
 			}
 			
 	
