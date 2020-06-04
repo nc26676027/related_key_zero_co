@@ -397,6 +397,7 @@ int main(int argc,char * argv[])
 			{
 				outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
+			
 			if(pos == tail_flag)
 			{
 				outcvc<<"ASSERT( NOT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
