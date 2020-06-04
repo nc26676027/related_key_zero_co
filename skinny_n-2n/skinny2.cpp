@@ -32,6 +32,13 @@ int MCT[4][4]=
 	1,0,1,1,
 	1,0,0,0
 };
+int inv_MCT[4][4]=
+{
+	0,0,0,1,
+	1,1,1,0,
+	0,1,0,0,
+	0,1,1,1
+};
 
 int sbox[16] = {0xc, 0x6, 0x9, 0x0,
 				0x1, 0xa, 0x2, 0xb,
@@ -380,7 +387,7 @@ int main(int argc,char * argv[])
 		}
 		
 
-		if( pos == 2 )
+		if( pos == key_flag )
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;		
