@@ -249,7 +249,7 @@ int main(int argc,char * argv[])
 
 			outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 
-			if ( (round % 4) > 1  )
+			if ( (round % 4) < 2 )
 			{
 				outcvc<<"ASSERT( RKin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
@@ -266,7 +266,7 @@ int main(int argc,char * argv[])
 		}
 	}
 
-	//outcvc<<"ASSERT( x_Fin_0_4 = x_Fin_0_12 );"<<endl;
+	outcvc<<"ASSERT( x_Fin_0_4 = x_Fin_0_12 );"<<endl;
 	//outcvc<<"ASSERT( NOT( x_Fin_0_4 = 0bin0000 ) );"<<endl;
 
 	//assert active state
@@ -274,14 +274,11 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( pos == head_flag )
+			if( (pos != 4)&&(pos != 8) )
 			{
-				outcvc<<"ASSERT( NOT( x_Fin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
+				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
-			else
-			{
-				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000  );"<<endl;
-			}
+
 			
 	
 			if( pos == tail_flag )
