@@ -274,7 +274,7 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( (pos != 4)&&(pos != 8) )
+			if( (pos != 4)&&(pos != 12) )
 			{
 				outcvc<<"ASSERT( x_Fin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
