@@ -295,7 +295,7 @@ int main(int argc,char * argv[])
 
 	//outcvc<<"ASSERT( x_Fin_0_4 = x_Fin_0_12 );"<<endl;
 	//outcvc<<"ASSERT( NOT( x_Fin_0_4 = 0bin0000 ) );"<<endl;
-
+/*
 	//概率限制
 	outcvc<<"ASSERT( P = BVPLUS( 16";
 	for(int round=0;round<ROUND;round++)
@@ -307,7 +307,7 @@ int main(int argc,char * argv[])
 
 	}
 	outcvc<<" ) );"<<endl;
-
+*/
 	//outcvc<<"ASSERT( BVLE( P , 0hex00ff ) );"<<endl;
 
 
