@@ -308,7 +308,7 @@ int main(int argc,char * argv[])
 	}
 	outcvc<<" ) );"<<endl;
 
-	outcvc<<"ASSERT( BVLE( P , 0hex007a ) );"<<endl;
+	outcvc<<"ASSERT( BVLE( P , 0hex007f ) );"<<endl;
 
 
 
