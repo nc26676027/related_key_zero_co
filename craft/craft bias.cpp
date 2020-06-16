@@ -248,7 +248,7 @@ int main(int argc,char * argv[])
 		for(int pos=0;pos<16;pos++)
 		{
 			outcvc<<"ASSERT( NOT( LAT[y_SRout_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] = 0bin0000 ) );"<<endl;
-			outcvc<<"ASSERT( IF y_SRout_"<<round<<"_"<<pos<<" = 0bin0000 THEN atob_Prob_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 ELSE atob_Prob_"<<round<<"_"<<pos<<" = LAT[y_SRout_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] ENDIF );"<<endl;
+			outcvc<<"ASSERT( IF y_SRout_"<<round<<"_"<<pos<<" = 0bin0000 THEN atob_Prob_"<<(x_ROUND+round)<<"_"<<pos<<" = 0bin0000 ELSE atob_Prob_"<<round<<"_"<<pos<<" = LAT[y_SRout_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] ENDIF );"<<endl;
 
 		}
 		if( round<y_ROUND-1)
