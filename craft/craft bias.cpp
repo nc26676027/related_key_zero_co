@@ -178,7 +178,7 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"atob_Pro_"<<round<<"_"<<pos;
+			outcvc<<"atob_Prob_"<<round<<"_"<<pos;
 			if(pos<15)
 			{
 				outcvc<<" , ";
