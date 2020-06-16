@@ -112,12 +112,12 @@ int main(int argc,char * argv[])
     outcvc.open(filename);
 
     //state variable claim
-	outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
+	outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(4);"<<endl;
 	for(int input_lc=0x0;input_lc<16;input_lc++)
 	{
 		for(int output_lc=0x0;output_lc<16;output_lc++)
 		{
-			outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<((LAT[input_lc][output_lc] == 0)?0:1)<<" );"<<endl;
+			outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<tobits(LAT[input_lc][output_lc],4)<<" );"<<endl;
 		}
 	}
 	outcvc<<dec;
@@ -173,8 +173,25 @@ int main(int argc,char * argv[])
 		}
 
 	}
+	//round probability
+	for(int round=0;round<ROUND;round++)
+	{
+		for(int pos=0;pos<16;pos++)
+		{
+			outcvc<<"atob_Pro_"<<round<<"_"<<pos;
+			if(pos<15)
+			{
+				outcvc<<" , ";
+			}
+			else
+			{
+				outcvc<<" : BITVECTOR(4);"<<endl;
+			}				
+		}
+		
+	}
 
-
+	outcvc<<"P : BITVECTOR(16);"<<endl;
 
 	/*     *************************** ASSERT   ******************************  */
 	//state update
@@ -198,7 +215,8 @@ int main(int argc,char * argv[])
 
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( NOT( LAT[x_SRout_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			outcvc<<"ASSERT( NOT( LAT[x_SRout_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0000 ) );"<<endl;
+			outcvc<<"ASSERT( IF x_SRout_"<<round<<"_"<<pos<<" = 0bin0000 THEN atob_Prob_"<<round<<"_"<<pos<<" = 0bin0000 ELSE atob_Prob_"<<round<<"_"<<pos<<" = LAT[x_SRout_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] ENDIF );"<<endl;
 		}
 		if( round<x_ROUND-1)
 		{
@@ -229,7 +247,9 @@ int main(int argc,char * argv[])
 
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( NOT( LAT[y_SRout_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			outcvc<<"ASSERT( NOT( LAT[y_SRout_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] = 0bin0000 ) );"<<endl;
+			outcvc<<"ASSERT( IF y_SRout_"<<round<<"_"<<pos<<" = 0bin0000 THEN atob_Prob_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 ELSE atob_Prob_"<<round<<"_"<<pos<<" = LAT[y_SRout_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] ENDIF );"<<endl;
+
 		}
 		if( round<y_ROUND-1)
 		{
@@ -275,6 +295,22 @@ int main(int argc,char * argv[])
 
 	//outcvc<<"ASSERT( x_Fin_0_4 = x_Fin_0_12 );"<<endl;
 	//outcvc<<"ASSERT( NOT( x_Fin_0_4 = 0bin0000 ) );"<<endl;
+
+	//概率限制
+	outcvc<<"ASSERT( P = BVPLUS( 16";
+	for(int round=0;round<ROUND;round++)
+	{
+		for(int pos=0;pos<16;pos++)
+		{
+			outcvc<<" , 0bin000000000000@atob_Prob_"<<round<<"_"<<pos;
+		}
+
+	}
+	outcvc<<" ) );"<<endl;
+
+	outcvc<<"ASSERT( BVLE( P , 0hex0072 ) );"<<endl;
+
+
 
 	//assert active state
 	for(int pos=0;pos<16;pos++)
