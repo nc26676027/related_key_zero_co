@@ -256,7 +256,7 @@ int main(int argc,char * argv[])
 
 			outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 
-			if ( (round % 4) > 0 && (round % 4) < 3 )
+			if ( (round % 4) < 1 || (round % 4) > 2 )
 			{
 				outcvc<<"ASSERT( RKin_"<<round<<"_"<<pos<<" = LPin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
@@ -304,7 +304,7 @@ int main(int argc,char * argv[])
 
 		if( pos == key_flag )
 		{
-			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin1000 );"<<endl;
 		}
 	}
 
