@@ -116,8 +116,8 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 7;
-    int y_ROUND = 9;
+    int x_ROUND = 9;
+    int y_ROUND = 7;
     int ROUND = x_ROUND+y_ROUND;
 
 	P_make(ROUND);
@@ -253,7 +253,7 @@ int main(int argc,char * argv[])
 	//connection up and down
 	for(int pos=0;pos<16;pos++)
 	{
-		outcvc<<"ASSERT( x_MCout_"<<(x_ROUND-1)<<"_"<<pos<<" = y_Sin_0_"<<pos<<" );"<<endl;
+		outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = y_Sin_0_"<<pos<<" );"<<endl;
 	}
 	
 	//key update up
@@ -344,14 +344,11 @@ int main(int argc,char * argv[])
 	{
 		if(pos<16)
 		{
-			if( pos == head_flag )
+			if( pos != head_flag )
 			{
-				outcvc<<"ASSERT( NOT( x_Sin_0_"<<pos<<" = 0bin0000 ) );"<<endl;
+				outcvc<<"ASSERT(  x_SRout_"<<x_ROUND-1<<"_"<<pos<<" = 0bin0000  );"<<endl;
 			}
-			else
-			{
-				outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = 0bin0000 );"<<endl;
-			}
+
 			if(pos == tail_flag)
 			{
 				outcvc<<"ASSERT( NOT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
