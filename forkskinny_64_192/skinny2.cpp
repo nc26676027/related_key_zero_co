@@ -117,7 +117,7 @@ int main(int argc,char * argv[])
     //peogram main
     ofstream outcvc;
     int x_ROUND = 10;
-    int y_ROUND = 7;
+    int y_ROUND = 10;
     int ROUND = x_ROUND+y_ROUND;
 
 	P_make(ROUND);
@@ -377,17 +377,6 @@ int main(int argc,char * argv[])
 
 		}
 	}
-/*
-	//other tweak 
-	for(int pos=0;pos<16;pos++)
-	{
-		if(pos != return_index(key_flag,P_R))
-		{
-			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = Kin_0_"<<P_R[pos]<<" );"<<endl;
-			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = Kin2_0_"<<P_R[pos]<<" );"<<endl;
-		}
-	}
-*/
 
 
 	outcvc<<"QUERY(FALSE);"<<endl;
