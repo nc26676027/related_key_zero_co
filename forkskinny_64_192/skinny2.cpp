@@ -366,8 +366,8 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( LPout3_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin1_0_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
 
 		}
 		
