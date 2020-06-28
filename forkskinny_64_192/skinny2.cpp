@@ -117,7 +117,7 @@ int main(int argc,char * argv[])
     //peogram main
     ofstream outcvc;
     int x_ROUND = 10;
-    int y_ROUND = 14;
+    int y_ROUND = 12;
     int ROUND = x_ROUND+y_ROUND;
 
 	P_make(ROUND);
@@ -365,9 +365,9 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( LPout3_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
+			//outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
+			//outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
+			//outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
 
 		}
 		
