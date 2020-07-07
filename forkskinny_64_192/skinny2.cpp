@@ -385,9 +385,9 @@ int main(int argc,char * argv[])
 		{
 			if(pos<8)
 			{
-				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = 0bin1000 );"<<endl;
-				outcvc<<"ASSERT( RKin2_"<<x_ROUND+round<<"_"<<pos<<" = 0bin1000 );"<<endl;
-				outcvc<<"ASSERT( RKin3_"<<x_ROUND+round<<"_"<<pos<<" = 0bin1000 );"<<endl;
+				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0100 );"<<endl;
+				outcvc<<"ASSERT( RKin2_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0100 );"<<endl;
+				outcvc<<"ASSERT( RKin3_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0100 );"<<endl;
 			}			
 		}
 	}
