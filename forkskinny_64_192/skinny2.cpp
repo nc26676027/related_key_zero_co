@@ -257,7 +257,7 @@ int main(int argc,char * argv[])
 		outcvc<<"ASSERT( x_MCout_"<<x_ROUND-1<<"_"<<pos<<" = y_Sin_0_"<<pos<<" );"<<endl;
 	}
 	
-	//key update up
+	//key update
 	for(int round=0;round<ROUND;round++)
 	{
 		for(int pos=0;pos<16;pos++)
@@ -372,9 +372,9 @@ int main(int argc,char * argv[])
 
 		if( pos == key_flag )
 		{
-			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin1000 );"<<endl;
+			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin1000 );"<<endl;
+			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin1000 );"<<endl;
 
 		}
 
@@ -385,9 +385,9 @@ int main(int argc,char * argv[])
 		{
 			if(pos<8)
 			{
-				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
-				outcvc<<"ASSERT( RKin2_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
-				outcvc<<"ASSERT( RKin3_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = 0bin1000 );"<<endl;
+				outcvc<<"ASSERT( RKin2_"<<x_ROUND+round<<"_"<<pos<<" = 0bin1000 );"<<endl;
+				outcvc<<"ASSERT( RKin3_"<<x_ROUND+round<<"_"<<pos<<" = 0bin1000 );"<<endl;
 			}			
 		}
 	}
