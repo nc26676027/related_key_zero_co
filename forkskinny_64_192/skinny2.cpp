@@ -116,9 +116,10 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 10;
-    int y_ROUND = 11;
-    int ROUND = x_ROUND+y_ROUND;
+    int x_ROUND = 4;
+    int y_ROUND = 14;
+	int r0 = 23;
+    int ROUND = x_ROUND+y_ROUND+r0;
 
 	P_make(ROUND);
 
@@ -224,9 +225,9 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
 			if( pos<8 )
 			{
-				outcvc<<"ASSERT( RKin_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
-				outcvc<<"ASSERT( RKin2_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
-				outcvc<<"ASSERT( RKin3_"<<round+x_ROUND<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( RKin_"<<round+x_ROUND+r0<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( RKin2_"<<round+x_ROUND+r0<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( RKin3_"<<round+x_ROUND+r0<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			outcvc<<"ASSERT( y_Sout_"<<round<<"_"<<inv_SR[pos]<<" = y_SRout_"<<round<<"_"<<pos<<" );"<<endl;
 			
@@ -253,7 +254,7 @@ int main(int argc,char * argv[])
 	//connection up and down
 	for(int pos=0;pos<16;pos++)
 	{
-		outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = y_Sin_0_"<<pos<<" );"<<endl;
+		outcvc<<"ASSERT( x_MCout_"<<x_ROUND-1<<"_"<<pos<<" = y_Sin_0_"<<pos<<" );"<<endl;
 	}
 	
 	//key update up
@@ -342,42 +343,52 @@ int main(int argc,char * argv[])
 	//assert active state
 	for(int pos=0;pos<16;pos++)
 	{
-		if(pos<16)
-		{
-			if( pos != head_flag )
-			{
-				outcvc<<"ASSERT(  x_SRout_"<<x_ROUND-1<<"_"<<pos<<" = 0bin0000  );"<<endl;
-			}
 
-			if(pos == tail_flag)
-			{
-				outcvc<<"ASSERT( NOT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
-			}
-			else
-			{
-				outcvc<<"ASSERT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
-			}		
-			
+		if( pos != head_flag )
+		{
+			outcvc<<"ASSERT(  x_Sin_0_"<<pos<<" = 0bin0000  );"<<endl;
 		}
+
+		if(pos == tail_flag)
+		{
+			outcvc<<"ASSERT( NOT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
+		}
+		else
+		{
+			outcvc<<"ASSERT( y_SRout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+		}		
+			
+
 		
 		if(1  /*pos == return_index(key_flag,P_R)*/)
 		{
 			outcvc<<"ASSERT( LPout_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( LPout2_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( LPout3_"<<ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
-			//outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
-			//outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
-			//outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
+
 
 		}
 		
 
 		if( pos == key_flag )
 		{
-			outcvc<<"ASSERT( LPout_"<<x_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( LPout2_"<<x_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( LPout3_"<<x_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
 
+		}
+
+	}
+	for(int round=0;round<r0;round++)
+	{
+		for(int pos=0;pos<16;pos++)
+		{
+			if(pos<8)
+			{
+				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( RKin2_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( RKin3_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
+			}			
 		}
 	}
 
