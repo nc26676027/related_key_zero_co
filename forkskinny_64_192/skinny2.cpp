@@ -120,7 +120,8 @@ int main(int argc,char * argv[])
     int y_ROUND = 13;
 	int r0 = 23;
     int ROUND = x_ROUND+y_ROUND+r0;
-
+	
+	int ideal = 0;
 	P_make(ROUND);
 
 
@@ -189,7 +190,16 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
+			if (ideal == 0)
+			{
+				outcvc<<"ASSERT( NOT( LAT[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			}
+			else
+			{
+				outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;				
+			}
+			
+			
 			if( pos<8 )
 			{
 				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
@@ -222,7 +232,16 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
+			if (ideal == 0)
+			{
+				outcvc<<"ASSERT( NOT( LAT[y_Sin_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			}
+			else
+			{
+				outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;				
+			}
+			
+			
 			if( pos<8 )
 			{
 				outcvc<<"ASSERT( RKin_"<<round+x_ROUND+r0<<"_"<<pos<<" = y_Sout_"<<round<<"_"<<pos<<" );"<<endl;
@@ -372,13 +391,14 @@ int main(int argc,char * argv[])
 
 		if( pos == key_flag )
 		{
-			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin1000 );"<<endl;
-			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin1000 );"<<endl;
-			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin1000 );"<<endl;
+			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
 
 		}
 
 	}
+	
 	for(int round=0;round<r0;round++)
 	{
 		for(int pos=0;pos<16;pos++)
