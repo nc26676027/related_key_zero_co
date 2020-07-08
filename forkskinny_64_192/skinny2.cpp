@@ -146,6 +146,22 @@ int main(int argc,char * argv[])
     //gen CVC
     outcvc.open(filename);
 
+    //variable claim
+	if ( ideal == 0 )
+	{
+		outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
+		for(int input_lc=0x0;input_lc<16;input_lc++)
+		{
+			for(int output_lc=0x0;output_lc<16;output_lc++)
+			{
+				outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<((LAT[input_lc][output_lc] == 0)?0:1)<<" );"<<endl;
+			}
+		}
+		outcvc<<dec;
+
+	}
+	
+
     //state variable claim
     for(int round=0;round<x_ROUND;round++)//up
     {
