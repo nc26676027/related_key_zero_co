@@ -426,8 +426,8 @@ int main(int argc,char * argv[])
 		if( pos == key_flag )
 		{
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin3_0_"<<pos<<" = 0bin0000 );"<<endl;
+			outcvc<<"ASSERT( Kin2_0_"<<(pos+4)%16<<" = 0bin1000 );"<<endl;
+			outcvc<<"ASSERT( Kin3_0_"<<(pos+8)%16<<" = 0bin0100 );"<<endl;
 
 		}
 
@@ -440,8 +440,8 @@ int main(int argc,char * argv[])
 			if(pos<8)
 			{
 				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
-				outcvc<<"ASSERT( RKin2_"<<x_ROUND+round<<"_"<<pos<<" = 0bin1000 );"<<endl;
-				outcvc<<"ASSERT( RKin3_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0100 );"<<endl;
+				outcvc<<"ASSERT( RKin2_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( RKin3_"<<x_ROUND+round<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			}			
 		}
 	}
