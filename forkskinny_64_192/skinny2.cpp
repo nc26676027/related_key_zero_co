@@ -428,9 +428,7 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			outcvc<<"ASSERT( Kin2_0_"<<(pos+2)%16<<" = 0bin1000 );"<<endl;
 			outcvc<<"ASSERT( Kin3_0_"<<(pos+6)%16<<" = 0bin0100 );"<<endl;
-			outcvc<<"ASSERT( Kin_0_"<<pos+1<<" = 0bin0000 );"<<endl;
-			outcvc<<"ASSERT( Kin2_0_"<<(pos+3)%16<<" = 0bin1000 );"<<endl;
-			outcvc<<"ASSERT( Kin3_0_"<<(pos+7)%16<<" = 0bin0100 );"<<endl;			
+		
 
 		}
 
