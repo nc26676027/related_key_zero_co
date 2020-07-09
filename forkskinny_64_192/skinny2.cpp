@@ -139,7 +139,7 @@ int main(int argc,char * argv[])
 	int r0 = 23;
     int ROUND = x_ROUND+y_ROUND+r0;
 	
-	int ideal = 0;
+	int ideal = 1;
 	P_make(ROUND);
 
 
