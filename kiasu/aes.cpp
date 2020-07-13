@@ -148,7 +148,7 @@ int main(int argc,char * argv[])
         key_flag = atoi(argv[1]);
         head_flag = atoi(argv[2]);
         tail_flag = atoi(argv[3]);
-		filename = "skinny"+to_string(atoi(argv[3]))+".cvc";
+		filename = "aes"+to_string(atoi(argv[3]))+".cvc";
     }
     printf("key_flag=%d , head_flag=%d , tail_flag=%d\n fileno = %d",key_flag,head_flag,tail_flag,tail_flag);
 
