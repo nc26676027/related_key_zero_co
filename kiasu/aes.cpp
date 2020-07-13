@@ -341,19 +341,22 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
-		
-		if(1  /*pos == return_index(key_flag,P_R)*/)
+		if(pos<8)
 		{
-			outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin00000000 );"<<endl;
+			if(1  /*pos == return_index(key_flag,P_R)*/)
+			{
+				outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin00000000 );"<<endl;
 
+			}
+			
+
+			if( pos == key_flag )
+			{
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00000000 );"<<endl;
+
+			}
 		}
-		
 
-		if( pos == key_flag )
-		{
-			outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00000000 );"<<endl;
-
-		}
 	}
 
 
