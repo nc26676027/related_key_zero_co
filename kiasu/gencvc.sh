@@ -11,11 +11,11 @@ do
 		javac Find$j.java		
 		mkdir head_state$j
 		cd head_state$j
-		cp ../../skinny2.cpp ./
-		g++ --std c++11 skinny2.cpp -o skinny
+		cp ../../aes.cpp ./
+		g++ --std c++11 aes.cpp -o aes
 		for ((k=0;k<16;k++));
 		do			
-			./skinny $i $j $k
+			./aes $i $j $k
 		done
 		cd ..
 	done
