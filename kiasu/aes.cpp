@@ -306,7 +306,7 @@ int main(int argc,char * argv[])
 	}
 	
 	//key update up
-	for(int round=0;round<ROUND-1;round++)
+	for(int round=0;round<ROUND;round++)
 	{
 		for(int pos=0;pos<8;pos++)
 		{
