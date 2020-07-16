@@ -31,13 +31,13 @@ string mul_mat(int x,string y)
     {
         string s = "( IF (";
         s.append(y);
-        s.append("&0hex80) = 0hex80 THEN ");
+        s.append("&0hex8) = 0hex8 THEN ");
         s.append("BVXOR(((");
         s.append(y);
-        s.append("<<1)[7:0]),0hex1b) ELSE ");
+        s.append("<<1)[3:0]),0hex1b) ELSE ");
         s.append("((");
         s.append(y);
-        s.append("<<1)[7:0]) ENDIF )");
+        s.append("<<1)[3:0]) ENDIF )");
 
         return s;
     }
@@ -45,17 +45,17 @@ string mul_mat(int x,string y)
     {
         string s = "( IF (";
         s.append(y);
-        s.append("&0hex80) = 0hex80 THEN ");
+        s.append("&0hex8) = 0hex8 THEN ");
         s.append("BVXOR( ");
         s.append(y);
         s.append(",BVXOR(((");
         s.append(y);
-        s.append("<<1)[7:0]),0hex1b)) ELSE ");
+        s.append("<<1)[3:0]),0hex1b)) ELSE ");
         s.append("BVXOR( ");
         s.append(y);
         s.append(",(( ");
         s.append(y);
-        s.append("<<1)[7:0])) ENDIF )");
+        s.append("<<1)[3:0])) ENDIF )");
         return s;
     }
 }
@@ -80,9 +80,9 @@ int inv_SR[16] = { 0,  1,  2,  3,
             	  10, 11,  8,  9,
              	  15, 12, 13, 14};
 
-int P[16] = {9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
+int P[16] = {1, 6, 11, 12, 5, 10, 15, 0, 9, 14, 3, 4, 13, 2, 7, 8};
 
-int P_R[16]={9, 15, 8, 13, 10, 14, 12, 11, 0, 1, 2, 3, 4, 5, 6, 7};
+int P_R[16] = {1, 6, 11, 12, 5, 10, 15, 0, 9, 14, 3, 4, 13, 2, 7, 8};
 
 
 void P_make(int round){
@@ -179,7 +179,7 @@ int main(int argc,char * argv[])
             }
             else
             {
-                outcvc<<" : BITVECTOR(8);"<<endl;
+                outcvc<<" : BITVECTOR(4);"<<endl;
             }            
         }
     }
@@ -195,7 +195,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(8);"<<endl;
+				outcvc<<" : BITVECTOR(4);"<<endl;
 			}
 			
 		}
@@ -213,7 +213,7 @@ int main(int argc,char * argv[])
 			}
 			else
 			{
-				outcvc<<" : BITVECTOR(8);"<<endl;
+				outcvc<<" : BITVECTOR(4);"<<endl;
 			}			
 	
 		}
