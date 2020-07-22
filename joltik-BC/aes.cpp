@@ -349,16 +349,16 @@ int main(int argc,char * argv[])
 		{
 			if( pos != head_flag )
 			{
-				outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = 0bin00000000 );"<<endl;
+				outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}
 
 			if(pos == tail_flag)
 			{
-				outcvc<<"ASSERT( NOT( y_MCout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin00000000 ) );"<<endl;
+				outcvc<<"ASSERT( NOT( y_MCout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 ) );"<<endl;
 			}
 			else
 			{
-				outcvc<<"ASSERT( y_MCout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin00000000 );"<<endl;
+				outcvc<<"ASSERT( y_MCout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin0000 );"<<endl;
 			}		
 			
 		}
