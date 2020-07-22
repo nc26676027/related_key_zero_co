@@ -216,7 +216,7 @@ int main(int argc,char * argv[])
 		for(int pos=0;pos<16;pos++)
 		{
 		
-			outcvc<<"Kin_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos<<" , LPin_"<<round<<"_"<<pos<<"Kin2_"<<round<<"_"<<pos<<" , RKin2_"<<round<<"_"<<pos<<" , LPin2_"<<round<<"_"<<pos;
+			outcvc<<"Kin_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos<<" , LPin_"<<round<<"_"<<pos<<" , Kin2_"<<round<<"_"<<pos<<" , RKin2_"<<round<<"_"<<pos<<" , LPin2_"<<round<<"_"<<pos;
 			if(pos<15)
 			{
 				outcvc<<" , ";
