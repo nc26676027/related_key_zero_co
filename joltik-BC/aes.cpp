@@ -28,7 +28,7 @@ string mul_mat(int x,string y)
 	{
 		string s = "( IF (";
 		s.append(y);
-		s.append("&0hex8 = 0hex8 THEN BVXOR((");
+		s.append("&0hex8 = 0hex8 ) THEN BVXOR((");
 		s.append(y);
 		s.append("<<1)[3:0] , 0hex3) ELSE (");
 		s.append(y);
