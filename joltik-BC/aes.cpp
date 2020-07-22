@@ -22,19 +22,28 @@ string tobits(int num, int bit_num)
 }
 
 string mul_mat(int x,string y)
-{
+{	
 
-    if(x == 4)
+	if (x == 2)
+	{
+		string s = "( IF (";
+		s.append(y);
+		s.append("&0hex8 = 0hex8 THEN BVXOR((");
+		s.append(y);
+		s.append("<<1)[3:0] , 0hex3) ELSE (");
+		s.append(y);
+		s.append("<<1)[3:0] ENDIF )");
+		return s;
+	}
+    else if(x == 4)
     {
 		string s = "( IF (";
 		s.append(y);
 		s.append("&0hexc = 0hex8 OR ");
 		s.append(y);
-		s.append("&0hexc = 0hex4 )");
-		s.append(" THEN BVXOR((");
+		s.append("&0hexc = 0hex4 ) THEN BVXOR((");
 		s.append(y);
-		s.append("<<2)[3:0],0hex3) ELSE ");
-		s.append("(");
+		s.append("<<2)[3:0],0hex3) ELSE (");
 		s.append(y);
 		s.append("<<2)[3:0] ENDIF )");
         return s;
@@ -49,13 +58,11 @@ string mul_mat(int x,string y)
         s.append(y);
         s.append("&0hexe = 0hex2 OR ");
         s.append(y);
-        s.append("&0hexe = 0hexe )");
-        s.append(" THEN BVXOR(");
+        s.append("&0hexe = 0hexe ) THEN BVXOR(");
         s.append(y);
         s.append(" , BVXOR((");
         s.append(y);
-        s.append("<<3)[3:0],0hex3 )) ELSE ");
-        s.append("BVXOR( ");
+        s.append("<<3)[3:0],0hex3 )) ELSE BVXOR( ");
         s.append(y);
         s.append(", (");
         s.append(y);
@@ -317,13 +324,25 @@ int main(int argc,char * argv[])
 	//key update up
 	for(int round=0;round<ROUND;round++)
 	{
-		for(int pos=0;pos<8;pos++)
+		for(int pos=0;pos<16;pos++)
 		{
-
+			//TK1
 			string a = "Kin_"+to_string(round)+"_"+to_string(pos);
 			string b = "RKin_"+to_string(round)+"_"+to_string(pos);
 
-			outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+			outcvc<<"ASSERT( LPin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+
+			outcvc<<"ASSERT( Kin_"<<round+1<<"_"<<pos<<" = LPin_"<<round<<"_"<<P[pos]<<" );"<<endl;
+
+			//TK2
+			string a2 = "Kin2_"+to_string(round)+"_"+to_string(pos);
+			string b2 = "RKin2_"+to_string(round)+"_"+to_string(pos);
+			string c2 = "LPin2_"+to_string(round)+"_"+to_string(P[pos]);
+
+			outcvc<<"ASSERT( LPin2_"<<round<<"_"<<pos<<" = "<<branch(a2,b2)<<" );"<<endl;
+
+			outcvc<<"ASSERT( Kin2_"<<round+1<<"_"<<pos<<" = "<<mul_mat(2,c2)<<" );"<<endl;
+
 	
 		
 		}
@@ -350,18 +369,20 @@ int main(int argc,char * argv[])
 			}		
 			
 		}
-		if(pos<8)
+		if(pos<16)
 		{
 			if(1  /*pos == return_index(key_flag,P_R)*/)
 			{
-				outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin00000000 );"<<endl;
+				outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin0000 );"<<endl;
 
 			}
 			
 
 			if( pos == key_flag )
 			{
-				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00000000 );"<<endl;
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
+
 
 			}
 		}
