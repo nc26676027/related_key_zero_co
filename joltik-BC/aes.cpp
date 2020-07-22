@@ -238,8 +238,8 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<"pos"<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
-			outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<"pos"<<" = RKin2_"<<round<<"_"<<pos<<" );"<<endl;
+			outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
+			outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<pos<<" = RKin2_"<<round<<"_"<<pos<<" );"<<endl;
 
 			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
 
@@ -274,8 +274,8 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( y_Sin_"<<round<<"_"<<"pos"<<" = RKin_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
-			outcvc<<"ASSERT( y_Sin_"<<round<<"_"<<"pos"<<" = RKin2_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
+			outcvc<<"ASSERT( y_Sin_"<<round<<"_"<<pos<<" = RKin_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
+			outcvc<<"ASSERT( y_Sin_"<<round<<"_"<<pos<<" = RKin2_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
 
 			outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
 
