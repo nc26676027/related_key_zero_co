@@ -82,13 +82,6 @@ string mul_mat(int x,string y)
 
 
 //original MC layer matrix
-int MCT[4][4]=
-{
-	2,1,1,3,
-	3,2,1,1,
-	1,3,2,1,
-	1,1,3,2
-};
 
 int SR[16] = 	 { 0,  5, 10, 15,
               	   4,  9, 14,  3,
