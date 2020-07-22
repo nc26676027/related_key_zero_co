@@ -75,7 +75,7 @@ string mul_mat(int x,string y)
 		s.append( mul_mat(4,y) );
 		s.append(" , ");
 		s.append( mul_mat(9,y) );
-		s.append(" );");
+		s.append(" )");
         return s;
     }
 }
