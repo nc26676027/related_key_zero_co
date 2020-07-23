@@ -366,6 +366,8 @@ int main(int argc,char * argv[])
 			if(1  /*pos == return_index(key_flag,P_R)*/)
 			{
 				outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( Kin2_"<<ROUND<<"_"<<pos<<" = 0bin0000 );"<<endl;
+
 
 			}
 			
