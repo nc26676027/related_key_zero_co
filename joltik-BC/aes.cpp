@@ -163,7 +163,7 @@ int main(int argc,char * argv[])
 
     //peogram main
     ofstream outcvc;
-    int x_ROUND = 2;
+    int x_ROUND = 3;
     int y_ROUND = 3;
     int ROUND = x_ROUND+y_ROUND;
 
@@ -374,8 +374,8 @@ int main(int argc,char * argv[])
 
 			if( pos == key_flag )
 			{
-				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
-				outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0000 );"<<endl;
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin1000 );"<<endl;
+				outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin1000 );"<<endl;
 
 
 			}
