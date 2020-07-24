@@ -81,6 +81,27 @@ string mul_mat(int x,string y)
 }
 
 
+
+int LAT[16][16] = {
+    { 1 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 , 0 } ,
+    { 0 , 3 , 3 , 0 , 0 , 3 , 3 , 2 , 2 , 3 , 3 , 0 , 0 , 3 , 3 , 0 } ,
+    { 0 , 2 , 0 , 0 , 0 , 2 , 0 , 0 , 0 , 2 , 0 , 0 , 0 , 2 , 0 , 0 } ,
+    { 0 , 3 , 3 , 2 , 0 , 3 , 3 , 0 , 0 , 3 , 3 , 0 , 2 , 3 , 3 , 0 } ,
+    { 0 , 0 , 2 , 0 , 0 , 0 , 0 , 2 , 0 , 0 , 2 , 0 , 0 , 0 , 0 , 2 } ,
+    { 0 , 3 , 3 , 0 , 0 , 3 , 3 , 0 , 2 , 3 , 3 , 0 , 0 , 3 , 3 , 2 } ,
+    { 0 , 0 , 2 , 2 , 0 , 0 , 0 , 0 , 0 , 0 , 2 , 2 , 0 , 0 , 0 , 0 } ,
+    { 0 , 3 , 3 , 0 , 0 , 3 , 3 , 0 , 0 , 3 , 3 , 2 , 2 , 3 , 3 , 0 } ,
+    { 0 , 3 , 0 , 3 , 2 , 3 , 0 , 3 , 0 , 3 , 0 , 3 , 0 , 3 , 2 , 3 } ,
+    { 0 , 0 , 3 , 3 , 0 , 0 , 3 , 3 , 2 , 0 , 3 , 3 , 2 , 0 , 3 , 3 } ,
+    { 0 , 3 , 0 , 3 , 2 , 3 , 0 , 3 , 0 , 3 , 0 , 3 , 0 , 3 , 2 , 3 } ,
+    { 0 , 0 , 3 , 3 , 0 , 0 , 3 , 3 , 0 , 2 , 3 , 3 , 0 , 2 , 3 , 3 } ,
+    { 0 , 3 , 0 , 3 , 2 , 3 , 2 , 3 , 0 , 3 , 0 , 3 , 0 , 3 , 0 , 3 } ,
+    { 0 , 0 , 3 , 3 , 0 , 0 , 3 , 3 , 2 , 0 , 3 , 3 , 2 , 0 , 3 , 3 } ,
+    { 0 , 3 , 0 , 3 , 2 , 3 , 2 , 3 , 0 , 3 , 0 , 3 , 0 , 3 , 0 , 3 } ,
+    { 0 , 2 , 3 , 3 , 0 , 2 , 3 , 3 , 0 , 0 , 3 , 3 , 0 , 0 , 3 , 3 } 
+};
+
+
 //original MC layer matrix
 
 int SR[16] = 	 { 0,  1,  2,  3,
@@ -167,13 +188,24 @@ int main(int argc,char * argv[])
     int y_ROUND = 3;
     int ROUND = x_ROUND+y_ROUND;
 
-	P_make(ROUND);
-
+	int ideal = 0;
 
     //gen CVC
     outcvc.open(filename);
 
+	if ( ideal == 0 )
+	{
+		outcvc<<"LAT : ARRAY BITVECTOR(8) OF BITVECTOR(1);"<<endl;
+		for(int input_lc=0x0;input_lc<16;input_lc++)
+		{
+			for(int output_lc=0x0;output_lc<16;output_lc++)
+			{
+				outcvc<<hex<<"ASSERT( LAT[0bin"<<tobits(input_lc,4)<<tobits(output_lc,4)<<"] = 0bin"<<((LAT[input_lc][output_lc] == 0)?0:1)<<" );"<<endl;
+			}
+		}
+		outcvc<<dec;
 
+	}
 
     //state variable claim
     for(int round=0;round<x_ROUND;round++)//up
@@ -240,8 +272,14 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
 			outcvc<<"ASSERT( x_Sin_"<<round<<"_"<<pos<<" = RKin2_"<<round<<"_"<<pos<<" );"<<endl;
 
-			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
-
+			if (ideal == 0)
+			{
+				outcvc<<"ASSERT( NOT( LAT[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			}
+			else
+			{
+				outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;				
+			}
 			
 			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<pos<<" = x_Sout_"<<round<<"_"<<SR[pos]<<" );"<<endl;
 			
@@ -276,8 +314,14 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( y_Sin_"<<round<<"_"<<pos<<" = RKin_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
 			outcvc<<"ASSERT( y_Sin_"<<round<<"_"<<pos<<" = RKin2_"<<x_ROUND+round<<"_"<<pos<<" );"<<endl;
 
-			outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;
-
+			if (ideal == 0)
+			{
+				outcvc<<"ASSERT( NOT( LAT[y_Sin_"<<round<<"_"<<pos<<"@y_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
+			}
+			else
+			{
+				outcvc<<"ASSERT( IF y_Sin_"<<round<<"_"<<pos<<" = 0bin0000 THEN y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ELSE NOT ( y_Sout_"<<round<<"_"<<pos<<" = 0bin0000 ) ENDIF );"<<endl;				
+			}
 			outcvc<<"ASSERT( y_Sout_"<<round<<"_"<<SR[pos]<<" = y_SRout_"<<round<<"_"<<pos<<" );"<<endl;
 			
 		}
@@ -374,8 +418,8 @@ int main(int argc,char * argv[])
 
 			if( pos == key_flag )
 			{
-				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0010 );"<<endl;
-				outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin0010 );"<<endl;
+				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin1000 );"<<endl;
+				outcvc<<"ASSERT( Kin2_0_"<<pos<<" = 0bin1000 );"<<endl;
 
 
 			}
