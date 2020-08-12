@@ -149,8 +149,9 @@ int testTK1(void)
 
                     }
                     in = subByte (in , tk1);
+                    in = shiftNible(in);
 
-                    counter[in[0][0]]++;
+                    counter[in[1][1]]++;
 
                 }
 
@@ -169,7 +170,7 @@ int testTK1(void)
 
 int main(void)
 {
-    printf("Experimental verification of distinguisher on TK1.\n");
+    printf("Experimental verification of distinguisher on Type-II GFS.\n");
     testTK1();
 
 
