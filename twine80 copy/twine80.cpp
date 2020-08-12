@@ -350,7 +350,7 @@ int main(int argc,char * argv[])
 		
 		if( pos < 4 )
 		{
-			if( pos == 1 )
+			if( pos == 2 )
 			{
 				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin0000 );"<<endl;
 			}

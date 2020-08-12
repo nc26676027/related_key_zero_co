@@ -122,13 +122,13 @@ int testTK1(void)
     for ( int i1 = 0; i1 < 16; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
-        {            
+        {
             for ( int i3 = 0; i3 < 16; i3++)
             {
-                
+
                 for ( int i4 = 0; i4 < 16; i4++)
                 {
-                          
+
 
                     vector<vector<int>> in = text;
                     vector<vector<int>> tk1 = key1;
@@ -151,11 +151,11 @@ int testTK1(void)
                     in = subByte (in , tk1);
 
                     counter[in[0][0]]++;
-                
-                } 
-                             
+
+                }
+
             }
-            
+
         }
     }
 
