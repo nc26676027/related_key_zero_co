@@ -324,7 +324,7 @@ int main(int argc,char * argv[])
 	
 	for(int pos=0;pos<4;pos++)
 	{
-		outcvc<<"ASSERT( x_Fin_"<<x_ROUND<<"_"<<pos<<" = y_Fin_0_"<<pos<<" );"<<endl;
+		outcvc<<"ASSERT( x_Fin_"<<x_ROUND-1<<"_"<<pos<<" = y_Fin_0_"<<pos<<" );"<<endl;
 	}
 	
 
