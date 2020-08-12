@@ -198,7 +198,7 @@ int testTK1(int num)
                                         in = shiftNible(in);
 
                                         tk1 = keySchedule(tk1);
-
+                                        
                                     }
                                     in = subByte (in , tk1);
                                     
