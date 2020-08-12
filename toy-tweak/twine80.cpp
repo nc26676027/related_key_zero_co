@@ -123,19 +123,19 @@ int main(int argc,char * argv[])
 	outcvc<<dec;
 
 	//state variable claim
-    for(int round=0;round<=x_ROUND;round++)
+    for(int round=0;round<x_ROUND;round++)
     {
 		
         for(int pos=0;pos<4;pos++)
         {
             outcvc<<"x_Fin_"<<round<<"_"<<pos<<" , x_Xout_"<<round<<"_"<<pos;
-            if(pos == 3)
+            if(pos < 3)
             {
-                outcvc<<" : BITVECTOR(4);"<<endl;
+                outcvc<<" , ";
             }
             else
             {
-                outcvc<<" , ";
+                outcvc<<" : BITVECTOR(4);"<<endl;
             }
         }
 		for(int s=0;s<2;s++)
@@ -154,18 +154,18 @@ int main(int argc,char * argv[])
     }
 	
 	//backward state variable claim
-	for(int round = y_ROUND;round>=0;round--)
+	for(int round = 0;round<y_ROUND;round++)
 	{
         for(int pos=0;pos<4;pos++)
         {
             outcvc<<"y_Fin_"<<round<<"_"<<pos<<" , y_Xout_"<<round<<"_"<<pos;
-            if(pos == 3)
+            if(pos < 3)
             {
-                outcvc<<" : BITVECTOR(4);"<<endl;
+                outcvc<<" , ";
             }
             else
             {
-                outcvc<<" , ";
+                outcvc<<" : BITVECTOR(4);"<<endl;
             }
         }
 		for(int s=0;s<2;s++)
@@ -230,26 +230,26 @@ int main(int argc,char * argv[])
 				string b = "x_Sin_"+to_string(round)+"_"+to_string(pos);
 				outcvc<<"ASSERT( x_Xout_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 				outcvc<<"ASSERT( NOT( LAT[x_Sin_"<<round<<"_"<<pos<<"@x_Sout_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
-				outcvc<<"ASSERT( "<<"x_Sout_"<<round<<"_"<<pos<<" = x_Fin_"<<round<<"_"<<pos+1<<" );"<<endl;
+				outcvc<<"ASSERT( x_Sout_"<<round<<"_"<<pos<<" = x_Fin_"<<round<<"_"<<pos+1<<" );"<<endl;
+				outcvc<<"ASSERT( RKin_"<<round<<"_"<<(RK[pos/2])<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;			
 			}
 			else
 			{
 				outcvc<<"ASSERT( x_Xout_"<<round<<"_"<<pos<<" = x_Fin_"<<round<<"_"<<pos<<" );"<<endl;
 				
 			}
-			
-			outcvc<<"ASSERT( x_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = x_Xout_"<<round<<"_"<<pos<<" );"<<endl;
-			
-			if( pos%2 == 0 )
+			if (round < x_ROUND)
 			{
-				outcvc<<"ASSERT( RKin_"<<round<<"_"<<(RK[pos/2])<<" = x_Sin_"<<round<<"_"<<pos<<" );"<<endl;			
-			}		
+				outcvc<<"ASSERT( x_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = x_Xout_"<<round<<"_"<<pos<<" );"<<endl;
+			}
+						
+	
 			
 		}	
 		
 	}
 
-	for(int round=y_ROUND-1;round>=0;round--)
+	for(int round=0;round<y_ROUND;round++)
 	{	
 		//backward state update
 		for(int pos=0;pos<4;pos++)
@@ -266,15 +266,14 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
 				outcvc<<"ASSERT( NOT( LAT[y_Sout_"<<round<<"_"<<pos<<"@y_Sin_"<<round<<"_"<<pos<<"] = 0bin0 ) );"<<endl;
 				outcvc<<"ASSERT( "<<"y_Sout_"<<round<<"_"<<pos<<" = y_Xout_"<<round<<"_"<<pos+1<<" );"<<endl;
+				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<RK[pos/2]<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;			
+			
 			}
 			else
 			{
 				outcvc<<"ASSERT( y_Fin_"<<round<<"_"<<pos<<" = y_Xout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
-			if( pos%2 == 0 )
-			{
-				outcvc<<"ASSERT( RKin_"<<x_ROUND+round<<"_"<<RK[pos/2]<<" = y_Sin_"<<round<<"_"<<pos<<" );"<<endl;			
-			}		
+		
 			
 		}		
 	}
@@ -298,8 +297,22 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( Kout_"<<round<<"_"<<pos<<" = Kin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			
+			if (pos == 0)
+			{
+				string a = "Kout_"+to_string(round)+"_0";
+				string b = "KSin_"+to_string(round)+"_0";
+				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = "<<branch(a,b)<<" );"<<endl;
+				outcvc<<"ASSERT( NOT( LAT[KSin_"<<round<<"_0@KSout_"<<round<<"_0] = 0bin0 ) );"<<endl;
+				outcvc<<"ASSERT( KSout_"<<round<<"_0 = Kout_"<<round<<"_1 );"<<endl;
 
-			outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = Kout_"<<round<<"_"<<pos<<" );"<<endl;
+			}
+			else
+			{
+				outcvc<<"ASSERT( Rotin_"<<round<<"_"<<pos<<" = Kout_"<<round<<"_"<<pos<<" );"<<endl;
+			}
+			
+			
+			
 			
 			if(round < ROUND-1)
 			{
