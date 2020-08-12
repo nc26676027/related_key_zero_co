@@ -129,7 +129,7 @@ int main(int argc,char * argv[])
         for(int pos=0;pos<4;pos++)
         {
             outcvc<<"x_Fin_"<<round<<"_"<<pos<<" , x_Xout_"<<round<<"_"<<pos;
-            if(pos == 15)
+            if(pos == 3)
             {
                 outcvc<<" : BITVECTOR(4);"<<endl;
             }

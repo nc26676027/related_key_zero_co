@@ -112,7 +112,7 @@ int testTK1(void)
     }
 
 
-    int x_Rounds = 3;
+    int x_Rounds = 5;
     int y_Rounds = 5;
     int Round = x_Rounds+y_Rounds;
     printf("  Number of rounds : %d\n" , Round);
@@ -122,22 +122,22 @@ int testTK1(void)
     for ( int i1 = 0; i1 < 16; i1++)
     {
         for ( int i2 = 0; i2 < 16; i2++)
-        {            
+        {
             for ( int i3 = 0; i3 < 16; i3++)
             {
-                /*
+
                 for ( int i4 = 0; i4 < 16; i4++)
                 {
-                */               
+
 
                     vector<vector<int>> in = text;
                     vector<vector<int>> tk1 = key1;
 
-                    in[0][1] = i1;
-                    //in[0][1] = i2;
-                    in[1][0] = i2;
+                    in[0][0] = i1;
+                    in[0][1] = i2;
+                    in[1][1] = i3;
 
-                    tk1[1][1] = i3;
+                    tk1[0][1] = i4;
 
                     //encryption
                     for (int r = 0; r < (Round - 1) ; r++)
@@ -151,11 +151,11 @@ int testTK1(void)
                     in = subByte (in , tk1);
 
                     counter[in[0][0]]++;
-                /*
-                } 
-                */               
+
+                }
+
             }
-            
+
         }
     }
 
