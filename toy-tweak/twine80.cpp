@@ -238,7 +238,7 @@ int main(int argc,char * argv[])
 				outcvc<<"ASSERT( x_Xout_"<<round<<"_"<<pos<<" = x_Fin_"<<round<<"_"<<pos<<" );"<<endl;
 				
 			}
-			if (round < x_ROUND)
+			if (round < x_ROUND-1)
 			{
 				outcvc<<"ASSERT( x_Fin_"<<(round+1)<<"_"<<(h[pos])<<" = x_Xout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
