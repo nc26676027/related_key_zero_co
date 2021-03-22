@@ -144,20 +144,7 @@ int main(int argc,char * argv[])
 	//key 
 	for(int round=0;round<ROUND+1;round++)
 	{
-		for(int pos=0;pos<8;pos++)
-		{
-		
-			outcvc<<"Kin_"<<round<<"_"<<pos<<" , RKin_"<<round<<"_"<<pos;
-			if(pos<7)
-			{
-				outcvc<<" , ";
-			}
-			else
-			{
-				outcvc<<" : BITVECTOR(8);"<<endl;
-			}			
-	
-		}
+		outcvc<<"Kin_"<<round<<" , RKin_"<<round<<" : BITVECTOR(4);"<<endl;
 
 	}
 
@@ -170,9 +157,9 @@ int main(int argc,char * argv[])
 		for(int pos=0;pos<16;pos++)
 		{
 			outcvc<<"ASSERT( IF Sin_"<<round<<"_"<<pos<<" = 0bin00000000 THEN Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ELSE NOT ( Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ) ENDIF );"<<endl;
-			if( (pos == 7) && (round%2 == 1 ) )
+			if( (pos < 4) && (round%2 == 1 ) )
 			{
-				outcvc<<"ASSERT( MCout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( MCout_"<<round<<"_"<<pos<<"[0:0] = RKin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 			
 			outcvc<<"ASSERT( SRout_"<<round<<"_"<<SR[pos]<<" = Sout_"<<round<<"_"<<pos<<" );"<<endl;
