@@ -214,8 +214,7 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( Kin_0 = 0bin"<<tobits(key_flag, 4)<<" );"<<endl;
 
 		}
-		
-
+	
 	}
 
 
