@@ -75,12 +75,6 @@ int SR[16] = 	 { 0,  1,  2,  3,
                   10, 11,  8,  9,
                   13, 14, 15, 12};
 
-int inv_SR[16] = { 0,  1,  2,  3,
-            	   5,  6,  7,  4,
-            	  10, 11,  8,  9,
-             	  15, 12, 13, 14};
-
-
 
 string branch(string a,string b)
 {
@@ -159,9 +153,8 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( IF Sin_"<<round<<"_"<<pos<<" = 0bin00000000 THEN Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ELSE NOT ( Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ) ENDIF );"<<endl;
 			if( (pos < 4) && (round%2 == 1 ) )
 			{
-				outcvc<<"ASSERT( MCout_"<<round<<"_"<<pos<<"[0:0] = RKin_"<<round<<"_"<<pos<<" );"<<endl;
-			}
-			
+				outcvc<<"ASSERT( MCout_"<<round<<"_"<<pos<<"[0:0] = RKin_"<<round<<"["<<pos<<":"<<pos<<"]"<<" );"<<endl;
+			}			
 			outcvc<<"ASSERT( SRout_"<<round<<"_"<<SR[pos]<<" = Sout_"<<round<<"_"<<pos<<" );"<<endl;
 			
 		}
@@ -176,52 +169,52 @@ int main(int argc,char * argv[])
 			outcvc<<"ASSERT( SRout_"<<round<<"_"<<col+4<<" = BVXOR( "<<mul_mat(3,a)<<" , BVXOR( "<<c<<" , BVXOR( "<<d<<" , "<<mul_mat(2,b)<<" ) ) ) );"<<endl;
 			outcvc<<"ASSERT( SRout_"<<round<<"_"<<col+8<<" = BVXOR( "<<mul_mat(3,b)<<" , BVXOR( "<<a<<" , BVXOR( "<<d<<" , "<<mul_mat(2,c)<<" ) ) ) );"<<endl;
 			outcvc<<"ASSERT( SRout_"<<round<<"_"<<col+12<<" = BVXOR( "<<mul_mat(3,c)<<" , BVXOR( "<<a<<" , BVXOR( "<<b<<" , "<<mul_mat(2,d)<<" ) ) ) );"<<endl;
-
 		}
 		if( round<ROUND-1)
 		{
 			for(int pos=0;pos<16;pos++)
 			{
-				outcvc<<"ASSERT( x_Sin_"<<round+1<<"_"<<pos<<" = x_MCout_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( Sin_"<<round+1<<"_"<<pos<<" = MCout_"<<round<<"_"<<pos<<" );"<<endl;
 			}
 		}
 	}
 
+	// ASSERT KRY schedule
+	for(int round=0; round<ROUND; round++)
+	{
+		for(int pos=0; pos<4; pos++)
+		{
+			outcvc<<"ASSERT( Kin_"<<round+1<<"["<<pos<<":"<<pos<<"] = BVXOR( Kin_"<<round<<"["<<pos<<":"<<pos<<"] , RKin_"<<round<<"["<<pos<<":"<<pos<<"] ) );"<<endl;
+		}
+	}
 	//assert active state
 	for(int pos=0;pos<16;pos++)
 	{
-		if(pos<16)
+		if( pos != head_flag )
 		{
-			if( pos != head_flag )
-			{
-				outcvc<<"ASSERT( x_Sin_0_"<<pos<<" = 0bin00000000 );"<<endl;
-			}
-
-			if(pos == tail_flag)
-			{
-				outcvc<<"ASSERT( NOT( y_MCout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin00000000 ) );"<<endl;
-			}
-			else
-			{
-				outcvc<<"ASSERT( y_MCout_"<<y_ROUND-1<<"_"<<pos<<" = 0bin00000000 );"<<endl;
-			}		
-			
+			outcvc<<"ASSERT( Sin_0_"<<pos<<" = 0bin00000000 );"<<endl;
 		}
-		if(pos<8)
+
+		if(pos == tail_flag)
 		{
-			if(1  /*pos == return_index(key_flag,P_R)*/)
-			{
-				outcvc<<"ASSERT( Kin_"<<ROUND<<"_"<<pos<<" = 0bin00000000 );"<<endl;
-
-			}
-			
-
-			if( pos == key_flag )
-			{
-				outcvc<<"ASSERT( Kin_0_"<<pos<<" = 0bin00000000 );"<<endl;
-
-			}
+			outcvc<<"ASSERT( NOT( MCout_"<<ROUND-1<<"_"<<pos<<" = 0bin00000000 ) );"<<endl;
 		}
+		else
+		{
+			outcvc<<"ASSERT( MCout_"<<ROUND-1<<"_"<<pos<<" = 0bin00000000 );"<<endl;
+		}		
+
+		if(pos == 15 )
+		{
+			outcvc<<"ASSERT( Kin_"<<ROUND<<" = 0bin0000 );"<<endl;
+		}		
+
+		if( pos == key_flag )
+		{
+			outcvc<<"ASSERT( Kin_0 = 0bin"<<tobits(key_flag, 4)<<" );"<<endl;
+
+		}
+		
 
 	}
 
