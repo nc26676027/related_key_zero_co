@@ -169,30 +169,29 @@ int main(int argc,char * argv[])
 	{
 		for(int pos=0;pos<16;pos++)
 		{
-			outcvc<<"ASSERT( IF x_Sin_"<<round<<"_"<<pos<<" = 0bin00000000 THEN x_Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ELSE NOT ( x_Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ) ENDIF );"<<endl;
-			if( pos<8 )
+			outcvc<<"ASSERT( IF Sin_"<<round<<"_"<<pos<<" = 0bin00000000 THEN Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ELSE NOT ( Sout_"<<round<<"_"<<pos<<" = 0bin00000000 ) ENDIF );"<<endl;
+			if( (pos == 7) && (round%2 == 1 ) )
 			{
-				outcvc<<"ASSERT( x_MCout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
+				outcvc<<"ASSERT( MCout_"<<round<<"_"<<pos<<" = RKin_"<<round<<"_"<<pos<<" );"<<endl;
 			}
-
 			
-			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<SR[pos]<<" = x_Sout_"<<round<<"_"<<pos<<" );"<<endl;
+			outcvc<<"ASSERT( SRout_"<<round<<"_"<<SR[pos]<<" = Sout_"<<round<<"_"<<pos<<" );"<<endl;
 			
 		}
 		//mix Col
 	 	for(int col=0;col<4;col++)
 		{
-			string a = "x_MCout_"+to_string(round)+"_"+to_string(col);
-			string b = "x_MCout_"+to_string(round)+"_"+to_string(4+col);
-			string c = "x_MCout_"+to_string(round)+"_"+to_string(8+col);
-			string d = "x_MCout_"+to_string(round)+"_"+to_string(12+col);
-			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col<<" = BVXOR( "<<mul_mat(2,a)<<" , BVXOR( "<<b<<" , BVXOR( "<<c<<" , "<<mul_mat(3,d)<<" ) ) ) );"<<endl;
-			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col+4<<" = BVXOR( "<<mul_mat(3,a)<<" , BVXOR( "<<c<<" , BVXOR( "<<d<<" , "<<mul_mat(2,b)<<" ) ) ) );"<<endl;
-			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col+8<<" = BVXOR( "<<mul_mat(3,b)<<" , BVXOR( "<<a<<" , BVXOR( "<<d<<" , "<<mul_mat(2,c)<<" ) ) ) );"<<endl;
-			outcvc<<"ASSERT( x_SRout_"<<round<<"_"<<col+12<<" = BVXOR( "<<mul_mat(3,c)<<" , BVXOR( "<<a<<" , BVXOR( "<<b<<" , "<<mul_mat(2,d)<<" ) ) ) );"<<endl;
+			string a = "MCout_"+to_string(round)+"_"+to_string(col);
+			string b = "MCout_"+to_string(round)+"_"+to_string(4+col);
+			string c = "MCout_"+to_string(round)+"_"+to_string(8+col);
+			string d = "MCout_"+to_string(round)+"_"+to_string(12+col);
+			outcvc<<"ASSERT( SRout_"<<round<<"_"<<col<<" = BVXOR( "<<mul_mat(2,a)<<" , BVXOR( "<<b<<" , BVXOR( "<<c<<" , "<<mul_mat(3,d)<<" ) ) ) );"<<endl;
+			outcvc<<"ASSERT( SRout_"<<round<<"_"<<col+4<<" = BVXOR( "<<mul_mat(3,a)<<" , BVXOR( "<<c<<" , BVXOR( "<<d<<" , "<<mul_mat(2,b)<<" ) ) ) );"<<endl;
+			outcvc<<"ASSERT( SRout_"<<round<<"_"<<col+8<<" = BVXOR( "<<mul_mat(3,b)<<" , BVXOR( "<<a<<" , BVXOR( "<<d<<" , "<<mul_mat(2,c)<<" ) ) ) );"<<endl;
+			outcvc<<"ASSERT( SRout_"<<round<<"_"<<col+12<<" = BVXOR( "<<mul_mat(3,c)<<" , BVXOR( "<<a<<" , BVXOR( "<<b<<" , "<<mul_mat(2,d)<<" ) ) ) );"<<endl;
 
 		}
-		if( round<x_ROUND-1)
+		if( round<ROUND-1)
 		{
 			for(int pos=0;pos<16;pos++)
 			{
